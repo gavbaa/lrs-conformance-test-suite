@@ -177,7 +177,7 @@
             });
         });
 
-        describe('An LRS cannot reject a POST request to the Agent Profile API based on the contents of the name/value pairs of the document (Communication.md#2.2.b, Implicit) **Implicit**', function () {
+        describe('An LRS cannot reject a POST request to the Agent Profile API based on the -s of the name/value pairs of the document (Communication.md#2.2.b, Implicit) **Implicit**', function () {
             var documents = [{}, '1', 'true'];
             documents.forEach(function (document) {
                 it('Should accept POST to Agent profile with document ' + document, function () {
@@ -420,7 +420,8 @@
                 it('Should State API reject a PUT request with activityId type ' + type, function () {
                     var parameters = helper.buildState(),
                         document = helper.buildDocument();
-                    delete parameters.activityId;
+                    //delete parameters.activityId;
+                    parameters.activityId = type;
                     return sendRequest('put', helper.getEndpointActivitiesState(), parameters, document, 400);
                 });
             });
@@ -1679,35 +1680,179 @@
                 });
         });
 
-        // it('A Person Object uses an "objectType" property exactly one time (Multiplicity, 7.6.table1.row1.c)', function (done) {
-        //     // JSON Parser validation
-        //     done();
-        // });
-        //
-        // it('A Person Object uses a "name" property at most one time (Multiplicity, 7.6.table1.row2.c)', function (done) {
-        //     // JSON Parser validation
-        //     done();
-        // });
-        //
-        // it('A Person Object uses a "mbox" property at most one time (Multiplicity, 7.6.table1.row3.c)', function (done) {
-        //     // JSON Parser validation
-        //     done();
-        // });
-        //
-        // it('A Person Object uses a "mbox_sha1sum" property at most one time (Multiplicity, 7.6.table1.row4.c)', function (done) {
-        //     // JSON Parser validation
-        //     done();
-        // });
-        //
-        // it('A Person Object uses an "openid" property at most one time (Multiplicity, 7.6.table1.row5.c)', function (done) {
-        //     // JSON Parser validation
-        //     done();
-        // });
-        //
-        // it('A Person Object uses an "account" property at most one time (Multiplicity, 7.6.table1.row6.c)', function (done) {
-        //     // JSON Parser validation
-        //     done();
-        // });
+        describe('An LRS\'s Activity Profile API rejects a PUT request without "profileId" as a parameter if it is not type "String" with error code 400 Bad Request (format, 7.5.table2.row2.a)', function () {
+          var document = helper.buildDocument(),
+              invalidTypes = [1, true, { key: 'value'}];
+          invalidTypes.forEach(function (type) {
+              it('Should reject PUT with "profileId" with type ' + type, function () {
+                  var parameters = helper.buildActivityProfile();
+                  parameters.agent = type;
+                  return sendRequest('put', helper.getEndpointActivitiesProfile(), parameters, document, 400);
+              });
+          });
+        });
+
+        describe('An LRS\'s Activity Profile API rejects a POST request without "profileId" as a parameter if it is not type "String" with error code 400 Bad Request (format, 7.5.table2.row2.a)', function () {
+          var document = helper.buildDocument(),
+              invalidTypes = [1, true, { key: 'value'}];
+          invalidTypes.forEach(function (type) {
+              it('Should reject POST with "profileId" with type ' + type, function () {
+                  var parameters = helper.buildActivityProfile();
+                  parameters.agent = type;
+                  return sendRequest('post', helper.getEndpointActivitiesProfile(), parameters, document, 400);
+              });
+          });
+        });
+
+        describe('An LRS\'s Activity Profile API rejects a GET request without "profileId" as a parameter if it is not type "String" with error code 400 Bad Request (format, 7.5.table2.row2.a)', function () {
+          var document = helper.buildDocument(),
+              invalidTypes = [1, true, { key: 'value'}];
+          invalidTypes.forEach(function (type) {
+              it('Should reject GET with "profileId" with type ' + type, function () {
+                  var parameters = helper.buildActivityProfile();
+                  parameters.agent = type;
+                  return sendRequest('get', helper.getEndpointActivitiesProfile(), parameters, document, 400);
+              });
+          });
+        });
+
+        it('An LRS\'s Activity Profile API rejects a PUT request with "agent" as a parameter if it is not in JSON format with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row2)', function () {
+            var parameters = helper.buildActivityProfile(),
+                document = helper.buildDocument();
+            parameters.agent = 'not JSON brah';
+            return sendRequest('put', helper.getEndpointActivitiesState(), parameters, document, 400);
+        });
+
+        describe('An LRS\'s Activity Profile API rejects a GET request with "agent" as a paremeter if it is not in JSON format with error code 400 Bad Request (multiplicity, Communication.md#2.7.s3.table1.row1, Communication.md#2.7.s4.table1.row1)', function () {
+          var document = helper.buildDocument(),
+              invalidTypes = [1, true, 'not Agent', { key: 'value'}];
+          invalidTypes.forEach(function (type) {
+              it('Should reject PUT with "agent" with type ' + type, function () {
+                  var parameters = helper.buildActivityProfile();
+                  parameters.agent = type;
+                  return sendRequest('put', helper.getEndpointActivitiesProfile(), parameters, document, 400);
+              });
+          });
+        });
+
+        it('An LRS\'s Agent API rejects a GET request with "agent" as a parameter if it is a valid (in structure) Agent with error code 400 Bad Request (multiplicity, 7.6.table3.row1.c, 7.6.table4.row1.c)', function () {
+            var parameters = helper.buildAgentProfile(),
+                document = helper.buildDocument();
+            parameters.agent = {
+                "objectType": "Agent"
+            };
+            return sendRequest('get', helper.getEndpointAgentsProfile(), parameters, document, 400);
+        });
+
+        it('An LRS\'s Agent API upon processing a successful GET request returns a Person Object if the "agent" parameter can be found in the LRS and code 200 OK (7.6c, 7.6d)', function () {
+          var templates = [
+              {statement: '{{statements.default}}'}
+          ];
+          var data = createFromTemplate(templates);
+          var statement = data.statement;
+
+          return sendRequest('post', helper.getEndpointStatements(), undefined, [statement], 200)
+              .then(function () {
+                var parameters = {
+                    agent: statement.actor
+                }
+                  return sendRequest('get', helper.getEndpointAgents(), parameters, undefined, 200)
+                      .then(function (res) {
+                          expect(res.body.objectType).to.eql("Person");
+                          expect(res.body).to.be.an('object');
+                      });
+              });
+        });
+
+        it('An LRS will reject a Cross Origin Request or new Request which contains any extra information with error code 400 Bad Request **Implicit**', function () {
+            var templates = [
+                {statement: '{{statements.default}}'}
+            ];
+            var data = createFromTemplate(templates);
+            data.statement.test = "test";
+            //console.log(data);
+            var statement = data.statement;
+            var sID = helper.generateUUID();
+            var headers = helper.addAllHeaders({});
+            var auth = headers['Authorization']
+            var parameters = {
+                method: 'PUT'
+            }
+            var body = 'statementId='+sID+'&content='+JSON.stringify(statement)+'&Content-Type=application/json&X-Experience-API-Version=1.0.2&Authorization='+auth
+            return sendRequest('post', helper.getEndpointStatements(), parameters, body, 400);
+        });
+
+        describe('blarney An LRS must support HTTP/1.1 entity tags (ETags) to implement optimistic concurrency control when handling APIs where PUT may overwrite existing data (State, Agent Profile, and Activity Profile, Communication#3.1)', function () {
+
+            it('When responding to a GET request, include an ETag HTTP header in the response', function () {
+                var templates = [
+                    {statement: '{{statements.default}}'}
+                ];
+                var data = createFromTemplate(templates);
+                var statement = data.statement;
+                var parameters = {
+                    activityId: data.statement.object.id
+                }
+                console.log(statement);
+                console.log(parameters);
+                return sendRequest('post', helper.getEndpointStatements(), undefined, [statement], 200)
+                    .then(function () {
+                        return sendRequest('get', helper.getEndpointActivitiesProfile(), parameters, undefined, 200)
+                        .then(function(res) {
+                            console.log(res.body);
+                            console.log(Object.keys(res.req), res.req._hasBody, res.req.output);
+                            console.log(res.req._headers, res.request);
+                            console.log(Object.keys(res));
+                            console.log(res.headers, res.domain);
+                        })
+                    });
+            });
+
+            it('When returning an ETag header, the value should be calculated as a SHA1 hexadecimal value', function (done) {
+                done();
+            });
+
+            it('When responding to a GET Request the Etag header must be enclosed in quotes', function (done) {
+                done();
+            });
+
+            it('When responding to a PUT request, must handle the If-Match header as described in RFC 2616, HTTP/1.1 if it contains an ETag', function (done) {
+                done();
+            });
+
+            it('When responding to a PUT request, handle the If-None-Match header as described in RFC 2616, HTTP/1.1 if it contains “*”', function (done) {
+                done();
+            });
+
+            describe('If Header precondition in PUT Requests for RFC2616 fail', function () {
+
+                it('Return HTTP 412 (Precondition Failed)', function (done) {
+                    done();
+                });
+
+                it('Do not modify the resource', function (done) {
+                    done();
+                });
+            });
+
+            describe('If put request is received without either header for a resource that already exists', function () {
+
+                it('Return 409 conflict', function (done) {
+                    done();
+                });
+
+                it('Return plaintext body explaining the situation', function (done) {
+                    done();
+                });
+
+                it('Do not modify the resource', function (done) {
+                    done();
+                });
+            });
+
+        });
+
+
     });
 
     function createFromTemplate(templates) {
