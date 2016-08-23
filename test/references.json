@@ -42,7 +42,7 @@
         "name": "An \"object\" property uses the \"id\" property exactly one time",
         "1.0.2_ref_text": "Multiplicity, 4.1.4.1.table1.row2.b",
         "1.0.2_ref": "4.1.4.1.table1.row2.b",
-        "1.0.3_ref": "part2.2.4.4.1.table1.row2.b",
+        "1.0.3_ref": "Data 2.4.4.1.table1.row2.b",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s1.table1.row2"
         ]
@@ -57,7 +57,7 @@
         "name": "An \"object\" property's \"id\" property is an IRI",
         "1.0.2_ref_text": "Type, 4.1.4.1.table1.row2.a",
         "1.0.2_ref": "4.1.4.1.table1.row2.a",
-        "1.0.3_ref": "part2.2.4.4.1.table1.row2.a",
+        "1.0.3_ref": "Data 2.2.4.4.1.table1.row2.a",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s1.table1.row2"
         ]
@@ -78,7 +78,7 @@
         "name": "An Activity Definition is defined as the contents of a \"definition\" property object of an Activity",
         "1.0.2_ref_text": "Format, 4.1.4.1.table2",
         "1.0.2_ref": "4.1.4.1.table2",
-        "1.0.3_ref": "part2.2.4.4.1.table2",
+        "1.0.3_ref": "Data 2.2.4.4.1.table2",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s2.table1.row1"
         ]
@@ -93,7 +93,7 @@
         "name": "An Activity's \"definition\" property is an Object",
         "1.0.2_ref_text": "Type, 4.1.4.1.table1.row3.a",
         "1.0.2_ref": "4.1.4.1.table1.row3.a",
-        "1.0.3_ref": "part2.2.4.4.1.table1.row3.a",
+        "1.0.3_ref": "Data 2.2.4.4.1.table1.row3.a",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s1.table1.row3"
         ]
@@ -102,9 +102,10 @@
         "name": "An Activity Definition contains at least one of the following properties: name, description, type, moreInfo, interactionType, or extensions",
         "1.0.2_ref_text": "Format, 4.1.4.1.table2, 4.1.4.1.table3",
         "1.0.2_ref": "4.1.4.1.table2, 4.1.4.1.table3",
-        "1.0.3_ref": "part2.2.4.4.1.table2, part2.2.4.4.1.table3",
+        "1.0.3_ref": "Data 2.2.4.4.1.table2, Data 2.2.4.4.1.table3",
         "1.0.3_link": [
-            "Data.md#2.4.4.1.s2.table1.row1"
+            "Data.md#2.4.4.1.s2.table1.row1",
+            "Data.md#2.2.4.4.1.table3"
         ]
     },
     "statement activity \"definition\" missing all properties": {
@@ -153,7 +154,7 @@
         "name": "An Activity Definition's \"name\" property is a Language Map",
         "1.0.2_ref_text": "Type, 4.1.4.1.table2.row1.a",
         "1.0.2_ref": "4.1.4.1.table2.row1.a",
-        "1.0.3_ref": "part2.2.4.4.1.table2.row1.a",
+        "1.0.3_ref": "Data 2.2.4.4.1.table2.row1.a",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s2.table1.row1"
         ]
@@ -174,7 +175,7 @@
         "name": "An Activity Definition's \"description\" property is a Language Map",
         "1.0.2_ref_text": "Type, 4.1.4.1.table2.row2.a",
         "1.0.2_ref": "4.1.4.1.table2.row2.a",
-        "1.0.3_ref": "part2.2.4.4.1.table2.row2.a",
+        "1.0.3_ref": "Data 2.2.4.4.1.table2.row2.a",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s2.table1.row2"
         ]

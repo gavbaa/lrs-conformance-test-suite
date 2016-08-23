@@ -188,7 +188,7 @@
                 ]
             },
             {
-                name: 'An "object" property uses the "id" property exactly one time (Multiplicity, 4.1.4.1.table1.row2.b)',
+                name: 'An "object" property uses the "id" property exactly one time (Multiplicity, Data.md 2.4.4.1.s1.table1.row2)',
                 config: [
                     {
                         name: 'statement activity "id" not provided',
@@ -210,7 +210,7 @@
                 ]
             },
             {
-                name: 'An "object" property\'s "id" property is an IRI (Type, 4.1.4.1.table1.row2.a)',
+                name: 'An "object" property\'s "id" property is an IRI (Type, Data 2.2.4.4.1.table1.row2.a)',
                 config: [
                     {
                         name: 'statement activity "id" not IRI',
@@ -251,7 +251,7 @@
                 ]
             },
             {
-                name: 'An Activity Definition is defined as the contents of a "definition" property object of an Activity (Format, 4.1.4.1.table2)',
+                name: 'An Activity Definition is defined as the contents of a "definition" property object of an Activity (Format, Data 2.2.4.4.1.table2)',
                 config: [
                     {
                         name: 'statement activity "definition" not object',
@@ -275,7 +275,7 @@
                 ]
             },
             {
-                name: 'An Activity\'s "definition" property is an Object (Type, 4.1.4.1.table1.row3.a)',
+                name: 'An Activity\'s "definition" property is an Object (Type, Data 2.2.4.4.1.table1.row3.a)',
                 config: [
                     {
                         name: 'statement activity "definition" not object',
@@ -299,7 +299,7 @@
                 ]
             },
             {
-                name: 'An Activity Definition contains at least one of the following properties: name, description, type, moreInfo, interactionType, or extensions (Format, 4.1.4.1.table2, 4.1.4.1.table3)',
+                name: 'An Activity Definition contains at least one of the following properties: name, description, type, moreInfo, interactionType, or extensions (Format, Data 2.2.4.4.1.table2, Data 2.2.4.4.1.table3)',
                 config: [
                     {
                         name: 'statement activity "definition" missing all properties',
@@ -437,7 +437,7 @@
                 ]
             },
             {
-                name: 'An Activity Definition\'s "name" property is a Language Map (Type, 4.1.4.1.table2.row1.a)',
+                name: 'An Activity Definition\'s "name" property is a Language Map (Type, Data 2.2.4.4.1.table2.row1.a)',
                 config: [
                     {
                         name: 'statement object "name" language map is numeric',
@@ -480,7 +480,7 @@
                 ]
             },
             {
-                name: 'An Activity Definition\'s "description" property is a Language Map (Type, 4.1.4.1.table2.row2.a)',
+                name: 'An Activity Definition\'s "description" property is a Language Map (Type, Data 2.2.4.4.1.table2.row2.a)',
                 config: [
                     {
                         name: 'statement object "description" language map is numeric',
