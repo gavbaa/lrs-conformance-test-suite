@@ -12,7 +12,8 @@
 
     var MAIL_TO = 'mailto:';
 
-    var request = request(helper.getEndpoint());
+    var request = request(helper.getEndpointAndAuth());
+    // var request = request(helper.getEndpoint());
     var oauth;
     if (global.OAUTH) {
         var OAuth = require('oauth');
@@ -82,10 +83,14 @@
     }
 
     describe('Document API Requirements', function () {
-        it('An LRS has a State API with endpoint "base IRI"+"/activities/state" (Communication.md#2.2.table2.row1.a, Communication.md#2.2.table2.row1.c)', function () {
+        it('testing altoona An LRS has a State API with endpoint "base IRI"+"/activities/state" (Communication.md#2.2.table2.row1.a, Communication.md#2.2.table2.row1.c)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
-            return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204);
+            // return helper.sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204);
+            return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204)
+            .then(function (res) {
+                console.log('docs', res.req._header);
+            });
         });
 
         it('An LRS has an Activities API with endpoint "base IRI" + /activities" (Communication.md#2.5, Implicit) **Implicit** (in that it is not named this by the spec)', function () {

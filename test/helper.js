@@ -396,6 +396,39 @@ if (!process.env.EB_NODE_COMMAND) {
         getTimeMargin: function () {
                 return TIME_MARGIN;
         },
+        /**
+         * Sends an HTTP request using supertest
+         * @param {string} type ex. GET, POST, PUT, DELETE and HEAD
+         * @param {string} url url to send request too
+         * @param {json} params query params to append onto url. Params get urlencoded
+         * @param body
+         * @param {number} expect the result of the request
+         * @returns {*} promise
+         */
+        sendRequest: function (type, url, params, body, expect) {
+            var reqUrl = params ? (url + '?' + helper.getUrlEncoding(params)) : url;
+
+            var headers = helper.addAllHeaders({});
+            var pre = request[type](reqUrl);
+            //Add the .sign funciton to the request
+            extendRequestWithOauth(pre);
+            if (body) {
+                pre.send(body);
+            }
+            pre.set('X-Experience-API-Version', headers['X-Experience-API-Version']);
+            if (process.env.BASIC_AUTH_ENABLED === 'true') {
+                pre.set('Authorization', headers['Authorization']);
+            }
+            //If we're doing oauth, set it up!
+            try {
+                if (global.OAUTH) {
+                    pre.sign(oauth, global.OAUTH.token, global.OAUTH.token_secret)
+                }
+            } catch (e) {
+                console.log(e);
+            }
+            return pre.expect(expect);
+        },
         /*
          * Calculates the difference between the lrs time and the suite time and sets a variable for use with since and until requests.
         */

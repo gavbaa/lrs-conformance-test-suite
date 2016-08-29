@@ -14,6 +14,48 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
+//trying new stuff from document
+    describe('altoona An LRS has a State API with endpoint "base IRI"+"/activities/state" (Communication.md#2.2.table2.row1.a, Communication.md#2.2.table2.row1.c)', function () {
+        it('yup I added this line myself - it is unnecessary', function (done) {
+            var parameters = helper.buildState(),
+                document = helper.buildDocument();
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointActivitiesState() + '?' + helper.getUrlEncoding(parameters))
+            .headers(helper.addAllHeaders())
+            .json(document)
+            .expect(204)
+            .end(function (err, res) {
+                console.log('hooray');
+                if (err) {
+                    done(err);
+                } else {
+                    console.log('good', res.statusCode);
+                    console.log('non_t', res.req._headers);
+                    done();
+                }
+            });
+        });
+
+        it('another try', function (done) {
+            var templates = [
+                {statement: '{{statements.default}}'}
+            ];
+            var data = createFromTemplate(templates);
+            var statement = data.statement;
+            var parameters = {
+                agent: data.statement.actor
+            }
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(statement)
+            .end(200, done);
+        });
+    });
+
+
     describe('An LRS populates the "authority" property if it is not provided in the Statement, based on header information with the Agent corresponding to the user (contained within the header) (Implicit, 4.1.9.b, 4.1.9.c) ', function () {
 
         it('should populate authority ', function (done) {
