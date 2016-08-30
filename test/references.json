@@ -196,7 +196,7 @@
         "name": "An Activity Definition's \"type\" property is an IRI",
         "1.0.2_ref_text": "Type, 4.1.4.1.table2.row3.a",
         "1.0.2_ref": "4.1.4.1.table2.row3.a",
-        "1.0.3_ref": "part2.4.4.1.table2.row3.a",
+        "1.0.3_ref": "Data 2.4.4.1.s2.table1.row3",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s2.table1.row3"
         ]
@@ -211,7 +211,7 @@
         "name": "An Activity Definition's \"moreinfo\" property is an IRL",
         "1.0.2_ref_text": "Type, 4.1.4.1.table2.row4.a",
         "1.0.2_ref": "4.1.4.1.table2.row4.a",
-        "1.0.3_ref": "part2.2.4.4.1.table2.row4.a",
+        "1.0.3_ref": "Data 2.4.4.1.s2.table1.row4",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s2.table1.row4"
         ]
@@ -226,7 +226,7 @@
         "name": "An Activity Definition's \"interactionType\" property is a String with a value of either “true-false”, “choice”, “fill-in”, “long-fill-in”, “matching”, “performance”, “sequencing”, “likert”, “numeric” or “other”",
         "1.0.2_ref_text": "4.1.4.1.table3.row1.a, SCORM 2004 4th Edition RTE Book",
         "1.0.2_ref": "4.1.4.1.table3.row1.a, SCORM 2004 4th Edition RTE Book",
-        "1.0.3_ref": "part2.2.4.4.1.table3.row1.a",
+        "1.0.3_ref": "Data 2.4.4.1.s8.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s8.table1.row1"
         ]
@@ -295,7 +295,7 @@
         "name": "An Activity Definition's \"correctResponsesPattern\" property is an array of Strings",
         "1.0.2_ref_text": "4.1.4.1.table3.row2.a",
         "1.0.2_ref": "4.1.4.1.table3.row2.a",
-        "1.0.3_ref": "part2.2.4.4.1.table3.row2.a",
+        "1.0.3_ref": "Data 2.4.4.1.s8.table1.row2",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s8.table1.row2"
         ]
@@ -328,7 +328,7 @@
         "name": "An Activity Definition's \"choices\" property is an array of Interaction Components",
         "1.0.2_ref_text": "4.1.4.1.table3.row3.a",
         "1.0.2_ref": "4.1.4.1.table3.row3.a",
-        "1.0.3_ref": "part2.2.4.4.1.table3.row3.a",
+        "1.0.3_ref": "Data 2.4.4.1.s8.table1.row3",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s8.table1.row3"
         ]
@@ -397,7 +397,7 @@
         "name": "An Activity Definition's \"scale\" property is an array of Interaction Components",
         "1.0.2_ref_text": "4.1.4.1.table3.row3.a",
         "1.0.2_ref": "4.1.4.1.table3.row3.a",
-        "1.0.3_ref": "part2.2.4.4.1.table3.row3.a",
+        "1.0.3_ref": "Data 2.4.4.1.s8.table1.row3",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s8.table1.row3"
         ]
@@ -436,7 +436,7 @@
         "name": "An Activity Definition's \"source\" property is an array of Interaction Components",
         "1.0.2_ref_text": "4.1.4.1.table3.row3.a",
         "1.0.2_ref": "4.1.4.1.table3.row3.a",
-        "1.0.3_ref": "part2.2.4.4.1.table3.row3.a",
+        "1.0.3_ref": "Data 2.4.4.1.s8.table1.row3",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s8.table1.row3"
         ]
@@ -475,7 +475,7 @@
         "name": "An Activity Definition's \"target\" property is an array of Interaction Components",
         "1.0.2_ref_text": "4.1.4.1.table3.row3.a",
         "1.0.2_ref": "4.1.4.1.table3.row3.a",
-        "1.0.3_ref": "part2.2.4.4.1.table3.row3.a",
+        "1.0.3_ref": "Data 2.4.4.1.s8.table1.row3",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s8.table1.row3"
         ]
@@ -514,7 +514,7 @@
         "name": "An Activity Definition's \"steps\" property is an array of Interaction Components",
         "1.0.2_ref_text": "4.1.4.1.table3.row3.a",
         "1.0.2_ref": "4.1.4.1.table3.row3.a",
-        "1.0.3_ref": "part2.2.4.4.1.table3.row3.a",
+        "1.0.3_ref": "Data 2.4.4.1.s8.table1.row3",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s8.table1.row3"
         ]
@@ -553,9 +553,9 @@
         "name": "An Interaction Component is an Object",
         "1.0.2_ref_text": "4.1.4.1.table4",
         "1.0.2_ref": "4.1.4.1.table4",
-        "1.0.3_ref": "part2.2.4.4.1.table8",
+        "1.0.3_ref": "Data 2.4.4.1.s14",
         "1.0.3_link": [
-            "Data.md#interaction-components"
+            "Data.md#2.4.4.1.s14"
         ]
     },
     "statement activity \"choice choices\" is not an object": {
@@ -598,7 +598,7 @@
         "name": "Interaction Component contains an \"id\" property",
         "1.0.2_ref_text": "Multiplicity, 4.1.4.1.table4.row1.b",
         "1.0.2_ref": "4.1.4.1.table4.row1.b",
-        "1.0.3_ref": "part2.2.4.4.1.table8.row1.b",
+        "1.0.3_ref": "Data 2.4.4.1.s15.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s15.table1.row1"
         ]
@@ -643,7 +643,7 @@
         "name": "An Interaction Component's \"id\" property is a String",
         "1.0.2_ref_text": "Type, 4.1.4.1.table4.row1.a",
         "1.0.2_ref": "4.1.4.1.table4.row1.a",
-        "1.0.3_ref": "part2.2.4.4.1.table8.row1.a",
+        "1.0.3_ref": "Data 2.4.4.1.s15.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s15.table1.row1"
         ]
@@ -688,7 +688,7 @@
         "name": "Within an array of Interaction Components, the \"id\" property is unique",
         "1.0.2_ref_text": "Multiplicty, 4.1.4.1.w",
         "1.0.2_ref": "4.1.4.1.w",
-        "1.0.3_ref": "part2.2.4.4.1.s",
+        "1.0.3_ref": "Data 2.4.4.1.s16.b1",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s16.b1"
         ]
@@ -733,7 +733,7 @@
         "name": "An Activity Definition's \"extension\" property is an Object",
         "1.0.2_ref_text": "Type, 4.1.4.1.table2.row1.a",
         "1.0.2_ref": "4.1.4.1.table2.row1.a",
-        "1.0.3_ref": "part2.2.4.4.1.table2.row1.a",
+        "1.0.3_ref": "Data 2.4.4.1.s2.table1.row5",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s2.table1.row5"
         ]
@@ -748,7 +748,7 @@
         "name": "An LRS generates an \"objectType\" property of \"Activity\" to any \"object\" property if none is provided",
         "1.0.2_ref_text": "Modify, 4.1.4.a",
         "1.0.2_ref": "4.1.4.a",
-        "1.0.3_ref": "part2.2.4.4.a",
+        "1.0.3_ref": "Data 2.4.4.s2",
         "1.0.3_link": [
             "Data.md#2.4.4.s2"
         ]
@@ -763,7 +763,7 @@
         "name": "An \"objectType\" property is a String",
         "1.0.2_ref_text": "Type, 4.1.2.1.table1.row1.a",
         "1.0.2_ref": "4.1.2.1.table1.row1.a",
-        "1.0.3_ref": "part2.2.4.2.1.table1.row1.a",
+        "1.0.3_ref": "Data 2.4.2.1.s2.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.2.1.s2.table1.row1"
         ]
@@ -808,7 +808,7 @@
         "name": "A \"name\" property is a String",
         "1.0.2_ref_text": "Type, 4.1.2.1.table1.row2.a",
         "1.0.2_ref": "4.1.2.1.table1.row2.a",
-        "1.0.3_ref": "part2.2.4.2.1.table1.row2.a",
+        "1.0.3_ref": "Data 2.4.2.1.s2.table1.row2",
         "1.0.3_link": [
             "Data.md#2.4.2.1.s2.table1.row2"
         ]
@@ -853,7 +853,7 @@
         "name": "An \"actor\" property with \"objectType\" as \"Agent\" uses one of the following properties: \"mbox\", \"mbox_sha1sum\", \"openid\", \"account\"",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.1.a",
         "1.0.2_ref": "4.1.2.1.a",
-        "1.0.3_ref": "part2.2.4.2.1.a",
+        "1.0.3_ref": "Data 2.4.2.1.s2.b1",
         "1.0.3_link": [
             "Data.md#2.4.2.1.s2.b1"
         ]
@@ -952,7 +952,7 @@
         "name": "An \"mbox\" property is an IRI",
         "1.0.2_ref_text": "Type, 4.1.2.3.table1.row1.a",
         "1.0.2_ref": "4.1.2.3.table1.row1.a",
-        "1.0.3_ref": "part2.2.4.2.3.table1.row1.a",
+        "1.0.3_ref": "Data 2.4.2.3.s3.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.2.3.s3.table1.row1"
         ]
@@ -1003,7 +1003,7 @@
         "name": "An \"mbox\" property has the form \"mailto:email address\"",
         "1.0.2_ref_text": "Syntax, 4.1.2.3.table1.row1.b",
         "1.0.2_ref": "4.1.2.3.table1.row1.b",
-        "1.0.3_ref": "part2.2.4.2.3.table1.row1.b",
+        "1.0.3_ref": "Data 2.4.2.3.s3.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.2.3.s3.table1.row1"
         ]
@@ -1054,7 +1054,7 @@
         "name": "An \"mbox_sha1sum\" property is a String",
         "1.0.2_ref_text": "Type, 4.1.2.3.table1.row2.a",
         "1.0.2_ref": "4.1.2.3.table1.row2.a",
-        "1.0.3_ref": "part2.2.4.2.3.table1.row2.a",
+        "1.0.3_ref": "Data 2.4.2.3.s3.table1.row2",
         "1.0.3_link": [
             "Data.md#2.4.2.3.s3.table1.row2"
         ]
@@ -1105,7 +1105,7 @@
         "name": "An \"openid\" property is a URI",
         "1.0.2_ref_text": "Type, 4.1.2.3.table1.row3.a",
         "1.0.2_ref": "4.1.2.3.table1.row3.a",
-        "1.0.3_ref": "part2.2.4.2.3.table1.row3.a",
+        "1.0.3_ref": "Data 2.4.2.3.s3.table1.row3",
         "1.0.3_link": [
             "Data.md#2.4.2.3.s3.table1.row3"
         ]
@@ -1156,7 +1156,7 @@
         "name": "An Account Object is the \"account\" property of a Group or Agent",
         "1.0.2_ref_text": "Definition, 4.1.2.4",
         "1.0.2_ref": "4.1.2.4",
-        "1.0.3_ref": "part2.2.4.2.4",
+        "1.0.3_ref": "Data 2.4.2.4",
         "1.0.3_link": [
             "Data.md#2.4.2.4"
         ]
@@ -1207,7 +1207,7 @@
         "name": "An Account Object uses the \"homePage\" property",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.4.table1.row1.b",
         "1.0.2_ref": "4.1.2.4.table1.row1.b",
-        "1.0.3_ref": "part2.2.4.2.4.table1.row1.b",
+        "1.0.3_ref": "Data 2.4.2.4.s2.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.2.4.s2.table1.row1"
         ]
@@ -1258,7 +1258,7 @@
         "name": "An Account Object's \"homePage\" property is an IRL",
         "1.0.2_ref_text": "Type, 4.1.2.4.table1.row1.a",
         "1.0.2_ref": "4.1.2.4.table1.row1.a",
-        "1.0.3_ref": "part2.2.4.2.4.table1.row1.a",
+        "1.0.3_ref": "Data 2.4.2.4.s2.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.2.4.s2.table1.row1"
         ]
@@ -1309,7 +1309,7 @@
         "name": "An Account Object uses the \"name\" property",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.4.table1.row2.b",
         "1.0.2_ref": "4.1.2.4.table1.row2.b",
-        "1.0.3_ref": "part2.2.4.2.4.table1.row2.b",
+        "1.0.3_ref": "Data 2.4.2.4.s2.table1.row2",
         "1.0.3_link": [
             "Data.md#2.4.2.4.s2.table1.row2"
         ]
@@ -1360,7 +1360,7 @@
         "name": "An Account Object \"name\" property is a String",
         "1.0.2_ref_text": "Type, 4.1.2.4.table1.row1.a",
         "1.0.2_ref": "4.1.2.4.table1.row2.a",
-        "1.0.3_ref": "part2.2.4.2.4.table1.row2.a",
+        "1.0.3_ref": "Data 2.4.2.4.s2.table1.row2",
         "1.0.3_link": [
             "Data.md#2.4.2.4.s2.table1.row2"
         ]
@@ -1432,7 +1432,7 @@
         "name": "An \"actor\" property's \"objectType\" property is either \"Agent\" or \"Group\"",
         "1.0.2_ref_text": "Vocabulary, 4.1.2.1.table1.row1.b, 4.1.2.1.table1.row1.b",
         "1.0.2_ref": "4.1.2.1.table1.row1.b, 4.1.2.2.table1.row1.b, 4.1.2.2.table2.row1.b",
-        "1.0.3_ref": "part2.2.4.2.1.table1.row1.b, part2.2.4.2.2.table1.row1.b, part2.2.4.2.2.table2.row1.b",
+        "1.0.3_ref": "Data 2.4.2.1, Data 2.4.2.2",
         "1.0.3_link": [
             "Data.md#2.4.2.1",
             "Data.md#2.4.2.2"
@@ -1478,7 +1478,7 @@
         "name": "An Agent is defined by \"objectType\" of an \"actor\" property or \"object\" property with value \"Agent\"",
         "1.0.2_ref_text": "4.1.2.1.table1.row1, 4.1.4.2.a",
         "1.0.2_ref": "4.1.2.1.table1.row1, 4.1.4.2.a",
-        "1.0.3_ref": "part2.2.4.2.1.table1.row1, part2.2.4.4.2.a",
+        "1.0.3_ref": "Data 2.4.2.1.s2.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.2.1.s2.table1.row1"
         ]
@@ -1508,7 +1508,7 @@
         "name": "An Agent does not use the \"mbox\" property if \"mbox_sha1sum\", \"openid\", or \"account\" are used",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.1.b",
         "1.0.2_ref": "4.1.2.1.b",
-        "1.0.3_ref": "part2.2.4.2.1.b",
+        "1.0.3_ref": "Data 2.4.2.1.s2.b2",
         "1.0.3_link": [
             "Data.md#2.4.2.1.s2.b2"
         ]
@@ -1571,7 +1571,7 @@
         "name": "An Agent does not use the \"mbox_sha1sum\" property if \"mbox\", \"openid\", or \"account\" are used",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.1.b",
         "1.0.2_ref": "4.1.2.1.b",
-        "1.0.3_ref": "part2.2.4.2.1.b",
+        "1.0.3_ref": "Data 2.4.2.1.s2.b2",
         "1.0.3_link": [
             "Data.md#2.4.2.1.s2.b2"
         ]
@@ -1634,7 +1634,7 @@
         "name": "An Agent does not use the \"account\" property if \"mbox\", \"mbox_sha1sum\", or \"openid\" are used",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.1.b",
         "1.0.2_ref": "4.1.2.1.b",
-        "1.0.3_ref": "part2.2.4.2.1.b",
+        "1.0.3_ref": "Data 2.4.2.1.s2.b2",
         "1.0.3_link": [
             "Data.md#2.4.2.1.s2.b2"
         ]
@@ -1697,7 +1697,7 @@
         "name": "An Agent does not use the \"openid\" property if \"mbox\", \"mbox_sha1sum\", or \"account\" are used",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.1.b",
         "1.0.2_ref": "4.1.2.1.b",
-        "1.0.3_ref": "part2.2.4.2.1.b",
+        "1.0.3_ref": "Data 2.4.2.1.s2.b2",
         "1.0.3_link": [
             "Data.md#2.4.2.1.s2.b2"
         ]
@@ -1760,7 +1760,7 @@
         "name": "A Statement's \"attachments\" property is an array of Attachments",
         "1.0.2_ref_text": "4.1.2.1.table1.row11.a",
         "1.0.2_ref": "4.1.table1.row11.a",
-        "1.0.3_ref": "part2.2.4.table1.row11.a",
+        "1.0.3_ref": "Data 2.4.s1.table1.row11",
         "1.0.3_link": [
             "Data.md#2.4.s1.table1.row11"
         ]
@@ -1772,7 +1772,7 @@
         "name": "An Attachment is an Object",
         "1.0.2_ref_text": "Definition, 4.1.11",
         "1.0.2_ref": "4.1.11",
-        "1.0.3_ref": "part2..2.4.11",
+        "1.0.3_ref": "Data 2.4.11",
         "1.0.3_link": [
             "Data.md#2.4.11"
         ]
@@ -1787,7 +1787,7 @@
         "name": "A \"usageType\" property is an IRI",
         "1.0.2_ref_text": "Multiplicity, 4.1.11.table1.row1.b",
         "1.0.2_ref": "4.1.11.table1.row1.b",
-        "1.0.3_ref": "part2.2.4.table1.row1.b",
+        "1.0.3_ref": "Data 2.4.11.s2.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.11.s2.table1.row1"
         ]
@@ -1799,7 +1799,7 @@
         "name": "A \"contentType\" property is an Internet Media/MIME type",
         "1.0.2_ref_text": "Format, 4.1.11.table1.row4.a, IETF.org",
         "1.0.2_ref": "4.1.11.table1.row4.a, IETF.org",
-        "1.0.3_ref": "part2.2.4.11.table1.row4.a",
+        "1.0.3_ref": "Data 2.4.11.s2.table1.row4",
         "1.0.3_link": [
             "Data.md#2.4.11.s2.table1.row4"
         ]
@@ -1811,7 +1811,7 @@
         "name": "A \"length\" property is an Integer",
         "1.0.2_ref_text": "Format, 4.1.11.table1.row5.a",
         "1.0.2_ref": "4.1.11.table1.row5.a",
-        "1.0.3_ref": "part2.2.4.11.table1.row5.a",
+        "1.0.3_ref": "Data 2.4.11.s2.table1.row5",
         "1.0.3_link": [
             "Data.md#2.4.11.s2.table1.row5"
         ]
@@ -1835,7 +1835,7 @@
         "name": "A \"fileUrl\" property is an IRL",
         "1.0.2_ref_text": "Format, 4.1.11.table1.row7.a",
         "1.0.2_ref": "4.1.11.table1.row7.a",
-        "1.0.3_ref": "part2.2.4.11.table1.row7.a",
+        "1.0.3_ref": "Data 2.4.11.s2.table1.row7",
         "1.0.3_link": [
             "Data.md#2.4.11.s2.table1.row7"
         ]
@@ -1847,7 +1847,7 @@
         "name": "A \"display\" property is a Language Map",
         "1.0.2_ref_text": "Type, 4.1.3.table1.row1.a, 4.1.11.table1.row2.a",
         "1.0.2_ref": "4.1.3.table1.row2.a, 4.1.11.table1.row2.a",
-        "1.0.3_ref": "part2.2.4.3.table1.row2.a, part2.2.4.11.table1.row2.a",
+        "1.0.3_ref": "Data 2.4.11.s2.table1.row2",
         "1.0.3_link": [
             "Data.md#2.4.11.s2.table1.row2"
         ]
@@ -1862,7 +1862,7 @@
         "name": "An \"authority\" property is an Agent or Group",
         "1.0.2_ref_text": "Type, 4.1.2.1.table1.row9.a, 4.1.2.1.table1.row9.b, 4.1.9.a",
         "1.0.2_ref": "4.1.table1.row9.b, 4.1.9.a",
-        "1.0.3_ref": "part2.2.4.table1.row9.b, part2.2.4.9.a",
+        "1.0.3_ref": "Data 2.4.s1.table1.row9",
         "1.0.3_link": [
             "Data.md#2.4.s1.table1.row9"
         ]
@@ -1887,7 +1887,7 @@
         "name": "An \"authority\" property which is also a Group contains exactly two Agents",
         "1.0.2_ref_text": "Type, 4.1.2.1.table1.row9.a, 4.1.2.1.table1.row9.b, 4.1.9.a",
         "1.0.2_ref": "4.1.table1.row9.b, 4.1.9.a",
-        "1.0.3_ref": "part2.2.4.table1.row9.b, part2.2.4.9.a",
+        "1.0.3_ref": "Data 2.4.9.s3.b1",
         "1.0.3_link": [
             "Data.md#2.4.9.s3.b1"
         ]
@@ -1902,7 +1902,7 @@
         "name": "An LRS rejects with error code 400 Bad Request, a Request whose \"authority\" is a Group of more than two Agents",
         "1.0.2_ref_text": "Format, 4.1.9.a",
         "1.0.2_ref": "4.1.9.a",
-        "1.0.3_ref": "part2.2.4.9.a",
+        "1.0.3_ref": "Data 2.4.9.s3.b1",
         "1.0.3_link": [
             "Data.md#2.4.9.s3.b1"
         ]
@@ -1920,7 +1920,7 @@
         "name": "A \"registration\" property is a UUID",
         "1.0.2_ref_text": "Type, 4.1.6.table1.row1.a",
         "1.0.2_ref": "4.1.6.table1.row1.a",
-        "1.0.3_ref": "part2.2.4.6.table1.row1.a",
+        "1.0.3_ref": "Data 2.4.6.s3.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.6.s3.table1.row1"
         ]
@@ -1941,7 +1941,7 @@
         "name": "An \"instructor\" property is an Agent",
         "1.0.2_ref_text": "Type, 4.1.6.table1.row2.a",
         "1.0.2_ref": "4.1.6.table.table1.row2.a",
-        "1.0.3_ref": "part2.2.4.6.table1.row2.a",
+        "1.0.3_ref": "Data 2.4.6.s3.table1.row2",
         "1.0.3_link": [
             "Data.md#2.4.6.s3.table1.row2"
         ]
@@ -1962,7 +1962,7 @@
         "name": "An \"team\" property is a Group",
         "1.0.2_ref_text": "Type, 4.1.6.table1.row3.a",
         "1.0.2_ref": "4.1.6.table1.row3.a",
-        "1.0.3_ref": "part2.2.4.6.table1.row3.a",
+        "1.0.3_ref": "Data 2.4.6.s3.table1.row3",
         "1.0.3_link": [
             "Data.md#2.4.6.s3.table1.row3"
         ]
@@ -1989,7 +1989,7 @@
         "name": "A \"contextActivities\" property is an Object",
         "1.0.2_ref_text": "Type, 4.1.5.table1.row4.a",
         "1.0.2_ref": "4.1.6.table1.row4.a",
-        "1.0.3_ref": "part2.2.4.6.table1.row4.a",
+        "1.0.3_ref": "Data 2.4.6.s3.table1.row4",
         "1.0.3_link": [
             "Data.md#2.4.6.s3.table1.row4"
         ]
@@ -2004,7 +2004,7 @@
         "name": "A \"contextActivities\" property contains one or more key/value pairs",
         "1.0.2_ref_text": "Format, 4.1.a, 4.1.6.2.b",
         "1.0.2_ref": "4.1.a, 4.1.6.2.b",
-        "1.0.3_ref": "part2.2.4.a, part2.2.4.6.2.b",
+        "1.0.3_ref": "Data 2.4.6.2.s4.b2",
         "1.0.3_link": [
             "Data.md#2.4.6.2.s4.b2"
         ]
@@ -2019,7 +2019,7 @@
         "name": "A \"contextActivities\" property's \"key\" has a value of \"parent\", \"grouping\", \"category\", or \"other\"",
         "1.0.2_ref_text": "Format, 4.1.6.2.a",
         "1.0.2_ref": "4.1.6.2.a",
-        "1.0.3_ref": "part2.2.4.6.2.a",
+        "1.0.3_ref": "Data 2.4.6.2.s4.b1",
         "1.0.3_link": [
             "Data.md#2.4.6.2.s4.b1"
         ]
@@ -2052,7 +2052,7 @@
         "name": "A \"contextActivities\" property's \"value\" is an Activity",
         "1.0.2_ref_text": "Format, 4.1.6.2.a",
         "1.0.2_ref": "4.1.6.2.a",
-        "1.0.3_ref": "part2.2.4.6.2.a",
+        "1.0.3_ref": "Data 2.4.6.2.s4.b2",
         "1.0.3_link": [
             "Data.md#2.4.6.2.s4.b2"
         ]
@@ -2084,7 +2084,7 @@
     "A ContextActivity is defined as a single Activity of the \"value\" of the \"contextActivities\" property (definition)": {
         "name": "A ContextActivity is defined as a single Activity of the \"value\" of the \"contextActivities\" property (definition)",
         "1.0.2_ref": "definition",
-        "1.0.3_ref": "where is this definition?",
+        "1.0.3_ref": "Data 2.4.6.2.s4.b2",
         "1.0.3_link": [
             "Data.md#2.4.6.2.s4.b2"
         ]
@@ -2117,7 +2117,7 @@
         "name": "A \"revision\" property is a String",
         "1.0.2_ref_text": "Type, 4.1.6.table1.row5.a",
         "1.0.2_ref": "4.1.6.table1.row5.a",
-        "1.0.3_ref": "part2.2.4.6.table1.row5.a",
+        "1.0.3_ref": "Data 2.4.6.s3.table1.row5",
         "1.0.3_link": [
             "Data.md#2.4.6.s3.table1.row5"
         ]
@@ -2138,7 +2138,7 @@
         "name": "A Statement cannot contain both a \"revision\" property in its \"context\" property and have the value of the \"object\" property's \"objectType\" be anything but \"Activity\"",
         "1.0.2_ref_text": "4.1.6.a",
         "1.0.2_ref": "4.1.6.a",
-        "1.0.3_ref": "part2.2.4.6.a",
+        "1.0.3_ref": "Data 2.4.6.s4.b1",
         "1.0.3_link": [
             "Data.md#2.4.6.s4.b1"
         ]
@@ -2168,7 +2168,7 @@
         "name": "A \"platform\" property is a String",
         "1.0.2_ref_text": "Type, 4.1.6.table1.row6.a",
         "1.0.2_ref": "4.1.6.table1.row6.a",
-        "1.0.3_ref": "part2.2.4.6.table1.row6.a",
+        "1.0.3_ref": "Data 2.4.6.s3.table1.row6",
         "1.0.3_link": [
             "Data.md#2.4.6.s3.table1.row6"
         ]
@@ -2189,7 +2189,7 @@
         "name": "A Statement cannot contain both a \"platform\" property in its \"context\" property and have the value of the \"object\" property's \"objectType\" be anything but \"Activity\"",
         "1.0.2_ref_text": "4.1.6.b",
         "1.0.2_ref": "4.1.6.b",
-        "1.0.3_ref": "part2.2.4.6.b",
+        "1.0.3_ref": "Data 2.4.6.s4.b2",
         "1.0.3_link": [
             "Data.md#2.4.6.s4.b2"
         ]
@@ -2219,7 +2219,7 @@
         "name": "A \"language\" property is a String",
         "1.0.2_ref_text": "Type, 4.1.6.table1.row7.a",
         "1.0.2_ref": "4.1.6.table1.row7.a",
-        "1.0.3_ref": "part2.2.4.6.table1.row7.a",
+        "1.0.3_ref": "Data 2.4.6.s3.table1.row7",
         "1.0.3_link": [
             "Data.md#2.4.6.s3.table1.row7"
         ]
@@ -2240,7 +2240,7 @@
         "name": "A \"language\" property follows RFC5646",
         "1.0.2_ref_text": "Format, 4.1.6.table1.row7.a, RFC5646",
         "1.0.2_ref": "4.1.6.table1.row7.a, RFC5646",
-        "1.0.3_ref": "part2.2.4.6.table1.row7.a, RFC5646",
+        "1.0.3_ref": "Data 2.4.6.s3.table1.row7, RFC5646",
         "1.0.3_link": [
             "Data.md#2.4.6.s3.table1.row7"
         ]
@@ -2255,7 +2255,7 @@
         "name": "A \"statement\" property is a Statement Reference",
         "1.0.2_ref_text": "Type, 4.1.6.table1.row8.a",
         "1.0.2_ref": "4.1.6.table1.row8.a",
-        "1.0.3_ref": "part2.2.4.6.table1.row8.a",
+        "1.0.3_ref": "Data 2.4.6.s3.table1.row8",
         "1.0.3_link": [
             "Data.md#2.4.6.s3.table1.row8"
         ]
@@ -2276,7 +2276,7 @@
         "name": "An Extension is defined as an Object of any \"extensions\" property",
         "1.0.2_ref_text": "Multiplicity, 5.3",
         "1.0.2_ref": "5.3",
-        "1.0.3_ref": "part2.4.1",
+        "1.0.3_ref": "Data 4.1.s2",
         "1.0.3_link": [
             "Data.md#4.1.s2"
         ]
@@ -2357,7 +2357,7 @@
         "name": "An Extension can be empty",
         "1.0.2_ref_text": "Format, 5.3",
         "1.0.2_ref": "5.3",
-        "1.0.3_ref": "part2.4.1",
+        "1.0.3_ref": "Data 4.1",
         "1.0.3_link": [
             "Data.md#4.1"
         ]
@@ -2384,7 +2384,7 @@
         "name": "An Extension \"key\" is an IRI",
         "1.0.2_ref_text": "Format, 5.3.a",
         "1.0.2_ref": "5.3.a",
-        "1.0.3_ref": "part2.4.1.a",
+        "1.0.3_ref": "Data 4.1.s3.b1",
         "1.0.3_link": [
             "Data.md#4.1.s3.b1"
         ]
@@ -2426,7 +2426,7 @@
         "name": "A Group is defined by \"objectType\" of an \"actor\" property or \"object\" property with value \"Group\"",
         "1.0.2_ref_text": "4.1.2.2.table1.row2, 4.1.4.2.a",
         "1.0.2_ref": "4.1.2.2.table1.row2, 4.1.4.2.a",
-        "1.0.3_ref": "part2.2.4.2.2.table1.row1, part2.2.4.2.2.table2.row1, part2.2.4.4.2.a",
+        "1.0.3_ref": "Data 2.4.2.2.s2.table2.row1",
         "1.0.3_link": [
             "Data.md#2.4.2.2.s2.table2.row1"
         ]
@@ -2459,7 +2459,7 @@
         "name": "An Anonymous Group is defined by \"objectType\" of an \"actor\" or \"object\" with value \"Group\" and by none of \"mbox\", \"mbox_sha1sum\", \"openid\", or \"account\" being used",
         "1.0.2_ref_text": "4.1.2.2.table1.row2, 4.1.2.2.table1",
         "1.0.2_ref": "4.1.2.2.table1",
-        "1.0.3_ref": "part2.2.4.2.2.table1",
+        "1.0.3_ref": "Data 2.4.2.2.s2.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.2.2.s2.table1.row1"
         ]
@@ -2492,7 +2492,7 @@
         "name": "An Anonymous Group uses the \"member\" property",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.2.table1.row3.b",
         "1.0.2_ref": "4.1.2.2.table1.row3.c",
-        "1.0.3_ref": "part2.2.4.2.2.table1.row3.c",
+        "1.0.3_ref": "Data 2.4.2.2.s2.table1.row3",
         "1.0.3_link": [
             "Data.md#2.4.2.2.s2.table1.row3"
         ]
@@ -2525,7 +2525,7 @@
         "name": "The \"member\" property is an array of Objects following Agent requirements",
         "1.0.2_ref_text": "4.1.2.2.table1.row3.a",
         "1.0.2_ref": "4.1.2.2.table1.row3.a",
-        "1.0.3_ref": "part2.2.4.2.2.table1.row3.a",
+        "1.0.3_ref": "Data 2.4.2.2.s2.table2.row3",
         "1.0.3_link": [
             "Data.md#2.4.2.2.s2.table2.row3"
         ]
@@ -2557,7 +2557,7 @@
     "Statement authority shall only be an anonymous group with two members": {
         "name": "Statement authority shall only be an anonymous group with two members",
         "1.0.2_ref": "4.1.9.a, 4.1.2.2",
-        "1.0.3_ref": "part2.2.4.9.a, part2.2.4.2.2",
+        "1.0.3_ref": "Data 2.4.9.s3.b1",
         "1.0.3_link": [
             "Data.md#2.4.9.s3.b1"
         ]
@@ -2575,7 +2575,7 @@
         "name": "An Identified Group is defined by \"objectType\" of an \"actor\" or \"object\" with value \"Group\" and by one of \"mbox\", \"mbox_sha1sum\", \"openid\", or \"account\" being used",
         "1.0.2_ref_text": "4.1.2.2.table1.row2, 4.1.2.2.table2",
         "1.0.2_ref": "4.1.2.2.table1.row2, 4.1.2.2.table2",
-        "1.0.3_ref": "part2.2.4.2.2.table1.row2, part2.2.4.2.2.table2",
+        "1.0.3_ref": "Data 2.4.2.2.s2.table2.row1",
         "1.0.3_link": [
             "Data.md#2.4.2.2.s2.table2.row1"
         ]
@@ -2668,7 +2668,7 @@
         "name": "An Identified Group uses one of the following properties: \"mbox\", \"mbox_sha1sum\", \"openid\", \"account\"",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.1.a",
         "1.0.2_ref": "4.1.2.2.table2.row4",
-        "1.0.3_ref": "part2.2.4.2.2.table2.row4",
+        "1.0.3_ref": "Data 2.4.2.2.s2.table2.row4",
         "1.0.3_link": [
             "Data.md#2.4.2.2.s2.table2.row4"
         ]
@@ -2680,7 +2680,7 @@
         "name": "An Identified Group does not use the \"mbox\" property if \"mbox_sha1sum\", \"openid\", or \"account\" are used",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.1.b",
         "1.0.2_ref": "4.1.2.2.f",
-        "1.0.3_ref": "part2.2.4.2.2.h",
+        "1.0.3_ref": "Data 2.4.2.2.s5.b1",
         "1.0.3_link": [
             "Data.md#2.4.2.2.s5.b1"
         ]
@@ -2716,7 +2716,7 @@
         "name": "An Identified Group does not use the \"mbox_sha1sum\" property if \"mbox\", \"openid\", or \"account\" are used",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.1.b",
         "1.0.2_ref": "4.1.2.2.f",
-        "1.0.3_ref": "part2.2.4.2.2.h",
+        "1.0.3_ref": "Data 2.4.2.2.s5.b1",
         "1.0.3_link": [
             "Data.md#2.4.2.2.s5.b1"
         ]
@@ -2749,7 +2749,7 @@
         "name": "An Identified Group does not use the \"openid\" property if \"mbox\", \"mbox_sha1sum\", or \"account\" are used",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.1.b",
         "1.0.2_ref": "4.1.2.2.f",
-        "1.0.3_ref": "part2.2.4.2.2.h",
+        "1.0.3_ref": "Data 2.4.2.2.s5.b1",
         "1.0.3_link": [
             "Data.md#2.4.2.2.s5.b1"
         ]
@@ -2788,7 +2788,7 @@
         "name": "An Identified Group does not use the \"account\" property if \"mbox\", \"mbox_sha1sum\", or \"openid\" are used",
         "1.0.2_ref_text": "Multiplicity, 4.1.2.1.b",
         "1.0.2_ref": "4.1.2.2.f",
-        "1.0.3_ref": "part2.2.4.2.2.h",
+        "1.0.3_ref": "Data 2.4.2.2.s5.b1",
         "1.0.3_link": [
             "Data.md#2.4.2.2.s5.b1"
         ]
@@ -2899,7 +2899,7 @@
         "name": "A Language Map follows RFC5646",
         "1.0.2_ref_text": "Format, 5.2.a, RFC5646",
         "1.0.2_ref": "5.2.a, RFC5646",
-        "1.0.3_ref": "part2.4.2, RFC5646",
+        "1.0.3_ref": "Data 4.2.s1, RFC5646",
         "1.0.3_link": [
             "Data.md#4.2.s1"
         ]
@@ -2962,7 +2962,7 @@
         "name": "An \"object\" property's \"objectType\" property is either \"Activity\", \"Agent\", \"Group\", \"SubStatement\", or \"StatementRef\"",
         "1.0.2_ref_text": "Vocabulary, 4.1.4.b",
         "1.0.2_ref": "4.1.4.b",
-        "1.0.3_ref": "part2.2.4.4.b",
+        "1.0.3_ref": "Data 2.4.4.s2",
         "1.0.3_link": [
             "Data.md#2.4.4.s2"
         ]
@@ -3007,7 +3007,7 @@
         "name": "A \"score\" property is an Object",
         "1.0.2_ref_text": "Type, 4.1.5.table.row1.a",
         "1.0.2_ref": "4.1.5.table1.row1.a",
-        "1.0.3_ref": "part2.2.4.5.table1.row1.a",
+        "1.0.3_ref": "Data 2.4.5.1",
         "1.0.3_link": [
             "Data.md#2.4.5.1"
         ]
@@ -3028,7 +3028,7 @@
         "name": "A \"score\" Object's \"scaled\" property is a Decimal accurate to seven significant decimal figures",
         "1.0.2_ref_text": "Type, 4.1.5.1.table1.row1.a, SCORM 2004 4Ed",
         "1.0.2_ref": "4.1.5.1.table1.row1.a, SCORM 2004 4Ed",
-        "1.0.3_ref": "part2.2.4.5.1.table1.row1.a",
+        "1.0.3_ref": "Data 2.4.5.1.s2.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.5.1.s2.table1.row1"
         ]
@@ -3043,7 +3043,7 @@
         "name": "A \"score\" Object's \"raw\" property is a Decimal accurate to seven significant decimal figures",
         "1.0.2_ref_text": "Type, 4.1.5.1.table1.row2.a, SCORM 2004 4Ed",
         "1.0.2_ref": "4.1.5.1.table1.row2.a, SCORM 2004 4Ed",
-        "1.0.3_ref": "part2.2.4.5.1.table1.row2.a",
+        "1.0.3_ref": "Data 2.4.5.1.s2.table1.row2",
         "1.0.3_link": [
             "Data.md#2.4.5.1.s2.table1.row2"
         ]
@@ -3058,7 +3058,7 @@
         "name": "A \"score\" Object's \"min\" property is a Decimal accurate to seven significant decimal figures",
         "1.0.2_ref_text": "Type, 4.1.5.1.table1.row3.a, SCORM 2004 4Ed",
         "1.0.2_ref": "4.1.5.1.table1.row3.a, SCORM 2004 4Ed",
-        "1.0.3_ref": "part2.2.4.5.1.table1.row3.a",
+        "1.0.3_ref": "Data 2.4.5.1.s2.table1.row3",
         "1.0.3_link": [
             "Data.md#2.4.5.1.s2.table1.row3"
         ]
@@ -3073,7 +3073,7 @@
         "name": "A \"score\" Object's \"max\" property is a Decimal accurate to seven significant decimal figures",
         "1.0.2_ref_text": "Type, 4.1.5.1.table1.row4.a, SCORM 2004 4Ed",
         "1.0.2_ref": "4.1.5.1.table1.row4.a, SCORM 2004 4Ed",
-        "1.0.3_ref": "part2.2.4.5.1.table1.row4.a",
+        "1.0.3_ref": "Data 2.4.5.1.s2.table1.row4",
         "1.0.3_link": [
             "Data.md#2.4.5.1.s2.table1.row4"
         ]
@@ -3088,7 +3088,7 @@
         "name": "A \"success\" property is a Boolean",
         "1.0.2_ref_text": "Type, 4.1.5.table1.row2.a",
         "1.0.2_ref": "4.1.5.table1.row2.a",
-        "1.0.3_ref": "part2.2.4.5.table1.row2.a",
+        "1.0.3_ref": "Data 2.4.5.s2.table1.row1",
         "1.0.3_link": [
             "Data.md#2.4.5.s2.table1.row1"
         ]
@@ -3109,7 +3109,7 @@
         "name": "A \"completion\" property is a Boolean",
         "1.0.2_ref_text": "Type, 4.1.5.table1.row3.a",
         "1.0.2_ref": "4.1.5.table1.row3.a",
-        "1.0.3_ref": "part2.2.4.5.table1.row3.a",
+        "1.0.3_ref": "Data 2.4.5.s2.table1.row2",
         "1.0.3_link": [
             "Data.md#2.4.5.s2.table1.row2"
         ]
@@ -3130,7 +3130,7 @@
         "name": "A \"response\" property is a String",
         "1.0.2_ref_text": "Type, 4.1.5.table1.row3.a",
         "1.0.2_ref": "4.1.5.table1.row4.a",
-        "1.0.3_ref": "part2.2.4.5.table1.row4.a",
+        "1.0.3_ref": "Data 2.4.5.s2.table1.row3",
         "1.0.3_link": [
             "Data.md#2.4.5.s2.table1.row3"
         ]
@@ -3151,7 +3151,7 @@
         "name": "A \"duration\" property is a formatted to ISO 8601",
         "1.0.2_ref_text": "Type, 4.1.5.table1.row3.a",
         "1.0.2_ref": "4.1.5.table1.row5.a",
-        "1.0.3_ref": "part2.2.4.5.table1.row5.a, 4.6.a, ISO 8601:2004(E) section 4.4.3.2",
+        "1.0.3_ref": "Data 2.4.5.s2.table1.row4",
         "1.0.3_link": [
             "Data.md#2.4.5.s2.table1.row4"
         ]
@@ -3166,7 +3166,7 @@
         "name": "A \"duration\" property keeps at least 0.01 seconds of precision",
         "1.0.2_ref_text": "Type, 4.1.5.table1.row3.a",
         "1.0.2_ref": "4.1.5.table1.row5.a",
-        "1.0.3_ref": "part2.2.4.5.table1.row5.a",
+        "1.0.3_ref": "Data 2.4.5.s2.table1.row4",
         "1.0.3_link": [
             "Data.md#2.4.5.s2.table1.row4"
         ]
@@ -3175,9 +3175,9 @@
         "name": "An \"extensions\" property is an Object",
         "1.0.2_ref_text": "Type, 4.1.5.table1.row3.a",
         "1.0.2_ref": "4.1.5.table1.row6.a",
-        "1.0.3_ref": "part2.2.4.5.table1.row6.a",
+        "1.0.3_ref": "Data 2.4.5.s2.table1.row6",
         "1.0.3_link": [
-            "Data.md#2.4.5.s2.table1.row5"
+            "Data.md#2.4.5.s2.table1.row6"
         ]
     },
     "statement result \"extensions\" property is numeric": {
@@ -3196,7 +3196,7 @@
         "name": "An LRS stores 32-bit floating point numbers with at least the precision of IEEE 754",
         "1.0.2_ref_text": "4.1.12.d.a",
         "1.0.2_ref": "4.1.12.g",
-        "1.0.3_ref": "part2.2.2.m",
+        "1.0.3_ref": "Data 2.2.s4.b3",
         "1.0.3_link": [
             "Data.md#2.2.s4.b3"
         ]
@@ -3211,7 +3211,7 @@
         "name": "A Statement Reference is defined by the \"objectType\" of an \"object\" with value \"StatementRef\"",
         "1.0.2_ref_text": "4.1.4.2.a",
         "1.0.2_ref": "4.1.4.3.a",
-        "1.0.3_ref": "part2.2.4.4.3.a",
+        "1.0.3_ref": "Data 2.4.4.3.s4.b1",
         "1.0.3_link": [
             "Data.md#2.4.4.3.s4.b1"
         ]
@@ -3226,7 +3226,7 @@
         "name": "A Statement Reference contains an \"id\" property",
         "1.0.2_ref_text": "Multiplicity, 4.1.4.3.table1.row2.b",
         "1.0.2_ref": "4.1.4.3.table1.row2.b",
-        "1.0.3_ref": "part2.2.4.4.3.table1.row2.b",
+        "1.0.3_ref": "Data 2.4.4.3.s4.table1.row2",
         "1.0.3_link": [
             "Data.md#2.4.4.3.s4.table1.row2"
         ]
@@ -3241,7 +3241,7 @@
         "name": "A Statement Reference's \"id\" property is a UUID",
         "1.0.2_ref_text": "Type, 4.1.4.3.table1.row2.a",
         "1.0.2_ref": "4.1.4.3.table1.row2.a",
-        "1.0.3_ref": "part2.2.4.4.3.table1.row2.a",
+        "1.0.3_ref": "Data 2.4.4.3.s4.table1.row2",
         "1.0.3_link": [
             "Data.md#2.4.4.3.s4.table1.row2"
         ]
@@ -3262,7 +3262,7 @@
         "name": "A Statement contains an \"actor\" property",
         "1.0.2_ref_text": "Multiplicity, 4.1.b",
         "1.0.2_ref": "4.1.b",
-        "1.0.3_ref": "part2.2.2.b, part2.2.4.table1.row2.c",
+        "1.0.3_ref": "Data 2.2.s2.b3",
         "1.0.3_link": [
             "Data.md#2.2.s2.b3"
         ]
@@ -3274,7 +3274,7 @@
         "name": "A Statement contains a \"verb\" property",
         "1.0.2_ref_text": "Multiplicity, 4.1.b",
         "1.0.2_ref": "4.1.b",
-        "1.0.3_ref": "part2.2.2.b, part2.2.4.table1.row3.c",
+        "1.0.3_ref": "Data 2.2.s2.b3",
         "1.0.3_link": [
             "Data.md#2.2.s2.b3"
         ]
@@ -3286,7 +3286,7 @@
         "name": "A Statement contains an \"object\" property",
         "1.0.2_ref_text": "Multiplicity, 4.1.b",
         "1.0.2_ref": "4.1.b",
-        "1.0.3_ref": "part2.2.2.b, part2.2.4.table1.row4.c",
+        "1.0.3_ref": "Data 2.2.s2.b3",
         "1.0.3_link": [
             "Data.md#2.2.s2.b3"
         ]
@@ -3298,7 +3298,7 @@
         "name": "A Statement's \"id\" property is a String",
         "1.0.2_ref_text": "Type, 4.1.1.description.a",
         "1.0.2_ref": "4.1.1.description",
-        "1.0.3_ref": "part2.2.4.1.description",
+        "1.0.3_ref": "Data 2.4.1.s1",
         "1.0.3_link": [
             "Data.md#2.4.1.s1"
         ]
@@ -3313,7 +3313,7 @@
         "name": "A Statement's \"id\" property is a UUID following RFC 4122",
         "1.0.2_ref_text": "Syntax, RFC 4122",
         "1.0.2_ref": "4.1.1.description, RFC 4122",
-        "1.0.3_ref": "part2.2.4.1.description, RFC 4122",
+        "1.0.3_ref": "Data 2.4.1.s1, RFC 4122",
         "1.0.3_link": [
             "Data.md#2.4.1.s1"
         ]
@@ -3328,7 +3328,7 @@
         "name": "A TimeStamp is defined as a Date/Time formatted according to ISO 8601",
         "1.0.2_ref_text": "Format, ISO8601",
         "1.0.2_ref": "4.1.table1.row7.b, ISO8601",
-        "1.0.3_ref": "part2.4.5.a, ISO8601",
+        "1.0.3_ref": "Data 4.5.s1.b1, ISO8601",
         "1.0.3_link": [
             "Data.md#4.5.s1.b1"
         ]
@@ -3343,7 +3343,7 @@
         "name": "A \"timestamp\" property is a TimeStamp",
         "1.0.2_ref_text": "Type, 4.1.2.1.table1.row7.a, 4.1.2.1.table1.row7.b",
         "1.0.2_ref": "4.1.table1.row7.a, 4.1.table1.row7.b",
-        "1.0.3_ref": "part2.2.4.table1.row7.a",
+        "1.0.3_ref": "Data 2.4.s1.table1.row7",
         "1.0.3_link": [
             "Data.md#2.4.s1.table1.row7"
         ]
@@ -3352,7 +3352,7 @@
         "name": "A \"stored\" property is a TimeStamp",
         "1.0.2_ref_text": "Type, 4.1.2.1.table1.row8.a, 4.1.2.1.table1.row8.b",
         "1.0.2_ref": "4.1.table1.row8.a",
-        "1.0.3_ref": "part2.2.4.table1.row8.a",
+        "1.0.3_ref": "Data 2.4.s1.table1.row8",
         "1.0.3_link": [
             "Data.md#2.4.s1.table1.row8"
         ]
@@ -3367,7 +3367,7 @@
         "name": "A \"version\" property enters the LRS with the value of \"1.0.0\" or is not used",
         "1.0.2_ref_text": "Vocabulary, 4.1.10.e, 4.1.10.f",
         "1.0.2_ref": "4.1.10.e",
-        "1.0.3_ref": "part2.2.4.10.e",
+        "1.0.3_ref": "Data 2.4.4.1.s5.b3",
         "1.0.3_link": [
             "Data.md#2.4.4.1.s5.b3"
         ]
@@ -3382,7 +3382,7 @@
         "name": "An LRS rejects with error code 400 Bad Request any Statement having a property whose value is set to \"null\", except in an \"extensions\" property",
         "1.0.2_ref_text": "4.1.12.d.a",
         "1.0.2_ref": "4.1.12.d.a",
-        "1.0.3_ref": "part2.2.2.k.a",
+        "1.0.3_ref": "Data 2.2.s4.b1.b1",
         "1.0.3_link": [
             "Data.md#2.2.s4.b1.b1"
         ]
@@ -3403,7 +3403,7 @@
         "name": "An LRS rejects with error code 400 Bad Request, a Request which uses \"version\" and has the value set to anything but \"1.0\" or \"1.0.x\", where x is the semantic versioning number",
         "1.0.2_ref_text": "Format, 4.1.10.b, 6.2.c, 6.2.f",
         "1.0.2_ref": "4.1.10.b, 4.1.10.c, 6.2.c, 6.2.f",
-        "1.0.3_ref": "part2.2.4.10.b, part2.2.4.10.c, part3.3.3.c, part3.3.3.f",
+        "1.0.3_ref": "Data 2.4.10.s2.b1, Data 2.4.10.s3.b1, Communication 3.3.s3.b3, Communication 3.3.s3.b6",
         "1.0.3_link": [
             "Data.md#2.4.10.s2.b1","Data.md#2.4.10.s3.b1","Communication.md#3.3.s3.b3","Communication.md#3.3.s3.b6"
         ]
@@ -3424,7 +3424,7 @@
         "name": "An LRS rejects with error code 400 Bad Request, a Request which the \"X-Experience-API-Version\" header's value is anything but \"1.0\" or \"1.0.x\", where x is the semantic versioning number to any API except the About API",
         "1.0.2_ref_text": "Format, 6.2.d, 6.2.e, 6.2.f, 7.7.f",
         "1.0.2_ref": "6.2.d, 6.2.e, 6.2.f, 7.7.c",
-        "1.0.3_ref": "part3.3.3.d, part3.3.3.f, part3.3.3.g, part3.2.8.d",
+        "1.0.3_ref": "Communication 3.3.s3.b4, Communication 3.3.s3.b6",
         "1.0.3_link": [
             "Communication.md#3.3.s3.b4","Communication.md#3.3.s3.b6"
         ]
