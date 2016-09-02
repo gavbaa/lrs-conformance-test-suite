@@ -14,7 +14,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-    describe('An LRS populates the "authority" property if it is not provided in the Statement, based on header information with the Agent corresponding to the user (contained within the header) (Implicit, 4.1.9.b, 4.1.9.c) ', function () {
+    describe('An LRS populates the "authority" property if it is not provided in the Statement, based on header information with the Agent corresponding to the user (contained within the header) (Implicit, Data 2.4.9.s3.b4) ', function () {
 
         it('should populate authority ', function (done) {
 
@@ -47,7 +47,7 @@ console.log('Hey Ang', typeof data, data);
         });
     });
 
-    describe('A Voiding Statement cannot Target another Voiding Statement (4.3)', function () {
+    describe('A Voiding Statement cannot Target another Voiding Statement (Data 2.3.2.s2.b7)', function () {
         var voidedId;
 
         before('persist voided statement', function (done) {
@@ -110,7 +110,7 @@ console.log('Hey Ang', typeof data, data);
         });
     });
 
-    describe('An LRS returns a ContextActivity in an array, even if only a single ContextActivity is returned (4.1.6.2.c, 4.1.6.2.d)', function () {
+    describe('An LRS returns a ContextActivity in an array, even if only a single ContextActivity is returned (Data 2.4.6.2.s4.b3)', function () {
         var types = ['parent', 'grouping', 'category', 'other'];
 
         types.forEach(function (type) {
@@ -183,7 +183,7 @@ console.log('Hey Ang', typeof data, data);
         });
     });
 
-    describe('An LRS rejects with error code 400 Bad Request, a Request which uses Attachments and does not have a "Content-Type" header with value "application/json" or "multipart/mixed" (Format, 4.1.11.a, 4.1.11.b)', function () {
+    describe('An LRS rejects with error code 400 Bad Request, a Request which uses Attachments and does not have a "Content-Type" header with value "application/json" or "multipart/mixed" (Format, Communication 1.5)', function () {
         var data;
         var attachment;
 
@@ -245,7 +245,7 @@ console.log('Hey Ang', typeof data, data);
         });
     });
 
-    describe('An LRS rejects with error code 400 Bad Request, a PUT or POST Request which uses Attachments, has a "Content-Type" header with value "application/json", and has a discrepancy in the number of Attachments vs. the number of fileURL members (4.1.11.a)', function () {
+    describe('An LRS rejects with error code 400 Bad Request, a PUT or POST Request which uses Attachments, has a "Content-Type" header with value "application/json", and has a discrepancy in the number of Attachments vs. the number of fileURL members (Communication 1.5.1.s1.b2)', function () {
         it('should fail when passing statement attachments and missing attachment"s binary', function (done) {
             var templates = [
                 {statement: '{{statements.attachment}}'},
@@ -281,7 +281,7 @@ console.log('Hey Ang', typeof data, data);
         });
     });
 
-    describe('An LRS rejects with error code 400 Bad Request, a PUT or POST Request which uses Attachments, has a "Content Type" header with value "multipart/mixed", and does not have a body header named "Content-Type" with value "multipart/mixed" (RFC 1341)', function () {
+    describe('An LRS rejects with error code 400 Bad Request, a PUT or POST Request which uses Attachments, has a "Content Type" header with value "multipart/mixed", and does not have a body header named "Content-Type" with value "multipart/mixed" (RFC 1341, Data 2.4.11)', function () {
         it('should fail when attachment is raw data and first part content type is not "application/json"', function (done) {
             var header = {'Content-Type': 'multipart/mixed; boundary=-------314159265358979323846'};
             var attachment = fs.readFileSync('test/v1_0_3/templates/attachments/basic_text_multipart_attachment_invalid_first_part_content_type.part', {encoding: 'binary'});

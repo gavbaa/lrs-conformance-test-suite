@@ -158,35 +158,6 @@
                 ]
             },
             {
-                name: 'A "stored" property is a TimeStamp (Type, Data 2.4.s1.table1.row8) **Caution: these tests need reworked. They do not test what they are trying to test.**',
-                config: [
-                    {
-                        name: 'statement "stored" invalid string',
-                        templates: [
-                            {statement: '{{statements.default}}'},
-                            {stored: INVALID_STRING}
-                        ],
-                        expect: [400]
-                    },
-                    {
-                        name: 'statement "stored" invalid date',
-                        templates: [
-                            {statement: '{{statements.default}}'},
-                            {stored: INVALID_DATE}
-                        ],
-                        expect: [400]
-                    },
-                    {
-                        name: 'test good timestamp data (predict will still be rejected because of "stored" property)',
-                        templates: [
-                            {statement: '{{statements.default}}'},
-                            {stored: '2013-05-18T05:32:34.804Z'}
-                        ],
-                        expect: [400]
-                    }
-                ]
-            },
-            {
                 name: 'A "version" property enters the LRS with the value of "1.0.0" or is not used (Vocabulary, Data 2.4.4.1.s5.b3)',
                 config: [
                     {
@@ -343,7 +314,7 @@
                 ]
             },
             {
-                name: 'An LRS rejects with error code 400 Bad Request, a Request which the "X-Experience-API-Version" header\'s value is anything but "1.0" or "1.0.x", where x is the semantic versioning number to any API except the About API (Format, 6.2.d, 6.2.e, 6.2.f, 7.7.f)',
+                name: 'An LRS rejects with error code 400 Bad Request, a Request which the "X-Experience-API-Version" header\'s value is anything but "1.0" or "1.0.x", where x is the semantic versioning number to any API except the About API (Format, Communication 3.3.s3.b4, Communication 3.3.s3.b6)',
                 config: [
                     {
                         name: 'statement "version" valid 1.0',
@@ -380,7 +351,7 @@
                 ]
             },
             {
-                name: 'An LRS rejects with error code 400 Bad Request any Statement violating a Statement Requirement. (4.1.12, Varies)',
+                name: 'An LRS rejects with error code 400 Bad Request any Statement violating a Statement Requirement. (Data 2.2.s4, Varies)',
                 config: [
                     {
                         name: 'statement "actor" missing reply 400',
