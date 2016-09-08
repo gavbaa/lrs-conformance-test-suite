@@ -126,6 +126,16 @@ if (!process.env.EB_NODE_COMMAND) {
             return templates;
         },
         /**
+         *
+         */
+        createFromTemplate: (templates) => {
+            // convert template mapping to JSON objects
+            var converted = module.exports.convertTemplate(templates);
+            // this handles if no override
+            var mockObject = module.exports.createTestObject(converted);
+            return mockObject;
+        },
+        /**
          * Iterates through array of objects.  Each value in array needs to be a JSON
          * object with one key / value.  This will merge all JSONs into one object
          * and return the result.

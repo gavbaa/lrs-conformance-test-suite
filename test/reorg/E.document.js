@@ -87,13 +87,13 @@
     });
 
     describe('Document API Requirements', function () {
-        it('An LRS has a State API with endpoint "base IRI"+"/activities/state" (Communication.md#2.2.table2.row1.a, Communication.md#2.2.table2.row1.c)', function () {
+        it('An LRS has a State API with endpoint "base IRI"+"/activities/state" (Communication 2.2.table2.row1.a, Communication 2.2.table2.row1.c)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204);
         });
 
-        it('An LRS has an Activities API with endpoint "base IRI" + /activities" (Communication.md#2.5, Implicit) **Implicit** (in that it is not named this by the spec)', function () {
+        it('An LRS has an Activities API with endpoint "base IRI" + /activities" (Communication 2.5, Implicit) **Implicit** (in that it is not named this by the spec)', function () {
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
@@ -108,13 +108,13 @@
                 });
         });
 
-        it('An LRS has an Activity Profile API with endpoint "base IRI"+"/activities/profile" (Communication.md#2.2.table2.row2.a, Communication.md#2.2.table2.row2.c)', function () {
+        it('An LRS has an Activity Profile API with endpoint "base IRI"+"/activities/profile" (Communication 2.2.table2.row2.a, Communication 2.2.table2.row2.c)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesProfile(), parameters, document, 204);
         });
 
-        it('An LRS has an Agents API with endpoint "base IRI" + /agents" (Communication.md#2.4) **Implicit** (in that it is not named this by the spec)', function () {
+        it('An LRS has an Agents API with endpoint "base IRI" + /agents" (Communication 2.4) **Implicit** (in that it is not named this by the spec)', function () {
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
@@ -129,35 +129,35 @@
                 });
         });
 
-        it('An LRS has an Agent Profile API with endpoint "base IRI"+"/agents/profile" (Communication.md#2.2.table2.row3.a, Communication.md#2.2.table2.row3.c)', function () {
+        it('An LRS has an Agent Profile API with endpoint "base IRI"+"/agents/profile" (Communication 2.2.table2.row3.a, Communication 2.2.table2.row3.c)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 204);
         });
 
-        it('An LRS has an About API with endpoint "base IRI"+"/about" (Communication.md#2.8)', function () {
+        it('An LRS has an About API with endpoint "base IRI"+"/about" (Communication 2.8)', function () {
             return sendRequest('get', '/about', undefined, undefined, 200);
         });
 
-        it('An LRS will accept a POST request to the State API (Communication.md#2.2.table2.row1.a)', function () {
+        it('An LRS will accept a POST request to the State API (Communication 2.2.table2.row1.a)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204);
         });
 
-        it('An LRS will accept a POST request to the Activity Profile API (Communication.md#2.2.table2.row2.a)', function () {
+        it('An LRS will accept a POST request to the Activity Profile API (Communication 2.2.table2.row2.a)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesProfile(), parameters, document, 204);
         });
 
-        it('An LRS will accept a POST request to the Agent Profile API (Communication.md#2.2.table2.row3.a)', function () {
+        it('An LRS will accept a POST request to the Agent Profile API (Communication 2.2.table2.row3.a)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 204);
         });
 
-        describe('An LRS cannot reject a POST request to the State API based on the contents of the name/value pairs of the document (Communication.md#2.2.b, Implicit) **Implicit**', function () {
+        describe('An LRS cannot reject a POST request to the State API based on the contents of the name/value pairs of the document (Communication 2.2.b, Implicit) **Implicit**', function () {
             var documents = [helper.buildDocument(), '1', 'true'];
             documents.forEach(function (document) {
                 it('Should accept POST to State with document ' + document, function () {
@@ -167,7 +167,7 @@
             });
         });
 
-        describe('An LRS cannot reject a POST request to the Activity Profile API based on the contents of the name/value pairs of the document (Communication.md#2.2.b, Implicit) **Implicit**', function () {
+        describe('An LRS cannot reject a POST request to the Activity Profile API based on the contents of the name/value pairs of the document (Communication 2.2.b, Implicit) **Implicit**', function () {
             var documents = [helper.buildDocument(), '1', 'true'];
             documents.forEach(function (document) {
                 it('Should accept POST to Activity profile with document ' + document, function () {
@@ -177,7 +177,7 @@
             });
         });
 
-        describe('An LRS cannot reject a POST request to the Agent Profile API based on the contents of the name/value pairs of the document (Communication.md#2.2.b, Implicit) **Implicit**', function () {
+        describe('An LRS cannot reject a POST request to the Agent Profile API based on the contents of the name/value pairs of the document (Communication 2.2.b, Implicit) **Implicit**', function () {
             var documents = [{}, '1', 'true'];
             documents.forEach(function (document) {
                 it('Should accept POST to Agent profile with document ' + document, function () {
@@ -187,7 +187,7 @@
             });
         });
 
-        it('An LRS\'s State API, upon receiving a POST request for a document not currently in the LRS, treats it as a PUT request and store a new document (Communication.md#2.2.s7)', function () {
+        it('An LRS\'s State API, upon receiving a POST request for a document not currently in the LRS, treats it as a PUT request and store a new document (Communication 2.2.s7)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204)
@@ -200,7 +200,7 @@
                 });
         });
 
-        it('An LRS\'s State API, rejects a POST request if the document is found and either document\'s type is not "application/json" with error code 400 Bad Request (Communication.md#2.2.s8.b1)', function () {
+        it('An LRS\'s State API, rejects a POST request if the document is found and either document\'s type is not "application/json" with error code 400 Bad Request (Communication 2.2.s8.b1)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument(),
                 anotherDocument = 'abc';
@@ -210,7 +210,7 @@
                 });
         });
 
-        it('A Document Merge overwrites any duplicate Objects from the previous document with the new document. (Communication.md#2.2.s7.b1, Communication.md#2.2.s7.b2, Communication.md#2.2.s7.b3)', function () {
+        it('A Document Merge overwrites any duplicate Objects from the previous document with the new document. (Communication 2.2.s7.b1, Communication 2.2.s7.b2, Communication 2.2.s7.b3)', function () {
             var parameters = helper.buildState(),
                 document = {
                     car: 'MKX'
@@ -233,7 +233,7 @@
                 });
         });
 
-        it('A Document Merge only performs overwrites at one level deep, although the entire object is replaced. (Communication.md#2.2.s7.b1, Communication.md#2.2.s7.b2, Communication.md#2.2.s7.b3)', function () {
+        it('A Document Merge only performs overwrites at one level deep, although the entire object is replaced. (Communication 2.2.s7.b1, Communication 2.2.s7.b2, Communication 2.2.s7.b3)', function () {
             var parameters = helper.buildState(),
                 document = {
                     car: {
@@ -283,7 +283,7 @@
                 });
         });
 
-        it('An LRS\'s State API performs a Document Merge if a document is found and both it and the document in the POST request have type "application/json" (Communication.md#2.2.s7.b1, Communication.md#2.2.s7.b2, Communication.md#2.2.s7.b3)', function () {
+        it('An LRS\'s State API performs a Document Merge if a document is found and both it and the document in the POST request have type "application/json" (Communication 2.2.s7.b1, Communication 2.2.s7.b2, Communication 2.2.s7.b3)', function () {
             var parameters = helper.buildState(),
                 document = {
                     car: 'Honda'
@@ -307,7 +307,7 @@
                 });
         });
 
-        it('An LRS\'s Activity Profile API, upon receiving a POST request for a document not currently in the LRS, treats it as a PUT request and store a new document (Communication.md#2.2.s7)', function () {
+        it('An LRS\'s Activity Profile API, upon receiving a POST request for a document not currently in the LRS, treats it as a PUT request and store a new document (Communication 2.2.s7)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesProfile(), parameters, document, 204)
@@ -320,7 +320,7 @@
                 });
         });
 
-        it('An LRS\'s Activity Profile API, rejects a POST request if the document is found and either document\'s type is not "application/json" with error code 400 Bad Request (Communication.md#2.2.s8.b1)', function () {
+        it('An LRS\'s Activity Profile API, rejects a POST request if the document is found and either document\'s type is not "application/json" with error code 400 Bad Request (Communication 2.2.s8.b1)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument(),
                 anotherDocument = 'abc';
@@ -330,7 +330,7 @@
                 });
         });
 
-        it('An LRS\'s Activity Profile API performs a Document Merge if a document is found and both it and the document in the POST request have type "application/json" (Communication.md#2.2.s7.b1, Communication.md#2.2.s7.b2, Communication.md#2.2.s7.b3)', function () {
+        it('An LRS\'s Activity Profile API performs a Document Merge if a document is found and both it and the document in the POST request have type "application/json" (Communication 2.2.s7.b1, Communication 2.2.s7.b2, Communication 2.2.s7.b3)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = {
                     car: 'Honda'
@@ -354,7 +354,7 @@
                 });
         });
 
-        it('An LRS\'s Agent Profile API, upon receiving a POST request for a document not currently in the LRS, treats it as a PUT request and store a new document (Communication.md#2.2.s7)', function () {
+        it('An LRS\'s Agent Profile API, upon receiving a POST request for a document not currently in the LRS, treats it as a PUT request and store a new document (Communication 2.2.s7)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 204)
@@ -367,7 +367,7 @@
                 });
         });
 
-        it('An LRS\'s Agent Profile API, rejects a POST request if the document is found and either document\'s type is not "application/json" with error code 400 Bad Request (Communication.md#2.2.s8.b1)', function () {
+        it('An LRS\'s Agent Profile API, rejects a POST request if the document is found and either document\'s type is not "application/json" with error code 400 Bad Request (Communication 2.2.s8.b1)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument(),
                 anotherDocument = 'abc';
@@ -377,7 +377,7 @@
                 });
         });
 
-        it('An LRS\'s Agent Profile API performs a Document Merge if a document is found and both it and the document in the POST request have type "application/json" (Communication.md#2.2.s7.b1, Communication.md#2.2.s7.b2, Communication.md#2.2.s7.b3)', function () {
+        it('An LRS\'s Agent Profile API performs a Document Merge if a document is found and both it and the document in the POST request have type "application/json" (Communication 2.2.s7.b1, Communication 2.2.s7.b2, Communication 2.2.s7.b3)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = {
                     car: 'Honda'
@@ -401,20 +401,20 @@
                 });
         });
 
-        it('An LRS\'s State API accepts PUT requests (Communication.md#2.3)', function () {
+        it('An LRS\'s State API accepts PUT requests (Communication 2.3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('put', helper.getEndpointActivitiesState(), parameters, document, 204);
         });
 
-        it('An LRS\'s State API rejects a PUT request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.3.s3.table1.row1)', function () {
+        it('An LRS\'s State API rejects a PUT request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.3.s3.table1.row1)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             delete parameters.activityId;
             return sendRequest('put', helper.getEndpointActivitiesState(), parameters, document, 400);
         });
 
-        describe('An LRS\'s State API rejects a PUT request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row1)', function () {
+        describe('An LRS\'s State API rejects a PUT request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication 2.3.s3.table1.row1)', function () {
             var invalidTypes = [{ key: 'value'}, 1, true, undefined];
             invalidTypes.forEach(function (type) {
                 it('Should State API reject a PUT request with activityId type ' + type, function () {
@@ -427,28 +427,28 @@
         });
 
         //+* In 1.0.3, the IRI requires a scheme, but does not in 1.0.2, thus we only test type String in this version**
-        it('An LRS\'s State API rejects a PUT request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.3.s3.table1.row2)', function () {
+        it('An LRS\'s State API rejects a PUT request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.3.s3.table1.row2)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             delete parameters.agent;
             return sendRequest('put', helper.getEndpointActivitiesState(), parameters, document, 400);
         });
 
-        it('An LRS\'s State API rejects a PUT request with "agent" as a parameter if it is not in JSON format with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row2)', function () {
+        it('An LRS\'s State API rejects a PUT request with "agent" as a parameter if it is not in JSON format with error code 400 Bad Request (format, Communication 2.3.s3.table1.row2)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             parameters.agent = 'not JSON brah';
             return sendRequest('put', helper.getEndpointActivitiesState(), parameters, document, 400);
         });
 
-        it('An LRS\'s State API can process a PUT request with "registration" as a parameter (multiplicity, Communication.md#2.3.s3.table1.row3)', function () {
+        it('An LRS\'s State API can process a PUT request with "registration" as a parameter (multiplicity, Communication 2.3.s3.table1.row3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             parameters.registration = helper.generateUUID();
             return sendRequest('put', helper.getEndpointActivitiesState(), parameters, document, 204);
         });
 
-        describe('An LRS\'s State API rejects a PUT request with "registration" as a parameter if it is not a UUID with error code 400 Bad Request(format, Communication.md#2.3.s3.table1.row3)', function () {
+        describe('An LRS\'s State API rejects a PUT request with "registration" as a parameter if it is not a UUID with error code 400 Bad Request(format, Communication 2.3.s3.table1.row3)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, 'not UUID'];
             invalidTypes.forEach(function (type) {
@@ -460,33 +460,33 @@
             });
         });
 
-        it('An LRS\'s State API rejects a PUT request without "stateId" as a parameter with error code 400 Bad Request(multiplicity, Communication.md#2.3.s3.table1.row4)', function () {
+        it('An LRS\'s State API rejects a PUT request without "stateId" as a parameter with error code 400 Bad Request(multiplicity, Communication 2.3.s3.table1.row4)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             delete parameters.stateId;
             return sendRequest('put', helper.getEndpointActivitiesState(), parameters, document, 400);
         });
 
-        it('An LRS\'s State API upon processing a successful PUT request returns code 204 No Content (Communication.md#2.3.s3)', function () {
+        it('An LRS\'s State API upon processing a successful PUT request returns code 204 No Content (Communication 2.3.s3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('put', helper.getEndpointActivitiesState(), parameters, document, 204);
         });
 
-        it('An LRS\'s State API accepts POST requests (Communication.md#2.3)', function () {
+        it('An LRS\'s State API accepts POST requests (Communication 2.3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204);
         });
 
-        it('An LRS\'s State API rejects a POST request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.3.s3.table1.row1)', function () {
+        it('An LRS\'s State API rejects a POST request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.3.s3.table1.row1)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             delete parameters.activityId;
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 400);
         });
 
-        describe('An LRS\'s State API rejects a POST request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row1)', function () {
+        describe('An LRS\'s State API rejects a POST request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication 2.3.s3.table1.row1)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, { key: 'value'}, undefined];
             invalidTypes.forEach(function (type) {
@@ -498,14 +498,14 @@
             });
         });
 
-        it('An LRS\'s State API rejects a POST request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.3.s3.table1.row2)', function () {
+        it('An LRS\'s State API rejects a POST request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.3.s3.table1.row2)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             delete parameters.agent;
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 400);
         });
 
-        describe('An LRS\'s State API rejects a POST request with "agent" as a parameter if it is not in JSON format with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row2)', function () {
+        describe('An LRS\'s State API rejects a POST request with "agent" as a parameter if it is not in JSON format with error code 400 Bad Request (format, Communication 2.3.s3.table1.row2)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, 'not JSON', undefined];
             invalidTypes.forEach(function (type) {
@@ -517,14 +517,14 @@
             });
         });
 
-        it('An LRS\'s State API can process a POST request with "registration" as a parameter (multiplicity, Communication.md#2.3.s3.table1.row3)', function () {
+        it('An LRS\'s State API can process a POST request with "registration" as a parameter (multiplicity, Communication 2.3.s3.table1.row3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             parameters.registration = helper.generateUUID();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204);
         });
 
-        describe('An LRS\'s State API rejects a POST request with "registration" as a parameter if it is not a UUID with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row3)', function () {
+        describe('An LRS\'s State API rejects a POST request with "registration" as a parameter if it is not a UUID with error code 400 Bad Request (format, Communication 2.3.s3.table1.row3)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, 'not UUID'];
             invalidTypes.forEach(function (type) {
@@ -536,20 +536,20 @@
             });
         });
 
-        it('An LRS\'s State API rejects a POST request without "stateId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.3.s3.table1.row4)', function () {
+        it('An LRS\'s State API rejects a POST request without "stateId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.3.s3.table1.row4)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             delete parameters.stateId;
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 400);
         });
 
-        it('An LRS\'s State API upon processing a successful POST request returns code 204 No Content (Communication.md#2.3.s3)', function () {
+        it('An LRS\'s State API upon processing a successful POST request returns code 204 No Content (Communication 2.3.s3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204);
         });
 
-        it('An LRS\'s State API accepts GET requests (Communication.md#2.3)', function () {
+        it('An LRS\'s State API accepts GET requests (Communication 2.3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204)
@@ -562,13 +562,13 @@
                 });
         });
 
-        it('An LRS\'s State API rejects a GET request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.3.s3.table1.row1)', function () {
+        it('An LRS\'s State API rejects a GET request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.3.s3.table1.row1)', function () {
             var parameters = helper.buildState();
             delete parameters.activityId;
             return sendRequest('get', helper.getEndpointActivitiesState(), parameters, undefined, 400);
         });
 
-        describe('An LRS\'s State API rejects a GET request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row1)', function () {
+        describe('An LRS\'s State API rejects a GET request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication 2.3.s3.table1.row1)', function () {
             var invalidTypes = [1, true, { key: 'value'}, undefined];
             invalidTypes.forEach(function (type) {
                 it('Should reject GET with "activityId" with type ' + type, function () {
@@ -579,13 +579,13 @@
             });
         });
 
-        it('An LRS\'s State API rejects a GET request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.3.s3.table1.row2)', function () {
+        it('An LRS\'s State API rejects a GET request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.3.s3.table1.row2)', function () {
             var parameters = helper.buildState();
             delete parameters.agent;
             return sendRequest('get', helper.getEndpointActivitiesState(), parameters, undefined, 400);
         });
 
-        describe('An LRS\'s State API rejects a GET request with "agent" as a parameter if it is not in JSON format with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row2)', function () {
+        describe('An LRS\'s State API rejects a GET request with "agent" as a parameter if it is not in JSON format with error code 400 Bad Request (format, Communication 2.3.s3.table1.row2)', function () {
             var invalidTypes = [1, true, 'not JSON', undefined];
             invalidTypes.forEach(function (type) {
                 it('Should reject GET with "agent" with type ' + type, function () {
@@ -596,7 +596,7 @@
             });
         });
 
-        it('An LRS\'s State API can process a GET request with "registration" as a parameter (multiplicity, Communication.md#2.3.s3.table1.row3)', function () {
+        it('An LRS\'s State API can process a GET request with "registration" as a parameter (multiplicity, Communication 2.3.s3.table1.row3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             parameters.registration = helper.generateUUID();
@@ -610,7 +610,7 @@
                 });
         });
 
-        describe('An LRS\'s State API rejects a GET request with "registration" as a parameter if it is not a UUID with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row3)', function () {
+        describe('An LRS\'s State API rejects a GET request with "registration" as a parameter if it is not a UUID with error code 400 Bad Request (format, Communication 2.3.s3.table1.row3)', function () {
             var invalidTypes = [1, true, 'not UUID'];
             invalidTypes.forEach(function (type) {
                 it('Should reject GET with "registration" with type ' + type, function () {
@@ -621,7 +621,7 @@
             });
         });
 
-        it('An LRS\'s State API can process a GET request with "stateId" as a parameter (multiplicity, Communication.md#2.3.s3.table1.row4)', function () {
+        it('An LRS\'s State API can process a GET request with "stateId" as a parameter (multiplicity, Communication 2.3.s3.table1.row4)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204)
@@ -634,7 +634,7 @@
                 });
         });
 
-        it('An LRS\'s State API can process a GET request with "since" as a parameter (multiplicity, Communication.md#2.3.s4.table1.row4)', function () {
+        it('An LRS\'s State API can process a GET request with "since" as a parameter (multiplicity, Communication 2.3.s4.table1.row4)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204)
@@ -648,13 +648,13 @@
                 });
         });
 
-        it('An LRS\'s State API rejects a GET request with "since" as a parameter if it is not a "TimeStamp", with error code 400 Bad Request (format, Communication.md#2.3.s4.table1.row4)', function () {
+        it('An LRS\'s State API rejects a GET request with "since" as a parameter if it is not a "TimeStamp", with error code 400 Bad Request (format, Communication 2.3.s4.table1.row4)', function () {
             var parameters = helper.buildState();
             parameters.since = 'not a timestamp';
             return sendRequest('get', helper.getEndpointActivitiesState(), parameters, undefined, 400);
         });
 
-        it('An LRS\'s State API upon processing a successful GET request with a valid "stateId" as a parameter returns the document satisfying the requirements of the GET and code 200 OK (Communication.md#2.3.s3)', function () {
+        it('An LRS\'s State API upon processing a successful GET request with a valid "stateId" as a parameter returns the document satisfying the requirements of the GET and code 200 OK (Communication 2.3.s3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204)
@@ -668,7 +668,7 @@
         });
 
         //+* NOTE:  **There is no requirement here that the LRS reacts to the "since" parameter in the case of a GET request with valid "stateId" - this is intentional**
-        it('An LRS\'s State API upon processing a successful GET request without "stateId" as a parameter returns an array of ids of state data documents satisfying the requirements of the GET and code 200 OK (Communication.md#2.3.s4)', function () {
+        it('An LRS\'s State API upon processing a successful GET request without "stateId" as a parameter returns an array of ids of state data documents satisfying the requirements of the GET and code 200 OK (Communication 2.3.s4)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204)
@@ -682,7 +682,7 @@
                 });
         });
 
-        it('An LRS\'s returned array of ids from a successful GET request all refer to documents stored after the TimeStamp in the "since" parameter of the GET request (Communication.md#2.3.s4.table1.row4)', function () {
+        it('An LRS\'s returned array of ids from a successful GET request all refer to documents stored after the TimeStamp in the "since" parameter of the GET request (Communication 2.3.s4.table1.row4)', function () {
             var document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), helper.buildState(), document, 204)
                 .then(function () {
@@ -701,7 +701,7 @@
                 });
         });
 
-        it('An LRS\'s State API accepts DELETE requests (Communication.md#2.3)', function () {
+        it('An LRS\'s State API accepts DELETE requests (Communication 2.3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204)
@@ -710,13 +710,13 @@
                 });
         });
 
-        it('An LRS\'s State API rejects a DELETE request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.3.s3.table1.row1)', function () {
+        it('An LRS\'s State API rejects a DELETE request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.3.s3.table1.row1)', function () {
             var parameters = helper.buildState();
             delete parameters.activityId;
             return sendRequest('delete', helper.getEndpointActivitiesState(), parameters, undefined, 400);
         });
 
-        describe('An LRS\'s State API rejects a DELETE request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row1)', function () {
+        describe('An LRS\'s State API rejects a DELETE request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication 2.3.s3.table1.row1)', function () {
             var invalidTypes = [1, true, { key: 'value'}, undefined];
             invalidTypes.forEach(function (type) {
                 it('Should reject DELETE with "activityId" with type ' + type, function () {
@@ -727,13 +727,13 @@
             });
         });
 
-        it('An LRS\'s State API rejects a DELETE request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.3.s3.table1.row2)', function () {
+        it('An LRS\'s State API rejects a DELETE request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.3.s3.table1.row2)', function () {
             var parameters = helper.buildState();
             delete parameters.agent;
             return sendRequest('delete', helper.getEndpointActivitiesState(), parameters, undefined, 400);
         });
 
-        describe('An LRS\'s State API rejects a DELETE request with "agent" as a parameter if it is not in JSON format with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row2)', function () {
+        describe('An LRS\'s State API rejects a DELETE request with "agent" as a parameter if it is not in JSON format with error code 400 Bad Request (format, Communication 2.3.s3.table1.row2)', function () {
             var invalidTypes = [1, true, 'not JSON', undefined];
             invalidTypes.forEach(function (type) {
                 it('Should reject DELETE with "agent" with type ' + type, function () {
@@ -744,7 +744,7 @@
             });
         });
 
-        it('An LRS\'s State API can process a DELETE request with "registration" as a parameter (multiplicity, Communication.md#2.3.s3.table1.row3)', function () {
+        it('An LRS\'s State API can process a DELETE request with "registration" as a parameter (multiplicity, Communication 2.3.s3.table1.row3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             parameters.registration = helper.generateUUID();
@@ -754,7 +754,7 @@
                 });
         });
 
-        describe('An LRS\'s State API rejects a DELETE request with "registration" as a parameter if it is not a UUID with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row3)', function () {
+        describe('An LRS\'s State API rejects a DELETE request with "registration" as a parameter if it is not a UUID with error code 400 Bad Request (format, Communication 2.3.s3.table1.row3)', function () {
             var invalidTypes = [1, true, 'not UUID'];
             invalidTypes.forEach(function (type) {
                 it('Should reject DELETE with "registration" with type ' + type, function () {
@@ -765,7 +765,7 @@
             });
         });
 
-        it('An LRS\'s State API can process a DELETE request with "stateId" as a parameter (multiplicity, Communication.md#2.3.s3.table1.row4)', function () {
+        it('An LRS\'s State API can process a DELETE request with "stateId" as a parameter (multiplicity, Communication 2.3.s3.table1.row4)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204)
@@ -785,7 +785,7 @@
             });
         });
 
-        it('An LRS\'s State API upon processing a successful DELETE request with a valid "stateId" as a parameter deletes the document satisfying the requirements of the DELETE and returns code 204 No Content (Communication.md#2.3.s3)', function () {
+        it('An LRS\'s State API upon processing a successful DELETE request with a valid "stateId" as a parameter deletes the document satisfying the requirements of the DELETE and returns code 204 No Content (Communication 2.3.s3)', function () {
             var parameters = helper.buildState(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204)
@@ -795,7 +795,7 @@
         });
 
         //+* NOTE:  **There is no requirement here that the LRS reacts to the "since" parameter in the case of a GET request with valid "stateId" - this is intentional**
-        it('An LRS\'s State API upon processing a successful DELETE request without "stateId" as a parameter deletes documents satisfying the requirements of the DELETE and code 204 No Content (Communication.md#2.3.s5)', function () {
+        it('An LRS\'s State API upon processing a successful DELETE request without "stateId" as a parameter deletes documents satisfying the requirements of the DELETE and code 204 No Content (Communication 2.3.s5)', function () {
             var parameters = helper.buildState();
             parameters.activityId = parameters.activityId + helper.generateUUID();
 
@@ -817,7 +817,7 @@
                 });
         });
 
-        it('An LRS\'s Activities API accepts GET requests (Communication.md#2.5)', function () {
+        it('An LRS\'s Activities API accepts GET requests (Communication 2.5)', function () {
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
@@ -836,7 +836,7 @@
             return sendRequest('get', helper.getEndpointActivities(), undefined, undefined, 400);
         });
 
-        it('An LRS\'s Activities API rejects a GET request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication.md#2.5.s1.table1.row1)', function () {
+        it('An LRS\'s Activities API rejects a GET request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication 2.5.s1.table1.row1)', function () {
             var invalidTypes = [1, true, { key: 'value'}];
             invalidTypes.forEach(function (type) {
                 it('Should reject GET with "since" with type ' + type, function () {
@@ -847,7 +847,7 @@
             });
         });
 
-        it('An LRS\'s Activities API upon processing a successful GET request returns the complete Activity Object (Communication.md#2.5.s1)', function () {
+        it('An LRS\'s Activities API upon processing a successful GET request returns the complete Activity Object (Communication 2.5.s1)', function () {
             var templates = [
                 {statement: '{{statements.object_activity}}'},
                 {object: '{{activities.default}}'}
@@ -870,20 +870,20 @@
                 });
         });
 
-        it('An LRS\'s Activity Profile API accepts PUT requests (Communication.md#2.7)', function () {
+        it('An LRS\'s Activity Profile API accepts PUT requests (Communication 2.7)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             return sendRequest('put', helper.getEndpointActivitiesProfile(), parameters, document, 204);
         });
 
-        it('An LRS\'s Activity Profile API rejects a PUT request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.7.s3.table1.row1)', function () {
+        it('An LRS\'s Activity Profile API rejects a PUT request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.7.s3.table1.row1)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             delete parameters.activityId;
             return sendRequest('put', helper.getEndpointActivitiesProfile(), parameters, document, 400);
         });
 
-        describe('An LRS\'s Activity Profile API API rejects a PUT request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication.md#2.7.s3.table1.row1)', function () {
+        describe('An LRS\'s Activity Profile API API rejects a PUT request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication 2.7.s3.table1.row1)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, { key: 'value'}];
             invalidTypes.forEach(function (type) {
@@ -895,33 +895,33 @@
             });
         });
 
-        it('An LRS\'s Activity Profile API rejects a PUT request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.7.s3.table1.row2)', function () {
+        it('An LRS\'s Activity Profile API rejects a PUT request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.7.s3.table1.row2)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             delete parameters.profileId;
             return sendRequest('put', helper.getEndpointActivitiesProfile(), parameters, document, 400);
         });
 
-        it('An LRS\'s Activity Profile API upon processing a successful PUT request returns code 204 No Content (Communication.md#2.7.s2)', function () {
+        it('An LRS\'s Activity Profile API upon processing a successful PUT request returns code 204 No Content (Communication 2.7.s2)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             return sendRequest('put', helper.getEndpointActivitiesProfile(), parameters, document, 204);
         });
 
-        it('An LRS\'s Activity Profile API accepts POST requests (Communication.md#2.7)', function () {
+        it('An LRS\'s Activity Profile API accepts POST requests (Communication 2.7)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesProfile(), parameters, document, 204);
         });
 
-        it('An LRS\'s Activity Profile API rejects a POST request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.7.s3.table1.row1)', function () {
+        it('An LRS\'s Activity Profile API rejects a POST request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.7.s3.table1.row1)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             delete parameters.activityId;
             return sendRequest('post', helper.getEndpointActivitiesProfile(), parameters, document, 400);
         });
 
-        describe('An LRS\'s Activity Profile API rejects a POST request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication.md#2.7.s3.table1.row1)', function () {
+        describe('An LRS\'s Activity Profile API rejects a POST request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication 2.7.s3.table1.row1)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, { key: 'value'}];
             invalidTypes.forEach(function (type) {
@@ -933,31 +933,31 @@
             });
         });
 
-        it('An LRS\'s Activity Profile API rejects a POST request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.7.s3.table1.row2)', function () {
+        it('An LRS\'s Activity Profile API rejects a POST request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.7.s3.table1.row2)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             delete parameters.profileId;
             return sendRequest('post', helper.getEndpointActivitiesProfile(), parameters, document, 400);
         });
 
-        it('An LRS\'s Activity Profile API upon processing a successful POST request returns code 204 No Content (Communication.md#2.7.s2)', function () {
+        it('An LRS\'s Activity Profile API upon processing a successful POST request returns code 204 No Content (Communication 2.7.s2)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesProfile(), parameters, document, 204);
         });
 
-        it('An LRS\'s Activity Profile API accepts DELETE requests (Communication.md#2.7)', function () {
+        it('An LRS\'s Activity Profile API accepts DELETE requests (Communication 2.7)', function () {
             var parameters = helper.buildActivityProfile();
             return sendRequest('delete', helper.getEndpointActivitiesProfile(), parameters, undefined, 204);
         });
 
-        it('An LRS\'s Activity Profile API rejects a DELETE request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.7.s3.table1.row1)', function () {
+        it('An LRS\'s Activity Profile API rejects a DELETE request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.7.s3.table1.row1)', function () {
             var parameters = helper.buildActivityProfile();
             delete parameters.activityId;
             return sendRequest('delete', helper.getEndpointActivitiesProfile(), parameters, undefined, 400);
         });
 
-        describe('An LRS\'s Activity Profile API rejects a DELETE request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication.md#2.7.s3.table1.row1)', function () {
+        describe('An LRS\'s Activity Profile API rejects a DELETE request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication 2.7.s3.table1.row1)', function () {
             var invalidTypes = [1, true, { key: 'value'}];
             invalidTypes.forEach(function (type) {
                 it('Should reject DELETE with "activityId" with type ' + type, function () {
@@ -968,18 +968,18 @@
             });
         });
 
-        it('An LRS\'s Activity Profile API rejects a DELETE request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.7.s3.table1.row2)', function () {
+        it('An LRS\'s Activity Profile API rejects a DELETE request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.7.s3.table1.row2)', function () {
             var parameters = helper.buildActivityProfile();
             delete parameters.profileId;
             return sendRequest('delete', helper.getEndpointActivitiesProfile(), parameters, undefined, 400);
         });
 
-        it('An LRS\'s Activity Profile API upon processing a successful DELETE request deletes the associated profile and returns code 204 No Content (Communication.md#2.7.s2)', function () {
+        it('An LRS\'s Activity Profile API upon processing a successful DELETE request deletes the associated profile and returns code 204 No Content (Communication 2.7.s2)', function () {
             var parameters = helper.buildActivityProfile();
             return sendRequest('delete', helper.getEndpointActivitiesProfile(), parameters, '', 204);
         });
 
-        it('An LRS\'s Activity Profile API accepts GET requests (Communication.md#2.7)', function () {
+        it('An LRS\'s Activity Profile API accepts GET requests (Communication 2.7)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesProfile(), parameters, document, 204)
@@ -988,13 +988,13 @@
                 });
         });
 
-        it('An LRS\'s Activity Profile API rejects a GET request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication.md#2.7.s3.table1.row1, Communication.md#2.7.s4.table1.row1)', function () {
+        it('An LRS\'s Activity Profile API rejects a GET request without "activityId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.7.s3.table1.row1, Communication 2.7.s4.table1.row1)', function () {
             var parameters = helper.buildActivityProfile();
             delete parameters.activityId;
             return sendRequest('get', helper.getEndpointActivitiesProfile(), parameters, undefined, 400);
         });
 
-        describe('An LRS\'s Activity Profile API rejects a GET request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication.md#2.7.s3.table1.row1, Communication.md#2.7.s4.table1.row1)', function () {
+        describe('An LRS\'s Activity Profile API rejects a GET request with "activityId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication 2.7.s3.table1.row1, Communication 2.7.s4.table1.row1)', function () {
             var invalidTypes = [1, true, { key: 'value'}];
             invalidTypes.forEach(function (type) {
                 it('Should reject GET with "activityId" with type ' + type, function () {
@@ -1005,7 +1005,7 @@
             });
         });
 
-        it('An LRS\'s Activity Profile API can process a GET request with "since" as a parameter (multiplicity, Communication.md#2.7.s4.table1.row2)', function () {
+        it('An LRS\'s Activity Profile API can process a GET request with "since" as a parameter (multiplicity, Communication 2.7.s4.table1.row2)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesProfile(), parameters, document, 204)
@@ -1015,7 +1015,7 @@
                 });
         });
 
-        describe('An LRS\'s Activity Profile API rejects a GET request with "since" as a parameter if it is not a "TimeStamp", with error code 400 Bad Request (format, Communication.md#2.7.s4.table1.row2)', function () {
+        describe('An LRS\'s Activity Profile API rejects a GET request with "since" as a parameter if it is not a "TimeStamp", with error code 400 Bad Request (format, Communication 2.7.s4.table1.row2)', function () {
             var invalidTypes = [1, true, 'not Timestamp'];
             invalidTypes.forEach(function (type) {
                 it('Should reject GET with "since" with type ' + type, function () {
@@ -1026,7 +1026,7 @@
             });
         });
 
-        it('An LRS\'s Activity Profile API upon processing a successful GET request with a valid "profileId" as a parameter returns the document satisfying the requirements of the GET and code 200 OK (7.5.c)', function () {
+        it('An LRS\'s Activity Profile API upon processing a successful GET request with a valid "profileId" as a parameter returns the document satisfying the requirements of the GET and code 200 OK (Communication 2.7.s3)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointActivitiesProfile(), parameters, document, 204)
@@ -1039,7 +1039,7 @@
                 });
         });
 
-        it('An LRS\'s Activity Profile API upon processing a successful GET request without "profileId" as a parameter returns an array of ids of activity profile documents satisfying the requirements of the GET and code 200 OK (7.5.d)', function () {
+        it('An LRS\'s Activity Profile API upon processing a successful GET request without "profileId" as a parameter returns an array of ids of activity profile documents satisfying the requirements of the GET and code 200 OK (Communication 2.7.s3)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             parameters.activityId = parameters.activityId + helper.generateUUID();
@@ -1055,7 +1055,7 @@
                 });
         });
 
-        it('An LRS\'s returned array of ids from a successful GET request all refer to documents stored after the TimeStamp in the "since" parameter of the GET request if such a parameter was present (7.5.table3.row2)', function () {
+        it('An LRS\'s returned array of ids from a successful GET request all refer to documents stored after the TimeStamp in the "since" parameter of the GET request if such a parameter was present (Communication 2.7.s4.table1.row2)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
             parameters.activityId = parameters.activityId + helper.generateUUID();
@@ -1073,28 +1073,28 @@
                 });
         });
 
-        it('An LRS\'s Agents API accepts GET requests (7.6)', function () {
+        it('An LRS\'s Agents API accepts GET requests (Communication 2.4.s2)', function () {
             return sendRequest('get', helper.getEndpointAgents(), helper.buildAgent(), undefined, 200);
         });
 
-        it('An LRS\'s Agents API rejects a GET request without "agent" as a parameter with error code 400 Bad Request (multiplicity, 7.6.table2.row1.c)', function () {
+        it('An LRS\'s Agents API rejects a GET request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.4.s2.table1.row1)', function () {
             return sendRequest('get', helper.getEndpointAgents(), undefined, undefined, 400);
         });
 
-        it('An LRS\'s Agent Profile API accepts PUT requests (7.6)', function () {
+        it('An LRS\'s Agent Profile API accepts PUT requests (Communication 2.6.s2)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('put', helper.getEndpointAgentsProfile(), parameters, document, 204);
         });
 
-        it('An LRS\'s Agent Profile API rejects a PUT request without "agent" as a parameter with error code 400 Bad Request (multiplicity, 7.6.table3.row1.c)', function () {
+        it('An LRS\'s Agent Profile API rejects a PUT request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.6.s3.table1.row1)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             delete parameters.agent;
             return sendRequest('put', helper.getEndpointAgentsProfile(), parameters, document, 400);
         });
 
-        describe('An LRS\'s Agent Profile API rejects a PUT request with "agent" as a parameter if it is not an Agent Object with error code 400 Bad Request (format, 7.6.table3.row1.a)', function () {
+        describe('An LRS\'s Agent Profile API rejects a PUT request with "agent" as a parameter if it is not an Agent Object with error code 400 Bad Request (format, Communication 2.6.s3.table1.row1)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, 'not Agent', { key: 'value'}];
             invalidTypes.forEach(function (type) {
@@ -1106,33 +1106,33 @@
             });
         });
 
-        it('An LRS\'s Agent Profile API rejects a PUT request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, 7.6.table3.row2.c)', function () {
+        it('An LRS\'s Agent Profile API rejects a PUT request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.6.s3.table1.row2)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             delete parameters.profileId;
             return sendRequest('put', helper.getEndpointAgentsProfile(), parameters, document, 400);
         });
 
-        it('An LRS\'s Agent Profile API upon processing a successful PUT request returns code 204 No Content (7.6.e)', function () {
+        it('An LRS\'s Agent Profile API upon processing a successful PUT request returns code 204 No Content (Communication 2.6.s3)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('put', helper.getEndpointAgentsProfile(), parameters, document, 204);
         });
 
-        it('An LRS\'s Agent Profile API accepts POST requests (7.6)', function () {
+        it('An LRS\'s Agent Profile API accepts POST requests (Communication 2.6.s2)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 204);
         });
 
-        it('An LRS\'s Agent Profile API rejects a POST request without "agent" as a parameter with error code 400 Bad Request (multiplicity, 7.6.table3.row1.c)', function () {
+        it('An LRS\'s Agent Profile API rejects a POST request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.6.s3.table1.row1)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             delete parameters.agent;
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 400);
         });
 
-        it('An LRS\'s Agent Profile API rejects a POST request with "agent" as a parameter if it is not an Agent Object with error code 400 Bad Request (format, 7.6.table3.row1.a)', function () {
+        it('An LRS\'s Agent Profile API rejects a POST request with "agent" as a parameter if it is not an Agent Object with error code 400 Bad Request (format, Communication 2.6.s3.table1.row1)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, { key: 'value'}];
             invalidTypes.forEach(function (type) {
@@ -1144,31 +1144,31 @@
             });
         });
 
-        it('An LRS\'s Agent Profile API rejects a POST request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, 7.6.table3.row2.c)', function () {
+        it('An LRS\'s Agent Profile API rejects a POST request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.6.s3.table1.row2)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             delete parameters.profileId;
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 400);
         });
 
-        it('An LRS\'s Agent Profile API upon processing a successful POST request returns code 204 No Content (7.6.e)', function () {
+        it('An LRS\'s Agent Profile API upon processing a successful POST request returns code 204 No Content (Communication 2.6.s3)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 204);
         });
 
-        it('An LRS\'s Agent Profile API accepts DELETE requests (7.6)', function () {
+        it('An LRS\'s Agent Profile API accepts DELETE requests (Communication 2.6.s2)', function () {
             var parameters = helper.buildAgentProfile();
             return sendRequest('delete', helper.getEndpointAgentsProfile(), parameters, undefined, 204);
         });
 
-        it('An LRS\'s Agent Profile API rejects a DELETE request without "agent" as a parameter with error code 400 Bad Request (multiplicity, 7.6.table3.row1.c)', function () {
+        it('An LRS\'s Agent Profile API rejects a DELETE request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.6.s3.table1.row1)', function () {
             var parameters = helper.buildAgentProfile();
             delete parameters.agent;
             return sendRequest('delete', helper.getEndpointAgentsProfile(), parameters, undefined, 400);
         });
 
-        describe('An LRS\'s Agent Profile API rejects a DELETE request with "agent" as a parameter if it is not an Agent Object with error code 400 Bad Request (format, 7.6.table3.row1.a)', function () {
+        describe('An LRS\'s Agent Profile API rejects a DELETE request with "agent" as a parameter if it is not an Agent Object with error code 400 Bad Request (format, Communication 2.6.s3.table1.row1)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, { key: 'value'}];
             invalidTypes.forEach(function (type) {
@@ -1180,13 +1180,13 @@
             });
         });
 
-        it('An LRS\'s Agent Profile API rejects a DELETE request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, 7.6.table3.row2.c)', function () {
+        it('An LRS\'s Agent Profile API rejects a DELETE request without "profileId" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.6.s3.table1.row2)', function () {
             var parameters = helper.buildAgentProfile();
             delete parameters.profileId;
             return sendRequest('delete', helper.getEndpointAgentsProfile(), parameters, undefined, 400);
         });
 
-        describe('An LRS\'s Agent Profile API rejects a DELETE request with "profileId" as a parameter if it is not type "String" with error code 400 Bad Request (format, 7.6.table3.row2.a)', function () {
+        describe('An LRS\'s Agent Profile API rejects a DELETE request with "profileId" as a parameter if it is not type "String" with error code 400 Bad Request (format, Communication 2.6.s3.table1.row2)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, { key: 'value'}];
             invalidTypes.forEach(function (type) {
@@ -1198,7 +1198,7 @@
             });
         });
 
-        it('An LRS\'s Agent Profile API upon processing a successful DELETE request deletes the associated profile and returns code 204 No Content (7.6.e)', function () {
+        it('An LRS\'s Agent Profile API upon processing a successful DELETE request deletes the associated profile and returns code 204 No Content (Communication 2.6.s3)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 204)
@@ -1207,7 +1207,7 @@
                 });
         });
 
-        it('An LRS\'s Agent Profile API accepts GET requests (7.6)', function () {
+        it('An LRS\'s Agent Profile API accepts GET requests (Communication 2.6.s2)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 204)
@@ -1216,14 +1216,14 @@
                 });
         });
 
-        it('An LRS\'s Agent Profile API rejects a GET request without "agent" as a parameter with error code 400 Bad Request (multiplicity, 7.6.table3.row1.c, 7.6.table4.row1.c)', function () {
+        it('An LRS\'s Agent Profile API rejects a GET request without "agent" as a parameter with error code 400 Bad Request (multiplicity, Communication 2.6.s4.table1.row1)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             delete parameters.agent;
             return sendRequest('get', helper.getEndpointAgentsProfile(), parameters, document, 400);
         });
 
-        describe('An LRS\'s Agent Profile API rejects a GET request with "agent" as a parameter if it is not an Actor Object with error code 400 Bad Request (format, 7.6.table3.row1.c, 7.6.table4.row1.c)', function () {
+        describe('An LRS\'s Agent Profile API rejects a GET request with "agent" as a parameter if it is not an Actor Object with error code 400 Bad Request (format, Communication 2.6.s4.table1.row1)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, {"not_actor": "yup"}, 'not Actor'];
             invalidTypes.forEach(function (type) {
@@ -1235,7 +1235,7 @@
             });
         });
 
-        it('An LRS\'s Agent Profile API can process a GET request with "since" as a parameter (Multiplicity, 7.6.table4.row2.a, 7.5.table4.row2.c)', function () {
+        it('An LRS\'s Agent Profile API can process a GET request with "since" as a parameter (Multiplicity, Communication 2.6.s4.table1.row2)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 204)
@@ -1245,7 +1245,7 @@
                 });
         });
 
-        describe('An LRS\'s Agent Profile API rejects a GET request with "since" as a parameter if it is not a "TimeStamp", with error code 400 Bad Request (format, 7.6.table4.row2.a)', function () {
+        describe('An LRS\'s Agent Profile API rejects a GET request with "since" as a parameter if it is not a "TimeStamp", with error code 400 Bad Request (format, Communication 2.6.s4.table1.row2)', function () {
             var document = helper.buildDocument(),
                 invalidTypes = [1, true, { key: 'value'}, 'not timestamp'];
             invalidTypes.forEach(function (type) {
@@ -1257,7 +1257,7 @@
             });
         });
 
-        it('An LRS\'s Agent Profile API upon processing a successful GET request with a valid "profileId" as a parameter returns the document satisfying the requirements of the GET and code 200 OK (7.6, 7.6.f)', function () {
+        it('An LRS\'s Agent Profile API upon processing a successful GET request with a valid "profileId" as a parameter returns the document satisfying the requirements of the GET and code 200 OK (Communication 2.6.s3)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 204)
@@ -1270,7 +1270,7 @@
                 });
         });
 
-        it('An LRS\'s Agent Profile API upon processing a successful GET request without "profileId" as a parameter returns an array of ids of agent profile documents satisfying the requirements of the GET and code 200 OK (7.6, 7.6.g)', function () {
+        it('An LRS\'s Agent Profile API upon processing a successful GET request without "profileId" as a parameter returns an array of ids of agent profile documents satisfying the requirements of the GET and code 200 OK (Communication 2.6.s4)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 204)
@@ -1284,7 +1284,7 @@
                 });
         });
 
-        it('An LRS\'s returned array of ids from a successful GET request all refer to documents stored after the TimeStamp in the "since" parameter of the GET request if such a parameter was present (7.6.table4.row2, 7.6.g)', function () {
+        it('An LRS\'s returned array of ids from a successful GET request all refer to documents stored after the TimeStamp in the "since" parameter of the GET request if such a parameter was present (Communication 2.7.s4.table1.row2)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             return sendRequest('post', helper.getEndpointAgentsProfile(), parameters, document, 204)
@@ -1299,11 +1299,11 @@
                 });
         });
 
-        it('An LRS\'s About API accepts GET requests (7.7.b)', function () {
+        it('An LRS\'s About API accepts GET requests (Communication 2.8)', function () {
             return sendRequest('get', '/about', undefined, undefined, 200);
         });
 
-        it('An LRS\'s About API upon processing a successful GET request returns a version property and code 200 OK (multiplicity, 7.7.table1.row1.c, 7.7.c)', function () {
+        it('An LRS\'s About API upon processing a successful GET request returns a version property and code 200 OK (multiplicity, Communication 2.8.s4)', function () {
             return sendRequest('get', '/about', undefined, undefined, 200)
                 .then(function (res) {
                     var about = res.body;
@@ -1311,7 +1311,7 @@
                 });
         });
 
-        it('An LRS\'s About API\'s version property is an array of strings (format, 7.7.table1.row1.a)', function () {
+        it('An LRS\'s About API\'s version property is an array of strings (format, Communication 2.8.s4.table1.row1)', function () {
             return sendRequest('get', '/about', undefined, undefined, 200)
                 .then(function (res) {
                     var about = res.body;
@@ -1319,7 +1319,7 @@
                 });
         });
 
-        it('An LRS\'s About API\'s version property contains at least one string of "1.0.1" (7.7.d)', function () {
+        it('An LRS\'s About API\'s version property contains at least one string of "1.0.1" (Communication 2.8.s5.b1.b1)', function () {
             return sendRequest('get', '/about', undefined, undefined, 200)
                 .then(function (res) {
                     var about = res.body;
@@ -1335,7 +1335,7 @@
                 });
         });
 
-        it('An LRS\'s About API\'s version property can only have values of ".9", ".95", "1.0", "1.0.0", or ""1.0." + X" with (7.7.d.a)', function () {
+        it('An LRS\'s About API\'s version property can only have values of ".9", ".95", "1.0", "1.0.0", or ""1.0." + X" with (Communication 2.8.s5.b1.b1)', function () {
             return sendRequest('get', '/about', undefined, undefined, 200)
                 .then(function (res) {
                     var about = res.body;
@@ -1347,7 +1347,7 @@
                 });
         });
 
-        it('An LRS\'s About API upon processing a successful GET request can return an Extension with code 200 OK (multiplicity, 7.7.table1.row2.c, 7.7.c)', function () {
+        it('An LRS\'s About API upon processing a successful GET request can return an Extension with code 200 OK (multiplicity, Communication 2.8.s4.table1.row2)', function () {
             return sendRequest('get', helper.getEndpointAbout(), undefined, undefined, 200)
                 .then(function (res) {
                     var about = res.body;
@@ -1355,19 +1355,19 @@
                 });
         });
 
-        it('Any LRS API that accepts a POST request can accept a POST request with a single query string parameter named "method" on that request (7.8.a)', function () {
+        it('Any LRS API that accepts a POST request can accept a POST request with a single query string parameter named "method" on that request (Communication 1.3.s3.b2)', function () {
             var parameters = {method: 'post'},
                 formBody = helper.buildFormBody(helper.buildStatement());
             return sendRequest('post', helper.getEndpointStatements(), parameters, formBody, 200);
         });
 
-        it('An LRS must parse the body of a Cross Origin Request and construct a new Request from it with the type of Request being the same as the value of the "method" parameter (7.8.a, 7.8.b)', function () {
+        it('An LRS must parse the body of a Cross Origin Request and construct a new Request from it with the type of Request being the same as the value of the "method" parameter (Communication 1.3.s3.b6)', function () {
             var parameters = {method: 'put'},
                 formBody = helper.buildFormBody(helper.buildStatement(), helper.generateUUID());
             return sendRequest('post', helper.getEndpointStatements(), parameters, formBody, 204)
         });
 
-        it('An LRS will map form parameters from the body of the Cross Origin Request to the similarly named HTTP Headers in the new Request (7.8.b)', function () {
+        it('An LRS will map form parameters from the body of the Cross Origin Request to the similarly named HTTP Headers in the new Request (Communication 1.3.s3.b7)', function () {
             var parameters = {method: 'get'};
             return sendRequest('post', helper.getEndpointStatements(), parameters, undefined, 200)
                 .then(function (res) {
@@ -1377,18 +1377,18 @@
                 });
         });
 
-        it('An LRS rejects a new Request in the same way for violating rules of this document as it would a normal Request **Implicit**', function () {
+        it('An LRS rejects a new Request in the same way for violating rules of this document as it would a normal Request (**Implicit**, Communication 1.3)', function () {
             var parameters = {method: 'post'},
                 formBody = helper.buildFormBody(helper.buildStatement().actor);
             return sendRequest('post', helper.getEndpointStatements(), parameters, formBody, 400);
         });
 
-        it('An LRS will reject any request sending content which does not have a form parameter with the name of "content" (7.8.c)', function () {
+        it('An LRS will reject any request sending content which does not have a form parameter with the name of "content" (Communication 1.3.s3.b4)', function () {
             var parameters = {method: 'put'};
             return sendRequest('post', helper.getEndpointStatements(), parameters, undefined, 400);
         });
 
-        it('An LRS will reject a new Request with a form parameter named "content" if "content" is found to be binary data with error code 400 Bad Request (7.8.c)', function () {
+        it('An LRS will reject a new Request with a form parameter named "content" if "content" is found to be binary data with error code 400 Bad Request (Communication 1.3.s3.b5)', function () {
             var parameters = {method: 'post'},
                 formBody = {
                 'X-Experience-API-Version': '1.0.2',
@@ -1398,7 +1398,7 @@
             return sendRequest('post', helper.getEndpointStatements(), parameters, formBody, 400);
         });
 
-        it('An LRS will reject a Cross Origin Request which attempts to send attachment data with error code 400 Bad Request (7.8.d)', function () {
+        it('An LRS will reject a Cross Origin Request which attempts to send attachment data with error code 400 Bad Request (Communication 1.3.s3.b15)', function () {
             var templates = [
                 {statement: '{{statements.attachment}}'}
             ];
@@ -1414,7 +1414,7 @@
             return sendRequest('post', helper.getEndpointStatements(), parameters, body, 400);
         });
 
-        it('An LRS accepts HEAD requests (7.10.a)', function () {
+        it('An LRS accepts HEAD requests (Communication 1.1)', function () {
             it('should succeed GET about with no body', function () {
                 return sendRequest('head', helper.getEndpointAbout(), undefined, undefined, 200);
             });
@@ -1447,7 +1447,7 @@
             });
         });
 
-        describe('An LRS responds to a HEAD request in the same way as a GET request, but without the message-body (7.10.a, 7.10.a.a) **This means run ALL GET tests with HEAD**', function () {
+        describe('An LRS responds to a HEAD request in the same way as a GET request, but without the message-body (Communication 1.1.s3.b1) **This means run ALL GET tests with HEAD**', function () {
             it('should succeed HEAD about with no body', function () {
                 return sendRequest('head', helper.getEndpointAbout(), undefined, undefined, 200)
                     .then(function (res) {
@@ -1528,7 +1528,7 @@
             });
         });
 
-        it('A Person Object is an Object (7.6)', function () {
+        it('A Person Object is an Object (Communication 2.4.s2)', function () {
             return sendRequest('get', helper.getEndpointAgents(), helper.buildAgent(), undefined, 200)
                 .then(function (res) {
                     var person = res.body;
@@ -1536,7 +1536,7 @@
                 });
         });
 
-        it('A Person Object\'s "objectType" property is a String and is "Person" (Format, Vocabulary, 7.6.table1.row1.a, 7.6.table1.row1.b)', function () {
+        it('A Person Object\'s "objectType" property is a String and is "Person" (Format, Vocabulary, Communication 2.4.s5.table1.row1)', function () {
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
@@ -1553,7 +1553,7 @@
                 });
         });
 
-        it('A Person Object\'s "name" property is an Array of Strings (Multiplicity, 7.6.table1.row2.a)', function () {
+        it('A Person Object\'s "name" property is an Array of Strings (Multiplicity, Communication 2.4.s5.table1.row2)', function () {
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
@@ -1573,7 +1573,7 @@
                 });
         });
 
-        it('A Person Object\'s "mbox" property is an Array of IRIs (Multiplicity, 7.6.table1.row3.a)', function () {
+        it('A Person Object\'s "mbox" property is an Array of IRIs (Multiplicity, Communication 2.4.s5.table1.row3)', function () {
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
@@ -1595,7 +1595,7 @@
                 });
         });
 
-        it('A Person Object\'s "mbox" entries have the form "mailto:emailaddress" (Format, 7.6.table1.row3.a)', function () {
+        it('A Person Object\'s "mbox" entries have the form "mailto:emailaddress" (Format, Communication 2.4.s5.table1.row3)', function () {
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
@@ -1616,7 +1616,7 @@
                 });
         });
 
-        it('A Person Object\'s "mbox_sha1sum" property is an Array of Strings (Multiplicity, 7.6.table1.row4.a)', function () {
+        it('A Person Object\'s "mbox_sha1sum" property is an Array of Strings (Multiplicity, Communication 2.4.s5.table1.row4)', function () {
             var templates = [
                 {statement: '{{statements.no_actor}}'},
                 {actor: '{{agents.mbox_sha1sum}}'}
@@ -1637,7 +1637,7 @@
                 });
         });
 
-        it('A Person Object\'s "openid" property is an Array of Strings (Multiplicity, 7.6.table1.row5.a)', function () {
+        it('A Person Object\'s "openid" property is an Array of Strings (Multiplicity, Communication 2.4.s5.table1.row5)', function () {
             var templates = [
                 {statement: '{{statements.no_actor}}'},
                 {actor: '{{agents.openid}}'}
@@ -1658,7 +1658,7 @@
                 });
         });
 
-        it('A Person Object\'s "account" property is an Array of Account Objects (Multiplicity, 7.6.table1.row6.a)', function () {
+        it('A Person Object\'s "account" property is an Array of Account Objects (Multiplicity, Communication 2.4.s5.table1.row6)', function () {
             var templates = [
                 {statement: '{{statements.no_actor}}'},
                 {actor: '{{agents.account}}'}
@@ -1679,32 +1679,32 @@
                 });
         });
 
-        // it('A Person Object uses an "objectType" property exactly one time (Multiplicity, 7.6.table1.row1.c)', function (done) {
+        // it('A Person Object uses an "objectType" property exactly one time (Multiplicity, Communication 2.4.s5.table1.row1)', function (done) {
         //     // JSON Parser validation
         //     done();
         // });
         //
-        // it('A Person Object uses a "name" property at most one time (Multiplicity, 7.6.table1.row2.c)', function (done) {
+        // it('A Person Object uses a "name" property at most one time (Multiplicity, Communication 2.4.s5.table1.row2)', function (done) {
         //     // JSON Parser validation
         //     done();
         // });
         //
-        // it('A Person Object uses a "mbox" property at most one time (Multiplicity, 7.6.table1.row3.c)', function (done) {
+        // it('A Person Object uses a "mbox" property at most one time (Multiplicity, Communication 2.4.s5.table1.row3)', function (done) {
         //     // JSON Parser validation
         //     done();
         // });
         //
-        // it('A Person Object uses a "mbox_sha1sum" property at most one time (Multiplicity, 7.6.table1.row4.c)', function (done) {
+        // it('A Person Object uses a "mbox_sha1sum" property at most one time (Multiplicity, Communication 2.4.s5.table1.row4)', function (done) {
         //     // JSON Parser validation
         //     done();
         // });
         //
-        // it('A Person Object uses an "openid" property at most one time (Multiplicity, 7.6.table1.row5.c)', function (done) {
+        // it('A Person Object uses an "openid" property at most one time (Multiplicity, Communication 2.4.s5.table1.row5)', function (done) {
         //     // JSON Parser validation
         //     done();
         // });
         //
-        // it('A Person Object uses an "account" property at most one time (Multiplicity, 7.6.table1.row6.c)', function (done) {
+        // it('A Person Object uses an "account" property at most one time (Multiplicity, Communication 2.4.s5.table1.row6)', function (done) {
         //     // JSON Parser validation
         //     done();
         // });

@@ -275,7 +275,7 @@
                 ]
             },
             {
-                name: 'An Activity\'s "definition" property is an Object (Type, Data 2.2.4.4.1.table1.row3.a)',
+                name: 'An Activity\'s "definition" property is an Object (Type, Data 2.2.4.4.1.table1.row3)',
                 config: [
                     {
                         name: 'statement activity "definition" not object',
@@ -437,7 +437,7 @@
                 ]
             },
             {
-                name: 'An Activity Definition\'s "name" property is a Language Map (Type, Data 2.2.4.4.1.table2.row1.a)',
+                name: 'An Activity Definition\'s "name" property is a Language Map (Type, Data 2.2.4.4.1.table2.row1)',
                 config: [
                     {
                         name: 'statement object "name" language map is numeric',
@@ -480,7 +480,7 @@
                 ]
             },
             {
-                name: 'An Activity Definition\'s "description" property is a Language Map (Type, Data 2.2.4.4.1.table2.row2.a)',
+                name: 'An Activity Definition\'s "description" property is a Language Map (Type, Data 2.4.4.1.table2.row2)',
                 config: [
                     {
                         name: 'statement object "description" language map is numeric',
