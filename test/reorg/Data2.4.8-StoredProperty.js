@@ -13,9 +13,11 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Formatting Requirements (Data 2.2)', () => {
+describe('Stored Property Requirements (Data 2.4.8)', () => {
 
-
+    it('', (done) => {
+        done();
+    });
 
 });
 
