@@ -851,6 +851,887 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
             .expect(400, done);
         });
 
+        it('statement actor "group mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.actor}}'},
+                {actor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement authority "agent mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.authority}}'},
+                {authority: '{{agents.mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement authority "group mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.authority}}'},
+                {authority: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context instructor "agent mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{agents.mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context instructor "group mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context team "group mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement as "agent mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_actor}}'},
+                {object: '{{agents.mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement as "group mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_actor}}'},
+                {object: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s "agent mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.actor}}'},
+                {actor: '{{agents.mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s "group mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.actor}}'},
+                {actor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context instructor "agent mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{agents.mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context instructor "group mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context team "group mbox" not IRI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_IRI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders())
+            .json(data)
+            .expect(400, done);
+        });
+
+    });
+
+    describe('An "mbox" property has the form "mailto:email address" (Syntax, Data 2.4.2.3.s3.table1.row1)', () => {
+
+        it('statement actor "agent mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.actor}}'},
+                {actor: '{{agents.mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement actor "group mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.actor}}'},
+                {actor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement authority "agent mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.authority}}'},
+                {authority: '{{agents.mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement authority "group mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.authority}}'},
+                {authority: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context instructor "agent mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{agents.mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context instructor "group mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context team "group mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement as "agent mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.object_actor}}'},
+                {object: '{{agents.mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement as "group mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.object_actor}}'},
+                {object: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s "agent mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.actor}}'},
+                {actor: '{{agents.mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s "group mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.actor}}'},
+                {actor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context instructor "agent mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{agents.mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context instructor "group mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context team "group mbox" not mailto:email address', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox}}'},
+                {mbox: INVALID_MAIL_TO_EMAIL}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+    });
+
+    describe('An "mbox_sha1sum" property is a String (Type, Data 2.4.2.3.s3.table1.row2)', () => {
+
+        it('statement actor "agent mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.actor}}'},
+                {actor: '{{agents.mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement actor "group mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.actor}}'},
+                {actor: '{{groups.identified_mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement authority "agent mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.authority}}'},
+                {authority: '{{agents.mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement authority "group mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.authority}}'},
+                {authority: '{{groups.identified_mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context instructor "agent mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{agents.mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context instructor "group mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context team "group mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement as "agent mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.object_actor}}'},
+                {object: '{{agents.mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement as "group mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.object_actor}}'},
+                {object: '{{groups.identified_mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s "agent mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.actor}}'},
+                {actor: '{{agents.mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s "group mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.actor}}'},
+                {actor: '{{groups.identified_mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context instructor "agent mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{agents.mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context instructor "group mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context team "group mbox_sha1sum" not string', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_mbox_sha1sum}}'},
+                {mbox_sha1sum: INVALID_OBJECT}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+    });
+
+    describe('An "openid" property is a URI (Type, Data 2.4.2.3.s3.table1.row3)', () => {
+
+        it('statement actor "agent openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.actor}}'},
+                {actor: '{{agents.openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement actor "group openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.actor}}'},
+                {actor: '{{groups.identified_openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement authority "agent openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.authority}}'},
+                {authority: '{{agents.openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement authority "group openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.authority}}'},
+                {authority: '{{groups.identified_openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context instructor "agent openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{agents.openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context instructor "group openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement context team "group openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement as "agent openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_actor}}'},
+                {object: '{{agents.openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement as "group openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_actor}}'},
+                {object: '{{groups.identified_openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s "agent openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.actor}}'},
+                {actor: '{{agents.openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s "group openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.actor}}'},
+                {actor: '{{groups.identified_openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context instructor "agent openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{agents.openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context instructor "group openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
+        it('statement substatement"s context team "group openid" not URI', (done) => {
+            var templates = [
+                {statement: '{{statements.object_substatement}}'},
+                {object: '{{substatements.context}}'},
+                {context: '{{contexts.instructor}}'},
+                {instructor: '{{groups.identified_openid}}'},
+                {openid: INVALID_URI}
+            ];
+            var data = helper.createFromTemplate(templates).statement;
+
+            request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(addAllHeaders({}))
+            .json(data)
+            .expect(400, done);
+        });
+
     });
 
 });
