@@ -6,7 +6,7 @@
  *
  */
 
-(function (module, fs, extend, moment, request, requestPromise, chai, liburl, Joi, helper, multipartParser, redirect) {
+(function (module, fs, extend, moment, request, requestPromise, chai, liburl, Joi, helper, multipartParser, redirect, templatingSelection) {
     // "use strict";
 
     var expect = chai.expect;
@@ -15,6 +15,7 @@
 
 describe('Special Data Types and Rules (Data 4.0)', () => {
 
+    templatingSelection.createTemplate("statements.js");
     it('', (done) => {
         done();
     });
@@ -31,4 +32,4 @@ describe('Special Data Types and Rules (Data 4.0)', () => {
         return parsed;
     }
 
-}(module, require('fs'), require('extend'), require('moment'), require('super-request'), require('supertest-as-promised'), require('chai'), require('url'), require('joi'), require('./../helper'), require('./../multipartParser'), require('./../redirect.js')));
+}(module, require('fs'), require('extend'), require('moment'), require('super-request'), require('supertest-as-promised'), require('chai'), require('url'), require('joi'), require('./../helper'), require('./../multipartParser'), require('./../redirect.js'), require('./../templatingSelection.js')));

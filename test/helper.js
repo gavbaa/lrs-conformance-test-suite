@@ -390,7 +390,6 @@ if (!process.env.EB_NODE_COMMAND) {
                 if (file.indexOf('.js') <= 0) {
                     return;
                 }
-
                 var configFile = require(CONFIG_FOLDER_RELATIVE + '/' + file);
                 var config = configFile.config();
                 validateConfiguration(config, '/' + file);
@@ -398,6 +397,28 @@ if (!process.env.EB_NODE_COMMAND) {
                 list = list.concat(config);
             });
             return list;
+        },
+        /**
+         * Creates test configuration object from one configuration file
+         *
+         */
+        getSingleTestConfiguration: function (fileName) {
+          var files = fs.readdirSync(CONFIG_FOLDER);
+          var fileExists = false;
+          files.forEach(function(file){
+              if (file === fileName)
+                  fileExists = true;
+          });
+
+          if (!fileExists){
+            throw (new Error('Invalid configuration "missing name": ' + location));
+            return false;
+          }
+
+            var configFile = require(CONFIG_FOLDER_RELATIVE + '/' + fileName);
+            var config = configFile.config();
+
+            return config;
         },
         /**
          * Make the TIME_MARGIN available to tests
