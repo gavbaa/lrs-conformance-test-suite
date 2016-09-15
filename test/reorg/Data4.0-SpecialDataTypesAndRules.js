@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Speical Data Types and Rules Requirements (Data 4.0)', () => {
+describe('Special Data Types and Rules (Data 4.0)', () => {
 
     it('', (done) => {
         done();

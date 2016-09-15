@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Content Type (Communication 1.5)', () => {
+describe('Content Type Requirements (Communication 1.5)', () => {
 
     describe('An LRS rejects with error code 400 Bad Request, a Request which uses Attachments and does not have a "Content-Type" header with value "application/json" or "multipart/mixed" (Format, Communication 1.5)', function () {
         var data;

@@ -1521,7 +1521,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1536,7 +1536,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1551,7 +1551,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1566,7 +1566,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1582,7 +1582,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1598,7 +1598,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1614,7 +1614,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1629,7 +1629,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1644,7 +1644,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1660,7 +1660,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1676,7 +1676,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1693,7 +1693,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1710,7 +1710,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });
@@ -1727,7 +1727,7 @@ describe('Actor Property Requirements (Data 2.4.2)', () => {
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
-            .headers(addAllHeaders({}))
+            .headers(helper.addAllHeaders({}))
             .json(data)
             .expect(400, done);
         });

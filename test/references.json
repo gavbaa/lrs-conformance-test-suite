@@ -4176,8 +4176,8 @@
         "1.0.3_ref": "Communication 2.3.s4",
         "1.0.3_link": ["Communication.md#2.3.s4"]
     },
-    "An LRS's returned array of ids from a successful GET request all refer to documents stored after the TimeStamp in the \"since\" parameter of the GET request": {
-        "name": "An LRS's returned array of ids from a successful GET request all refer to documents stored after the TimeStamp in the \"since\" parameter of the GET request",
+    "An LRS's returned array of ids from a successful GET request to the State Resource all refer to documents stored after the TimeStamp in the \"since\" parameter of the GET request": {
+        "name": "An LRS's returned array of ids from a successful GET request to the State Resource all refer to documents stored after the TimeStamp in the \"since\" parameter of the GET request",
         "1.0.2_ref_text": "7.4.table2.row4",
         "1.0.2_ref": "7.4.table2.row4",
         "1.0.3_ref": "Communication 2.3.s4.table1.row4",
@@ -4495,18 +4495,27 @@
         "name": "An LRS's Activity Profile API upon processing a successful GET request without \"profileId\" as a parameter returns an array of ids of activity profile documents satisfying the requirements of the GET and code 200 OK",
         "1.0.2_ref_text": "7.5.d",
         "1.0.2_ref": "7.5.d",
-        "1.0.3_ref": "Communication 2.7.s3",
+        "1.0.3_ref": "Communication 2.7.s4",
         "1.0.3_link": [
-            "Communication.md#2.7.s3"
+            "Communication.md#2.7.s4"
         ]
     },
-    "An LRS's returned array of ids from a successful GET request all refer to documents stored after the TimeStamp in the \"since\" parameter of the GET request if such a parameter was present": {
-        "name": "An LRS's returned array of ids from a successful GET request all refer to documents stored after the TimeStamp in the \"since\" parameter of the GET request if such a parameter was present",
+    "An LRS's returned array of ids from a successful GET request to the Activity Profile Resource all refer to documents stored after the TimeStamp in the \"since\" parameter of the GET request if such a parameter was present": {
+        "name": "An LRS's returned array of ids from a successful GET request Activity Profile Resource all refer to documents stored after the TimeStamp in the \"since\" parameter of the GET request if such a parameter was present",
         "1.0.2_ref_text": "7.6.table4.row2, 7.6.g",
         "1.0.2_ref": "7.6.table4.row2, 7.6.g",
         "1.0.3_ref": "Communication 2.7.s4.table1.row2",
         "1.0.3_link": [
             "Communication.md#2.7.s4.table1.row2"
+        ]
+    },
+    "An LRS's returned array of ids from a successful GET request to the Agent Profile Resource all refer to documents stored after the TimeStamp in the \"since\" parameter of the GET request if such a parameter was present": {
+        "name": "An LRS's returned array of ids from a successful GET request Agent Profile Resource all refer to documents stored after the TimeStamp in the \"since\" parameter of the GET request if such a parameter was present",
+        "1.0.2_ref_text": "7.6.table4.row2, 7.6.g",
+        "1.0.2_ref": "7.6.table4.row2, 7.6.g",
+        "1.0.3_ref": "Communication 2.6.s4.table1.row2",
+        "1.0.3_link": [
+            "Communication.md#2.6.s4.table1.row2"
         ]
     },
     "An LRS's Agents API accepts GET requests": {
@@ -4896,9 +4905,9 @@
         "name": "An LRS will reject a Cross Origin Request which attempts to send attachment data with error code 400 Bad Request",
         "1.0.2_ref_text": "7.8.d",
         "1.0.2_ref": "7.8.d",
-        "1.0.3_ref": "Communication 1.3.s3.b15",
+        "1.0.3_ref": "Communication 1.3.s3.b14",
         "1.0.3_link": [
-            "Communication.md#1.3.s3.b15"
+            "Communication.md#1.3.s3.b14"
         ]
     },
     "An LRS accepts HEAD requests": {
@@ -6108,5 +6117,175 @@
 		"name": "LRS must reject with 400 a signed statement with malformed signature - bad JSON serialization of statement",
 		"1.0.3_ref": ["Data 32-hosted-metadata"],
 		"1.0.3_link": ["Data.md#32-hosted-metadata"]
-	}
+	},
+    "Formatting Requirements": {
+        "name": "Formatting Requirements",
+        "1.0.3_ref": ["Data 2.2"],
+        "1.0.3_link": ["Data.md#2.2"]
+    },
+    "Statement Lifecycle Requirements": {
+        "name": "Statement Lifecycle Requirements",
+        "1.0.3_ref": ["Data 2.3"],
+        "1.0.3_link": ["Data.md#2.3"]
+    },
+    "Voiding Requirements": {
+        "name": "Voiding Requirements",
+        "1.0.3_ref": ["Data 2.3.2"],
+        "1.0.3_link": ["Data.md#2.3.2"]
+    },
+    "Id Property Requirements": {
+        "name": "Id Property Requirements",
+        "1.0.3_ref": ["Data 2.4.1"],
+        "1.0.3_link": ["Data.md#2.4.1"]
+    },
+    "Actor Property Requirements": {
+        "name": "Actor Property Requirements",
+        "1.0.3_ref": ["Data 2.4.2"],
+        "1.0.3_link": ["Data.md#2.4.2"]
+    },
+    "Verb Property Requirements": {
+        "name": "Verb Property Requirements",
+        "1.0.3_ref": ["Data 2.4.3"],
+        "1.0.3_link": ["Data.md#2.4.3"]
+    },
+    "Object Property Requirements": {
+        "name": "Object Property Requirements",
+        "1.0.3_ref": ["Data 2.4.4"],
+        "1.0.3_link": ["Data.md#2.4.4"]
+    },
+    "Result Property Requirements": {
+        "name": "Result Property Requirements",
+        "1.0.3_ref": ["Data 2.4.5"],
+        "1.0.3_link": ["Data.md#2.4.5"]
+    },
+    "Context Property Requirements": {
+        "name": "Context Property Requirements",
+        "1.0.3_ref": ["Data 2.4.6"],
+        "1.0.3_link": ["Data.md#2.4.6"]
+    },
+    "Timestamp Property Requirements": {
+        "name": "Timestamp Property Requirements",
+        "1.0.3_ref": ["Data 2.4.7"],
+        "1.0.3_link": ["Data.md#2.4.7"]
+    },
+    "Stored Property Requirements": {
+        "name": "Stored Property Requirements",
+        "1.0.3_ref": ["Data 2.4.8"],
+        "1.0.3_link": ["Data.md#2.4.8"]
+    },
+    "Authority Property Requirements": {
+        "name": "Authority Property Requirements",
+        "1.0.3_ref": ["Data 2.4.9"],
+        "1.0.3_link": ["Data.md#2.4.9"]
+    },
+    "Version Property Requirements": {
+        "name": "Version Property Requirements",
+        "1.0.3_ref": ["Data 2.4.10"],
+        "1.0.3_link": ["Data.md#2.4.10"]
+    },
+    "Attachments Property Requirements": {
+        "name": "Attachments Property Requirements",
+        "1.0.3_ref": ["Data 2.4.11"],
+        "1.0.3_link": ["Data.md#2.4.11"]
+    },
+    "Retrieval of Statements": {
+        "name": "Retrieval of Statements",
+        "1.0.3_ref": ["Data 2.5"],
+        "1.0.3_link": ["Data.md#2.5"]
+    },
+    "Signed Statements": {
+        "name": "Signed Statements",
+        "1.0.3_ref": ["Data 2.6"],
+        "1.0.3_link": ["Data.md#2.6"]
+    },
+    "Metadata Requirements": {
+        "name": "Metadata Requirements",
+        "1.0.3_ref": ["Data 3.0"],
+        "1.0.3_link": ["Data.md#3.0"]
+    },
+    "Special Data Types and Rules": {
+        "name": "Special Data Types and Rules",
+        "1.0.3_ref": ["Data 4.0"],
+        "1.0.3_link": ["Data.md#4.0"]
+    },
+    "HEAD Request Implementation Requirements": {
+        "name": "HEAD Request Implementation Requirements",
+        "1.0.3_ref": ["Communication 1.1"],
+        "1.0.3_link": ["Communication.md#1.1"]
+    },
+    "Headers Requirements": {
+        "name": "Headers Requirements",
+        "1.0.3_ref": ["Communication 1.2"],
+        "1.0.3_link": ["Communication.md#1.2"]
+    },
+    "Alternate Request Syntax Requirements": {
+        "name": "Alternate Request Syntax Requirements",
+        "1.0.3_ref": ["Communication 1.3"],
+        "1.0.3_link": ["Communication.md#1.3"]
+    },
+    "Encoding Requirements": {
+        "name": "Encoding Requirements",
+        "1.0.3_ref": ["Communication 1.4"],
+        "1.0.3_link": ["Communication.md#1.4"]
+    },
+    "Content Type Requirements": {
+        "name": "Content Type Requirements",
+        "1.0.3_ref": ["Communication 1.5"],
+        "1.0.3_link": ["Communication.md#1.5"]
+    },
+    "Statement Resource Requirements": {
+        "name": "Statement Resource Requirements",
+        "1.0.3_ref": ["Communication 2.1"],
+        "1.0.3_link": ["Communication.md#2.1"]
+    },
+    "Documents Resource Requirements": {
+        "name": "Documents Resource Requirements",
+        "1.0.3_ref": ["Communication 2.2"],
+        "1.0.3_link": ["Communication.md#2.2"]
+    },
+    "State Resource Requirements": {
+        "name": "State Resource Requirements",
+        "1.0.3_ref": ["Communication 2.3"],
+        "1.0.3_link": ["Communication.md#2.3"]
+    },
+    "Agents Resource Requirements": {
+        "name": "Agents Resource Requirements",
+        "1.0.3_ref": ["Communication 2.4"],
+        "1.0.3_link": ["Communication.md#2.4"]
+    },
+    "Activities Resource Requirements": {
+        "name": "Activities Resource Requirements",
+        "1.0.3_ref": ["Communication 2.5"],
+        "1.0.3_link": ["Communication.md#2.5"]
+    },
+    "Agent Profile Resource Requirements": {
+        "name": "Agent Profile Resource Requirements",
+        "1.0.3_ref": ["Communication 2.6"],
+        "1.0.3_link": ["Communication.md#2.6"]
+    },
+    "Activity Profile Resource Requirements": {
+        "name": "Activity Profile Resource Requirements",
+        "1.0.3_ref": ["Communication 2.7"],
+        "1.0.3_link": ["Communication.md#2.7"]
+    },
+    "About Resource Requirements": {
+        "name": "About Resource Requirements",
+        "1.0.3_ref": ["Communication 2.8"],
+        "1.0.3_link": ["Communication.md#2.8"]
+    },
+    "Concurrency Requirements": {
+        "name": "Concurrency Requirements",
+        "1.0.3_ref": ["Communication 3.1"],
+        "1.0.3_link": ["Communication.md#3.1"]
+    },
+    "Error Codes Requirements": {
+        "name": "Error Codes Requirements",
+        "1.0.3_ref": ["Communication 3.2"],
+        "1.0.3_link": ["Communication.md#3.2"]
+    },
+    "Versioning Requirements": {
+        "name": "Versioning Requirements",
+        "1.0.3_ref": ["Communication 3.3"],
+        "1.0.3_link": ["Communication.md#3.3"]
+    }
 }

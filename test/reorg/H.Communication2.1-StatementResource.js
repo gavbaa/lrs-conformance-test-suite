@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Statement Resource (Communication 2.1)', () => {
+describe('Statement Resource Requirements (Communication 2.1)', () => {
 
     describe('An LRS has a Statement API with endpoint "base IRI"+"/statements" (Communication 2.1)', function () {
         it('should allow "/statements" POST', function (done) {

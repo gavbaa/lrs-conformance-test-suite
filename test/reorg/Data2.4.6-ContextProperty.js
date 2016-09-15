@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Context Property (Data 2.4.6)', () => {
+describe('Context Property Requirements (Data 2.4.6)', () => {
 
     describe('An LRS returns a ContextActivity in an array, even if only a single ContextActivity is returned (Data 2.4.6.2.s4.b3)', function () {
         var types = ['parent', 'grouping', 'category', 'other'];

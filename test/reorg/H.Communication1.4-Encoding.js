@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Encoding (Communication 1.4)', () => {
+describe('Encoding Requirements (Communication 1.4)', () => {
 
     it('All Strings are encoded and interpreted as UTF-8 (Communication 1.4.s1.b1)', function (done) {
       var verbTemplate = 'http://adlnet.gov/expapi/test/unicode/target/';

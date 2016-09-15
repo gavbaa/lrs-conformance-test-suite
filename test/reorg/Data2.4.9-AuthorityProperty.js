@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Authority Property (Data 2.4.9)', () => {
+describe('Authority Property Requirements (Data 2.4.9)', () => {
 
     describe('An LRS populates the "authority" property if it is not provided in the Statement, based on header information with the Agent corresponding to the user (contained within the header) (Implicit, Data 2.4.9.s3.b4) ', function () {
 

@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('ID Property Requirements (Data 2.4.1)', () => {
+describe('Id Property Requirements (Data 2.4.1)', () => {
 
     it('', (done) => {
         done();

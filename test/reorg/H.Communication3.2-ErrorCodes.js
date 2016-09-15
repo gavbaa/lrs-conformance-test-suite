@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Error Codes (Communication 3.2)', () => {
+describe('Error Codes Requirements (Communication 3.2)', () => {
 
     describe('An LRS rejects with error code 405 Method Not Allowed to any request to an API which uses a method not in this specification **Implicit ONLY in that HTML normally does this behavior** (Communication 3.2.s3.b1)', function () {
         it('should fail with statement "DELETE"', function (done) {

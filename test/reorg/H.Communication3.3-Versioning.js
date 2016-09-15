@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Versioning (Communication 3.3)', () => {
+describe('Versioning Requirements (Communication 3.3)', () => {
 
     describe('An LRS MUST set the X-Experience-API-Version header to the latest patch version (Communication 3.3.s3.b2)', function () {
         it('should respond with header "version" set to "1.0.3"', function (done) {

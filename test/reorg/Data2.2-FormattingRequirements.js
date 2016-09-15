@@ -13,6 +13,11 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
+    before("Before all tests are run", function (done) {
+        console.log("Setting up\nAccounting for time differential between test suite and lrs");
+        helper.setTimeMargin(done);
+    });
+
 describe('Formatting Requirements (Data 2.2)', () => {
 
     it('', (done) => {

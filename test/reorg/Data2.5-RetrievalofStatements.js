@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Retieval of Statements (Data 2.5)', () => {
+describe('Retrieval of Statements (Data 2.5)', () => {
 
     describe('A "statements" property is an Array of Statements (Type, Data 2.5.s2.table1.row1)', function () {
         var statement;
@@ -376,7 +376,7 @@ describe('Retieval of Statements (Data 2.5)', () => {
     });
 
     it('A "more" property\'s referenced container object follows the same rules as the original GET request, originating with a single "statements" property and a single "more" property (Data 2.5.s2.table1.row2)', function (done) {
-    
+
       var verbTemplate = 'http://adlnet.gov/expapi/test/more/target/';
       var id1 = helper.generateUUID();
       var id2 = helper.generateUUID();

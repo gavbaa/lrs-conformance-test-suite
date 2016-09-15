@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Attachments Property (Data 2.4.11)', () => {
+describe('Attachments Property Requirements (Data 2.4.11)', () => {
 
     describe('An LRS rejects with error code 400 Bad Request, a PUT or POST Request which uses Attachments, has a "Content Type" header with value "multipart/mixed", and does not have a body header named "Content-Type" with value "multipart/mixed" (RFC 1341, Data 2.4.11)', function () {
         it('should fail when attachment is raw data and first part content type is not "application/json"', function (done) {

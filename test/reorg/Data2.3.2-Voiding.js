@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Voiding (Data 2.3.2)', () => {
+describe('Voiding Requirements (Data 2.3.2)', () => {
 
     describe('A Voided Statement is defined as a Statement that is not a Voiding Statement and is the Target of a Voiding Statement within the LRS (Data 2.3.2.s2.b3)', function () {
         var voidedId = helper.generateUUID();

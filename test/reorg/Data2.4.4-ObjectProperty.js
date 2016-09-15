@@ -13,7 +13,7 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Object Property (Data 2.4.4)', () => {
+describe('Object Property Requirements (Data 2.4.4)', () => {
 
     describe('Object Type - Activity (2.4.4.1)', () => {
 
