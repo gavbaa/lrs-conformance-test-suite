@@ -411,7 +411,7 @@ if (!process.env.EB_NODE_COMMAND) {
           });
 
           if (!fileExists){
-            throw (new Error('Invalid configuration "missing name": ' + location));
+            throw (new Error('Invalid configuration "missing name": ' + fileName));
             return false;
           }
 

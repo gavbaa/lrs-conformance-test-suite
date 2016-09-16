@@ -6,7 +6,7 @@
  *
  */
 
-(function (module, fs, extend, moment, request, requestPromise, chai, liburl, Joi, helper, multipartParser, redirect) {
+(function (module, fs, extend, moment, request, requestPromise, chai, liburl, Joi, helper, multipartParser, redirect, templatingSelection) {
     // "use strict";
 
     var expect = chai.expect;
@@ -20,9 +20,7 @@
 
 describe('Formatting Requirements (Data 2.2)', () => {
 
-    it('', (done) => {
-        done();
-    });
+    templatingSelection.createTemplate('statements.js');
 
 });
 
@@ -36,4 +34,4 @@ describe('Formatting Requirements (Data 2.2)', () => {
         return parsed;
     }
 
-}(module, require('fs'), require('extend'), require('moment'), require('super-request'), require('supertest-as-promised'), require('chai'), require('url'), require('joi'), require('./../helper'), require('./../multipartParser'), require('./../redirect.js')));
+}(module, require('fs'), require('extend'), require('moment'), require('super-request'), require('supertest-as-promised'), require('chai'), require('url'), require('joi'), require('./../helper'), require('./../multipartParser'), require('./../redirect.js'), require('./../templatingSelection.js')));

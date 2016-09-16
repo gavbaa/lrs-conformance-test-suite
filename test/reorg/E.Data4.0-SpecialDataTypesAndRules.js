@@ -13,9 +13,12 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Id Property Requirements (Data 2.4.1)', () => {
+describe('Special Data Types and Rules (Data 4.0)', () => {
 
-    templatingSelection.createTemplate('uuids.js');
+    //Data 4.1
+    templatingSelection.createTemplate("extensions.js");
+    //Data 4.2
+    templatingSelection.createTemplate("languages.js");
 
 });
 

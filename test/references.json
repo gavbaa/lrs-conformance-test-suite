@@ -6238,8 +6238,8 @@
         "1.0.3_ref": ["Communication 2.1"],
         "1.0.3_link": ["Communication.md#2.1"]
     },
-    "Documents Resource Requirements": {
-        "name": "Documents Resource Requirements",
+    "Document Resource Requirements": {
+        "name": "Document Resource Requirements",
         "1.0.3_ref": ["Communication 2.2"],
         "1.0.3_link": ["Communication.md#2.2"]
     },

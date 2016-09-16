@@ -13,11 +13,20 @@
     if(global.OAUTH)
         request = helper.OAuthRequest(request);
 
-describe('Special Data Types and Rules (Data 4.0)', () => {
+describe('Attachments Property Requirements (Data 2.4.11)', () => {
 
-    templatingSelection.createTemplate("statements.js");
-    it('', (done) => {
-        done();
+    templatingSelection.createTemplate('attachments.js');
+
+    describe('An LRS rejects with error code 400 Bad Request, a PUT or POST Request which uses Attachments, has a "Content Type" header with value "multipart/mixed", and does not have a body header named "Content-Type" with value "multipart/mixed" (RFC 1341, Data 2.4.11)', function () {
+        it('should fail when attachment is raw data and first part content type is not "application/json"', function (done) {
+            var header = {'Content-Type': 'multipart/mixed; boundary=-------314159265358979323846'};
+            var attachment = fs.readFileSync('test/v1_0_3/templates/attachments/basic_text_multipart_attachment_invalid_first_part_content_type.part', {encoding: 'binary'});
+
+            request(helper.getEndpointAndAuth())
+                .post(helper.getEndpointStatements())
+                .headers(helper.addAllHeaders(header))
+                .body(attachment).expect(400, done);
+        });
     });
 
 });
