@@ -17,6 +17,7 @@ describe('Voiding Requirements (Data 2.3.2)', () => {
 
     describe('A Voided Statement is defined as a Statement that is not a Voiding Statement and is the Target of a Voiding Statement within the LRS (Data 2.3.2.s2.b3)', function () {
         var voidedId = helper.generateUUID();
+        var stmtTime;
 
         before('persist voided statement', function (done) {
             var templates = [
@@ -41,6 +42,7 @@ describe('Voiding Requirements (Data 2.3.2)', () => {
             var voiding = helper.createFromTemplate(templates);
             voiding = voiding.statement;
             voiding.object.id = voidedId;
+            stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -50,9 +52,11 @@ describe('Voiding Requirements (Data 2.3.2)', () => {
         });
 
         it('should return a voided statement when using GET "voidedStatementId"', function (done) {
+            this.timeout(0);
             var query = helper.getUrlEncoding({voidedStatementId: voidedId});
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {

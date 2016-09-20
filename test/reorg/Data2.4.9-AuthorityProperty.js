@@ -21,12 +21,15 @@ describe('Authority Property Requirements (Data 2.4.9)', () => {
 
         it('should populate authority ', function (done) {
 
+            this.timeout(0);
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
             var data = helper.createFromTemplate(templates);
             data = data.statement;
             data.id = helper.generateUUID();
+            var query = '?statementId=' + data.id;
+            var stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
             .post(helper.getEndpointStatements())
@@ -36,6 +39,7 @@ describe('Authority Property Requirements (Data 2.4.9)', () => {
             .end()
             .get(helper.getEndpointStatements() + '?statementId=' + data.id)
             .headers(helper.addAllHeaders({}))
+            .wait(helper.genDelay(stmtTime, query, data.id))
             .expect(200).end(function (err, res) {
                 if (err) {
                     done(err);

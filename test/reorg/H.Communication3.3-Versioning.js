@@ -17,12 +17,15 @@ describe('Versioning Requirements (Communication 3.3)', () => {
 
     describe('An LRS MUST set the X-Experience-API-Version header to the latest patch version (Communication 3.3.s3.b2)', function () {
         it('should respond with header "version" set to "1.0.3"', function (done) {
+            this.timeout(0);
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
             var data = helper.createFromTemplate(templates);
             data = data.statement;
             data.id = helper.generateUUID();
+            var query = '?statementId=' + data.id;
+            var stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -31,6 +34,7 @@ describe('Versioning Requirements (Communication 3.3)', () => {
                 .expect(200)
                 .end()
                 .get(helper.getEndpointStatements() + '?statementId=' + data.id)
+                .wait(helper.genDelay(stmtTime, query, data.id))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .expect('x-experience-api-version', '1.0.3', done);
@@ -39,12 +43,15 @@ describe('Versioning Requirements (Communication 3.3)', () => {
 
     describe('An LRS will not modify Statements based on a "version" before "1.0.1" (Communication 3.3.s3.b4)', function () {
         it('should not convert newer version format to prior version format', function (done) {
+            this.timeout(0);
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
             var data = helper.createFromTemplate(templates);
             data = data.statement;
             data.id = helper.generateUUID();
+            var query = '?statementId=' + data.id;
+            var stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -53,6 +60,7 @@ describe('Versioning Requirements (Communication 3.3)', () => {
                 .expect(200)
                 .end()
                 .get(helper.getEndpointStatements() + '?statementId=' + data.id)
+                .wait(helper.genDelay(stmtTime, query, data.id))
                 .headers(helper.addAllHeaders({}))
                 .expect(200).end(function (err, res) {
                     if (err) {

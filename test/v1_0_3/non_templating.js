@@ -2556,18 +2556,18 @@
         it('should return "X-Experience-API-Consistent-Through" using GET with "since"', function (done) {
             var query = helper.getUrlEncoding({since: '2012-06-01T19:09:13.245Z'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "until"', function (done) {

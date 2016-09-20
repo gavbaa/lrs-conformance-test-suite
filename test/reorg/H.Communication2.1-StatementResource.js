@@ -153,6 +153,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
     });
 
     describe('An LRS cannot modify a Statement, state, or Object in the event it receives a Statement with statementID equal to a Statement in the LRS already. (Communication 2.1.1.s2.b2)', function () {
+        this.timeout(0);
         it('should not update statement with matching "statementId" on POST', function (done) {
             var templates = [
                 {statement: '{{statements.default}}'}
@@ -160,9 +161,11 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var data = helper.createFromTemplate(templates);
             data = data.statement;
             data.id = helper.generateUUID();
+            var query = '?statementId=' + data.id;
 
             var modified = extend(true, {}, data);
             modified.verb.id = 'different value';
+            var stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -175,6 +178,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
                 .json(modified)
                 .end()
                 .get(helper.getEndpointStatements() + '?statementId=' + data.id)
+                .wait(helper.genDelay(stmtTime, query, data.id))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {
@@ -195,9 +199,10 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var data = helper.createFromTemplate(templates);
             data = data.statement;
             data.id = helper.generateUUID();
-
+            var query = '?statementId=' + data.id;
             var modified = extend(true, {}, data);
             modified.verb.id = 'different value';
+            var stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .put(helper.getEndpointStatements() + '?statementId=' + data.id)
@@ -210,6 +215,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
                 .json(modified)
                 .end()
                 .get(helper.getEndpointStatements() + '?statementId=' + data.id)
+                .wait(helper.genDelay(stmtTime, query, data.id))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {
@@ -333,7 +339,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
     });
 
     describe('An LRS\'s Statement API upon processing a successful GET request with a "statementId" parameter, returns code 200 OK and a single Statement with the corresponding "id".  (Communication 2.1.3.s1)', function () {
-        var id;
+        var id, stmtTime;
 
         before('persist statement', function (done) {
             var templates = [
@@ -344,6 +350,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             data.id = helper.generateUUID();
             id = data.id;
 
+            stmtTime = Date.now();
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
                 .headers(helper.addAllHeaders({}))
@@ -352,6 +359,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
         });
 
         it('should retrieve statement using "statementId"', function (done) {
+            this.timeout(0);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?statementId=' + id)
                 .headers(helper.addAllHeaders({}))
@@ -369,6 +377,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
     describe('An LRS\'s Statement API upon processing a successful GET request with a "voidedStatementId" parameter, returns code 200 OK and a single Statement with the corresponding "id".  (Communication 2.1.3.s1)', function () {
         var voidedId = helper.generateUUID();
+        var stmtTime;
 
         before('persist voided statement', function (done) {
             var templates = [
@@ -394,6 +403,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             voiding = voiding.statement;
             voiding.object.id = voidedId;
 
+            stmtTime = Date.now();
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
                 .headers(helper.addAllHeaders({}))
@@ -402,26 +412,27 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
         });
 
         it('should return a voided statement when using GET "voidedStatementId"', function (done) {
+            this.timeout(0);
             var query = helper.getUrlEncoding({voidedStatementId: voidedId});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var statement = parse(res.body, done);
-                        expect(statement.id).to.equal(voidedId);
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var statement = parse(res.body, done);
+                    expect(statement.id).to.equal(voidedId);
+                    done();
+                }
+            });
         });
     });
 
     describe('An LRS\'s Statement API upon processing a successful GET request with neither a "statementId" nor a "voidedStatementId" parameter, returns code 200 OK and a StatementResult Object.  (Communication 2.1.3.s1)', function () {
-        var statement;
-        var substatement;
+        var statement, substatement, stmtTime;
+        this.timeout(0);
 
         before('persist statement', function (done) {
             var templates = [
@@ -438,10 +449,10 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             statement.context.contextActivities.category.id = 'http://www.example.com/test/array/statements/pri';
 
             request(helper.getEndpointAndAuth())
-                .post(helper.getEndpointStatements())
-                .headers(helper.addAllHeaders({}))
-                .json(statement)
-                .expect(200, done);
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(statement)
+            .expect(200, done);
         });
 
         before('persist substatement', function (done) {
@@ -458,17 +469,18 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var data = helper.createFromTemplate(templates);
             substatement = data.statement;
             substatement.object.context.contextActivities.category.id = 'http://www.example.com/test/array/statements/sub';
-
+            stmtTime = Date.now();
             request(helper.getEndpointAndAuth())
-                .post(helper.getEndpointStatements())
-                .headers(helper.addAllHeaders({}))
-                .json(substatement)
-                .expect(200, done);
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(substatement)
+            .expect(200, done);
         });
 
         it('should return StatementResult using GET without "statementId" or "voidedStatementId"', function (done) {
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements())
+                .wait(helper.genDelay(stmtTime, undefined, undefined))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {
@@ -490,24 +502,26 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult using GET with "verb"', function (done) {
             var query = helper.getUrlEncoding({verb: statement.verb.id});
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, undefined))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {
@@ -524,24 +538,26 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
         it('should return StatementResult using GET with "activity"', function (done) {
             var query = helper.getUrlEncoding({activity: statement.object.id});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult using GET with "registration"', function (done) {
             var query = helper.getUrlEncoding({registration: statement.context.registration});
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, undefined))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {
@@ -562,6 +578,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             });
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, undefined))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {
@@ -582,6 +599,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             });
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, undefined))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {
@@ -598,137 +616,147 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
         it('should return StatementResult using GET with "since"', function (done) {
             var query = helper.getUrlEncoding({since: '2012-06-01T19:09:13.245Z'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult using GET with "until"', function (done) {
             var query = helper.getUrlEncoding({until: '2012-06-01T19:09:13.245Z'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult using GET with "limit"', function (done) {
             var query = helper.getUrlEncoding({limit: 1});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult using GET with "ascending"', function (done) {
             var query = helper.getUrlEncoding({ascending: true});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult using GET with "format"', function (done) {
             var query = helper.getUrlEncoding({format: 'ids'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var results = parse(res.body, done);
-                        expect(results).to.have.property('statements');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var results = parse(res.body, done);
+                    expect(results).to.have.property('statements');
+                    done();
+                }
+            });
         });
 
         it('should return multipart response format StatementResult using GET with "attachments" parameter as true', function (done) {
             var query = helper.getUrlEncoding({attachments: true});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var boundary = multipartParser.getBoundary(res.headers['content-type']);
-                        expect(boundary).to.be.ok;
-                        var parsed = multipartParser.parseMultipart(boundary, res.body);
-                        expect(parsed).to.be.ok;
-                        var results = parse(parsed[0].body, done);
-                        expect(results).to.have.property('statements');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var boundary = multipartParser.getBoundary(res.headers['content-type']);
+                    expect(boundary).to.be.ok;
+                    var parsed = multipartParser.parseMultipart(boundary, res.body);
+                    expect(parsed).to.be.ok;
+                    var results = parse(parsed[0].body, done);
+                    expect(results).to.have.property('statements');
+                    done();
+                }
+            });
         });
 
         it('should not return multipart response format using GET with "attachments" parameter as false', function (done) {
             var query = helper.getUrlEncoding({attachments: false});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var results = parse(res.body);
-                        expect(results).to.have.property('statements');
-                        expect(results).to.have.property('more');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var results = parse(res.body);
+                    expect(results).to.have.property('statements');
+                    expect(results).to.have.property('more');
+                    done();
+                }
+            });
         });
 
     });
 
     describe('An LRS\'s Statement API can process a GET request with "statementId" as a parameter (Communication 2.1.3.s1.table1.row1)', function () {
         it('should process using GET with "statementId"', function (done) {
+            this.timeout(0);
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
             var data = helper.createFromTemplate(templates);
             data = data.statement;
             data.id = helper.generateUUID();
+            var query = '?statementId=' + data.id;
+            var stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -737,6 +765,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
                 .expect(200)
                 .end()
                 .get(helper.getEndpointStatements() + '?statementId=' + data.id)
+                .wait(helper.genDelay(stmtTime, '?' + query, data.id))
                 .headers(helper.addAllHeaders({}))
                 .expect(200, done);
         });
@@ -744,6 +773,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
     describe('An LRS\'s Statement API can process a GET request with "voidedStatementId" as a parameter  (Communication 2.1.3.s1.table1.row2)', function () {
         var voidedId = helper.generateUUID();
+        var stmtTime;
 
         before('persist voided statement', function (done) {
             var templates = [
@@ -768,6 +798,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var voiding = helper.createFromTemplate(templates);
             voiding = voiding.statement;
             voiding.object.id = voidedId;
+            stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -777,11 +808,13 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
         });
 
         it('should process using GET with "voidedStatementId"', function (done) {
+            this.timeout(0);
             var query = helper.getUrlEncoding({voidedStatementId: voidedId});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
+            .headers(helper.addAllHeaders({}))
+            .expect(200, done);
         });
     });
 
@@ -814,9 +847,9 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
         it('should process using GET with "activity"', function (done) {
             var query = helper.getUrlEncoding({activity: 'http://www.example.com/meetings/occurances/12345'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200, done);
         });
     });
 
@@ -824,14 +857,14 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
         it('should process using GET with "registration"', function (done) {
             var query = helper.getUrlEncoding({registration: helper.generateUUID()});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200, done);
         });
     });
 
     describe('An LRS\'s Statement API can process a GET request with "related_activities" as a parameter  (**Implicit**, Communication 2.1.3.s1.table1.row7)', function () {
-        var statement;
+        var statement, stmtTime;
 
         before('persist statement', function (done) {
             var templates = [
@@ -846,6 +879,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var data = helper.createFromTemplate(templates);
             statement = data.statement;
             statement.context.contextActivities.category.id = 'http://www.example.com/test/array/statements/pri';
+            stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -855,19 +889,21 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
         });
 
         it('should process using GET with "related_activities"', function (done) {
+            this.timeout(0);
             var query = helper.getUrlEncoding({
                 activity: statement.context.contextActivities.category.id,
                 related_activities: true
             });
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200, done);
         });
     });
 
     describe('An LRS\'s Statement API can process a GET request with "related_agents" as a parameter  (**Implicit**, Communication 2.1.3.s1.table1.row8)', function () {
-        var statement;
+        var statement, stmtTime;
 
         before('persist statement', function (done) {
             var templates = [
@@ -882,6 +918,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var data = helper.createFromTemplate(templates);
             statement = data.statement;
             statement.context.contextActivities.category.id = 'http://www.example.com/test/array/statements/pri';
+            stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -891,12 +928,14 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
         });
 
         it('should process using GET with "related_agents"', function (done) {
+            this.timeout(0);
             var query = helper.getUrlEncoding({
                 agent: statement.context.instructor,
                 related_agents: true
             });
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, undefined))
                 .headers(helper.addAllHeaders({}))
                 .expect(200, done);
         });
@@ -964,6 +1003,8 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
     describe('An LRS\'s Statement API rejects with error code 400 a GET request with both "statementId" and anything other than "attachments" or "format" as parameters (Communication 2.1.3.s2.b2)', function () {
         var id;
+        var stmtTime;
+        this.timeout(0);
 
         before('persist statement', function (done) {
             var templates = [
@@ -973,6 +1014,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             data = data.statement;
             data.id = helper.generateUUID();
             id = data.id;
+            stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -991,6 +1033,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, id))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1004,6 +1047,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, id))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1016,9 +1060,10 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(400, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, id))
+            .headers(helper.addAllHeaders({}))
+            .expect(400, done);
         });
 
         it('should fail when using "statementId" with "registration"', function (done) {
@@ -1029,9 +1074,10 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(400, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, id))
+            .headers(helper.addAllHeaders({}))
+            .expect(400, done);
         });
 
         it('should fail when using "statementId" with "related_activities"', function (done) {
@@ -1042,9 +1088,10 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(400, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, id))
+            .headers(helper.addAllHeaders({}))
+            .expect(400, done);
         });
 
         it('should fail when using "statementId" with "related_agents"', function (done) {
@@ -1055,9 +1102,10 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(400, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, id))
+            .headers(helper.addAllHeaders({}))
+            .expect(400, done);
         });
 
         it('should fail when using "statementId" with "since"', function (done) {
@@ -1069,6 +1117,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, id))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1081,9 +1130,10 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(400, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, id))
+            .headers(helper.addAllHeaders({}))
+            .expect(400, done);
         });
 
         it('should fail when using "statementId" with "limit"', function (done) {
@@ -1094,9 +1144,10 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(400, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, id))
+            .headers(helper.addAllHeaders({}))
+            .expect(400, done);
         });
 
         it('should fail when using "statementId" with "ascending"', function (done) {
@@ -1107,9 +1158,10 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(400, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, id))
+            .headers(helper.addAllHeaders({}))
+            .expect(400, done);
         });
 
         it('should pass when using "statementId" with "format"', function (done) {
@@ -1120,9 +1172,10 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200, done);
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, id))
+            .headers(helper.addAllHeaders({}))
+            .expect(200, done);
         });
 
         it('should pass when using "statementId" with "attachments"', function (done) {
@@ -1134,6 +1187,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, id))
                 .headers(helper.addAllHeaders({}))
                 .expect(200, done);
         });
@@ -1141,6 +1195,8 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
     describe('An LRS\'s Statement API rejects with error code 400 a GET request with both "voidedStatementId" and anything other than "attachments" or "format" as parameters (Communication 2.1.3.s2.b2)', function () {
         var voidedId = helper.generateUUID();
+        var stmtTime;
+        this.timeout(0);
 
         before('persist voided statement', function (done) {
             var templates = [
@@ -1165,6 +1221,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             voiding = voiding.statement;
             voiding.object.id = voidedId;
 
+            stmtTime = Date.now();
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
                 .headers(helper.addAllHeaders({}))
@@ -1182,6 +1239,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1195,6 +1253,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1208,6 +1267,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1221,6 +1281,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1234,6 +1295,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1247,6 +1309,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1260,6 +1323,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1273,6 +1337,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1286,6 +1351,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1299,6 +1365,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(400, done);
         });
@@ -1312,6 +1379,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(200, done);
         });
@@ -1325,6 +1393,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(200, done);
         });
@@ -1352,48 +1421,63 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
     describe('An LRS\'s "X-Experience-API-Consistent-Through" header\'s value is not before (temporal) any of the "stored" values of any of the returned Statements (Communication 2.1.3.s2.b5).', function () {
         it('should return "X-Experience-API-Consistent-Through" when using GET for statements', function (done) {
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements())
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        var results = parse(res.body, done);
-                        expect(results).to.have.property('statements');
-                        var statements = results.statements;
-                        for (var i = 0; i < statements.length; i++) {
-                            var statement = statements[i];
-                            expect(statement).to.have.property('stored');
-                            var stored =  moment(statement.stored, moment.ISO_8601);
-                            expect(stored.isValid()).to.be.true;
-                            expect(stored.isBefore(through) || stored.isSame(through)).to.be.true;
-                        }
-                        done();
+            .get(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    var results = parse(res.body, done);
+                    expect(results).to.have.property('statements');
+                    var statements = results.statements;
+                    for (var i = 0; i < statements.length; i++) {
+                        var statement = statements[i];
+                        expect(statement).to.have.property('stored');
+                        var stored =  moment(statement.stored, moment.ISO_8601);
+                        expect(stored.isValid()).to.be.true;
+                        expect(stored.isBefore(through) || stored.isSame(through)).to.be.true;
                     }
-                });
+                    done();
+                }
+            });
         });
     });
 
     describe('An LRS\'s Statement API upon processing a GET request, returns a header with name "X-Experience-API-Consistent-Through" regardless of the code returned. (Communication 2.1.3.s2.b5)', function () {
         it('should return "X-Experience-API-Consistent-Through" using GET', function (done) {
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements())
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
+        });
+
+        it('should return "X-Experience-API-Consistent-Through" misusing GET (status code 400)', function (done) {
+            request(helper.getEndpointAndAuth())
+            .get(helper.getEndpointStatements())
+            .expect(400)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "agent"', function (done) {
@@ -1404,210 +1488,211 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "verb"', function (done) {
             var query = helper.getUrlEncoding({verb: 'http://adlnet.gov/expapi/non/existent'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "activity"', function (done) {
             var query = helper.getUrlEncoding({activity: 'http://www.example.com/meetings/occurances/12345'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "registration"', function (done) {
             var query = helper.getUrlEncoding({registration: helper.generateUUID()});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "related_activities"', function (done) {
             var query = helper.getUrlEncoding({related_activities: true});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "related_agents"', function (done) {
             var query = helper.getUrlEncoding({related_agents: true});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "since"', function (done) {
             var query = helper.getUrlEncoding({since: '2012-06-01T19:09:13.245Z'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "until"', function (done) {
             var query = helper.getUrlEncoding({until: '2012-06-01T19:09:13.245Z'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "limit"', function (done) {
             var query = helper.getUrlEncoding({limit: 1});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "ascending"', function (done) {
             var query = helper.getUrlEncoding({ascending: true});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "format"', function (done) {
             var query = helper.getUrlEncoding({format: 'ids'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "attachments"', function (done) {
             var query = helper.getUrlEncoding({attachments: true});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var through = res.headers['x-experience-api-consistent-through'];
-                        expect(through).to.be.ok;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var through = res.headers['x-experience-api-consistent-through'];
+                    expect(through).to.be.ok;
+                    done();
+                }
+            });
         });
     });
 
     describe('An LRS\'s "X-Experience-API-Consistent-Through" header is an ISO 8601 combined date and time (Type, Communication 2.1.3.s2.b5).', function () {
-        var statement;
+        var statement, stmtTime;
+        this.timeout(0);
 
         before('persist statement', function (done) {
             var templates = [
@@ -1623,30 +1708,32 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             statement = data.statement;
             statement.context.contextActivities.category.id = 'http://www.example.com/test/array/statements/pri';
 
+            stmtTime = Date.now();
             request(helper.getEndpointAndAuth())
-                .post(helper.getEndpointStatements())
-                .headers(helper.addAllHeaders({}))
-                .json(statement)
-                .expect(200, done);
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .json(statement)
+            .expect(200, done);
         });
 
         it('should return valid "X-Experience-API-Consistent-Through" using GET', function (done) {
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements())
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements())
+            .wait(helper.genDelay(stmtTime, undefined, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "agent"', function (done) {
@@ -1657,81 +1744,85 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "verb"', function (done) {
             var query = helper.getUrlEncoding({verb: 'http://adlnet.gov/expapi/non/existent'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "activity"', function (done) {
             var query = helper.getUrlEncoding({activity: 'http://www.example.com/meetings/occurances/12345'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "registration"', function (done) {
             var query = helper.getUrlEncoding({registration: helper.generateUUID()});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "related_activities"', function (done) {
@@ -1740,21 +1831,22 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
                 related_activities: true
             });
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "related_agents"', function (done) {
@@ -1763,146 +1855,154 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
                 related_agents: true
             });
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "since"', function (done) {
             var query = helper.getUrlEncoding({since: '2012-06-01T19:09:13.245Z'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "until"', function (done) {
             var query = helper.getUrlEncoding({until: '2012-06-01T19:09:13.245Z'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "limit"', function (done) {
             var query = helper.getUrlEncoding({limit: 1});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "ascending"', function (done) {
             var query = helper.getUrlEncoding({ascending: true});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "format"', function (done) {
             var query = helper.getUrlEncoding({format: 'ids'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
 
         it('should return "X-Experience-API-Consistent-Through" using GET with "attachments"', function (done) {
             var query = helper.getUrlEncoding({attachments: true});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var value = res.headers['x-experience-api-consistent-through'];
-                        expect(value).to.be.ok;
-                        var through = moment(value, moment.ISO_8601);
-                        expect(through).to.be.ok;
-                        expect(through.isValid()).to.be.true;
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var value = res.headers['x-experience-api-consistent-through'];
+                    expect(value).to.be.ok;
+                    var through = moment(value, moment.ISO_8601);
+                    expect(through).to.be.ok;
+                    expect(through.isValid()).to.be.true;
+                    done();
+                }
+            });
         });
     });
 
     describe('An LRS\'s Statement API, upon processing a successful GET request, can only return a Voided Statement if that Statement is specified in the voidedStatementId parameter of that request (Communication 2.1.4.s1.b1)', function () {
         var voidedId = helper.generateUUID();
+        var stmtTime;
 
         before('persist voided statement', function (done) {
             var templates = [
@@ -1927,6 +2027,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             var voiding = helper.createFromTemplate(templates);
             voiding = voiding.statement;
             voiding.object.id = voidedId;
+            stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -1936,9 +2037,11 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
         });
 
         it('should not return a voided statement if using GET "statementId"', function (done) {
+            this.timeout(0);
             var query = helper.getUrlEncoding({statementId: voidedId});
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, voidedId))
                 .headers(helper.addAllHeaders({}))
                 .expect(404, done);
 
@@ -1946,12 +2049,14 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
     });
 
     describe('An LRS\'s Statement API, upon processing a successful GET request wishing to return a Voided Statement still returns Statements which target it (Communication 2.1.4.s1.b2)', function () {
+        this.timeout(0);
         var verbTemplate = 'http://adlnet.gov/expapi/test/voided/target/';
         var verb = verbTemplate + helper.generateUUID();
         var voidedId = helper.generateUUID();
         var voidingId = helper.generateUUID();
         var statementRefId = helper.generateUUID();
         var voidingTime, untilVoidingTime;
+        var stmtTime;
 
         before('persist voided statement', function (done) {
             var voidedTemplates = [
@@ -2005,6 +2110,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             statementRef.object.id = voidedId;
             statementRef.verb.id = verb;
 
+            stmtTime = Date.now();
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
                 .headers(helper.addAllHeaders({}))
@@ -2019,19 +2125,20 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
                 since: voidingTime
             });
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var results = parse(res.body, done);
-                        expect(results).to.have.property('statements');
-                        expect(JSON.stringify(results.statements)).to.contain(statementRefId);
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var results = parse(res.body, done);
+                    expect(results).to.have.property('statements');
+                    expect(JSON.stringify(results.statements)).to.contain(statementRefId);
+                    done();
+                }
+            });
         });
 
         it('should only return voiding statement when using "until"', function (done) {
@@ -2040,19 +2147,27 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
                 until: untilVoidingTime
             });
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    try {
                         var results = parse(res.body, done);
                         expect(results).to.have.property('statements');
                         expect(JSON.stringify(results.statements)).to.contain(voidingId);
                         done();
+                    } catch (e) {
+                        if (e.message.length > 400) {
+                            e.message = "expected results to have property 'statements' containing " + voidingId;
+                        }
+                        done(e);
                     }
-                });
+                }
+            });
         });
 
         it('should only return Object StatementRef when using "limit"', function (done) {
@@ -2061,20 +2176,21 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
                 limit: 1
             });
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var results = parse(res.body, done);
-                        expect(results).to.have.property('statements');
-                        expect(results.statements).to.have.length(1);
-                        expect(results.statements[0]).to.have.property('id').to.equal(statementRefId);
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var results = parse(res.body, done);
+                    expect(results).to.have.property('statements');
+                    expect(results.statements).to.have.length(1);
+                    expect(results.statements[0]).to.have.property('id').to.equal(statementRefId);
+                    done();
+                }
+            });
         });
 
         it('should return StatementRef and voiding statement when not using "since", "until", "limit"', function (done) {
@@ -2082,21 +2198,22 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
                 verb: verb
             });
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var results = parse(res.body, done);
-                        expect(results).to.have.property('statements');
-                        expect(results.statements).to.have.length(2);
-                        expect(results.statements[0]).to.have.property('id').to.equal(statementRefId);
-                        expect(results.statements[1]).to.have.property('id').to.equal(voidingId);
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var results = parse(res.body, done);
+                    expect(results).to.have.property('statements');
+                    expect(results.statements).to.have.length(2);
+                    expect(results.statements[0]).to.have.property('id').to.equal(statementRefId);
+                    expect(results.statements[1]).to.have.property('id').to.equal(voidingId);
+                    done();
+                }
+            });
         });
     });
 

@@ -16,8 +16,8 @@
 describe('Retrieval of Statements (Data 2.5)', () => {
 
     describe('A "statements" property is an Array of Statements (Type, Data 2.5.s2.table1.row1)', function () {
-        var statement;
-        var substatement;
+        var statement, substatement, stmtTime;
+        this.timeout(0);
 
         before('persist statement', function (done) {
             var templates = [
@@ -54,7 +54,7 @@ describe('Retrieval of Statements (Data 2.5)', () => {
             var data = helper.createFromTemplate(templates);
             substatement = data.statement;
             substatement.object.context.contextActivities.category.id = 'http://www.example.com/test/array/statements/sub';
-
+            stmtTime = Date.now();
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
                 .headers(helper.addAllHeaders({}))
@@ -65,6 +65,7 @@ describe('Retrieval of Statements (Data 2.5)', () => {
         it('should return StatementResult with statements as array using GET without "statementId" or "voidedStatementId"', function (done) {
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements())
+                .wait(helper.genDelay(stmtTime, undefined, undefined))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {
@@ -86,24 +87,26 @@ describe('Retrieval of Statements (Data 2.5)', () => {
 
             var query = helper.getUrlEncoding(data);
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult with statements as array using GET with "verb"', function (done) {
             var query = helper.getUrlEncoding({verb: statement.verb.id});
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, undefined))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {
@@ -120,24 +123,26 @@ describe('Retrieval of Statements (Data 2.5)', () => {
         it('should return StatementResult with statements as array using GET with "activity"', function (done) {
             var query = helper.getUrlEncoding({activity: statement.object.id});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult with statements as array using GET with "registration"', function (done) {
             var query = helper.getUrlEncoding({registration: statement.context.registration});
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?' + query)
+                .wait(helper.genDelay(stmtTime, '?' + query, undefined))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {
@@ -157,18 +162,19 @@ describe('Retrieval of Statements (Data 2.5)', () => {
                 related_activities: true
             });
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult with statements as array using GET with "related_agents"', function (done) {
@@ -177,103 +183,109 @@ describe('Retrieval of Statements (Data 2.5)', () => {
                 related_agents: true
             });
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult with statements as array using GET with "since"', function (done) {
             var query = helper.getUrlEncoding({since: '2012-06-01T19:09:13.245Z'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult with statements as array using GET with "until"', function (done) {
             var query = helper.getUrlEncoding({until: '2012-06-01T19:09:13.245Z'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult with statements as array using GET with "limit"', function (done) {
             var query = helper.getUrlEncoding({limit: 1});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult with statements as array using GET with "ascending"', function (done) {
             var query = helper.getUrlEncoding({ascending: true});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult with statements as array using GET with "format"', function (done) {
             var query = helper.getUrlEncoding({format: 'ids'});
             request(helper.getEndpointAndAuth())
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var result = parse(res.body, done);
-                        expect(result).to.have.property('statements').to.be.an('array');
-                        done();
-                    }
-                });
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var result = parse(res.body, done);
+                    expect(result).to.have.property('statements').to.be.an('array');
+                    done();
+                }
+            });
         });
 
         it('should return StatementResult with statements as array using GET with "attachments"', function (done) {
@@ -282,37 +294,40 @@ describe('Retrieval of Statements (Data 2.5)', () => {
             var query = helper.getUrlEncoding({attachments: true});
 
             request(helper.getEndpointAndAuth())
-                .post(helper.getEndpointStatements())
-                .headers(helper.addAllHeaders(header))
-                .body(attachment)
-                .expect(200)
-                .end()
-                .get(helper.getEndpointStatements() + '?' + query)
-                .headers(helper.addAllHeaders({}))
-                .expect(200)
-                .end(function (err, res) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        var boundary = multipartParser.getBoundary(res.headers['content-type']);
-                        expect(boundary).to.be.ok;
-                        var parsed = multipartParser.parseMultipart(boundary, res.body);
-                        expect(parsed).to.be.ok;
-                        var results = parse(parsed[0].body, done);
-                        expect(results).to.have.property('statements');
-                        done();
-                    }
-                });
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders(header))
+            .body(attachment)
+            .expect(200)
+            .end()
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(helper.genDelay(stmtTime, '?' + query, undefined))
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var boundary = multipartParser.getBoundary(res.headers['content-type']);
+                    expect(boundary).to.be.ok;
+                    var parsed = multipartParser.parseMultipart(boundary, res.body);
+                    expect(parsed).to.be.ok;
+                    var results = parse(parsed[0].body, done);
+                    expect(results).to.have.property('statements');
+                    done();
+                }
+            });
         });
     });
 
     describe('A "more" property is an IRL (Format, Data 2.5.s2.table1.row2)', function () {
         it('should return "more" property as an IRL', function (done) {
+            this.timeout(0);
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
             var data = helper.createFromTemplate(templates);
             var statement = data.statement;
+            var stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -321,6 +336,7 @@ describe('Retrieval of Statements (Data 2.5)', () => {
                 .expect(200)
                 .end()
                 .get(helper.getEndpointStatements() + '?limit=1')
+                .wait(helper.genDelay(stmtTime, '?limit=1', undefined))
                 .headers(helper.addAllHeaders({}))
                 .expect(200)
                 .end(function (err, res) {

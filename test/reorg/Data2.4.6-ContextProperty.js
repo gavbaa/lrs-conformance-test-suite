@@ -20,6 +20,7 @@ describe('Context Property Requirements (Data 2.4.6)', () => {
 
     describe('An LRS returns a ContextActivity in an array, even if only a single ContextActivity is returned (Data 2.4.6.2.s4.b3)', function () {
         var types = ['parent', 'grouping', 'category', 'other'];
+        this.timeout(0);
 
         types.forEach(function (type) {
             it('should return array for statement context "' + type + '"  when single ContextActivity is passed', function (done) {
@@ -30,6 +31,8 @@ describe('Context Property Requirements (Data 2.4.6)', () => {
                 var data = helper.createFromTemplate(templates);
                 data = data.statement;
                 data.id = helper.generateUUID();
+                var query = '?statementId=' + data.id;
+                var stmtTime = Date.now();
 
                 request(helper.getEndpointAndAuth())
                     .post(helper.getEndpointStatements())
@@ -38,6 +41,7 @@ describe('Context Property Requirements (Data 2.4.6)', () => {
                     .expect(200)
                     .end()
                     .get(helper.getEndpointStatements() + '?statementId=' + data.id)
+                    .wait(helper.genDelay(stmtTime, query, data.id))
                     .headers(helper.addAllHeaders({}))
                     .expect(200)
                     .end(function (err, res) {
@@ -64,6 +68,8 @@ describe('Context Property Requirements (Data 2.4.6)', () => {
                 var data = helper.createFromTemplate(templates);
                 data = data.statement;
                 data.id = helper.generateUUID();
+                var query = '?statementId=' + data.id;
+                var stmtTime = Date.now();
 
                 request(helper.getEndpointAndAuth())
                     .post(helper.getEndpointStatements())
@@ -72,6 +78,7 @@ describe('Context Property Requirements (Data 2.4.6)', () => {
                     .expect(200)
                     .end()
                     .get(helper.getEndpointStatements() + '?statementId=' + data.id)
+                    .wait(helper.genDelay(stmtTime, query, data.id))
                     .headers(helper.addAllHeaders({}))
                     .expect(200)
                     .end(function (err, res) {

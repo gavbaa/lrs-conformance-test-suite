@@ -225,6 +225,7 @@ describe('Error Codes Requirements (Communication 3.2)', () => {
 
     describe('An LRS does not process any batch of Statements in which one or more Statements is rejected and if necessary, restores the LRS to the state in which it was before the batch began processing (Communication 3.2.s3.b9, **Implicit**)', function () {
         it('should not persist any statements on a single failure', function (done) {
+            this.timeout(0);
             var templates = [
                 {statement: '{{statements.default}}'}
             ];
@@ -236,6 +237,8 @@ describe('Error Codes Requirements (Communication 3.2)', () => {
             incorrect.id = helper.generateUUID();
 
             incorrect.verb.id = 'should fail';
+            var query = '?statementId=' + correct.id;
+            var stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
@@ -244,6 +247,7 @@ describe('Error Codes Requirements (Communication 3.2)', () => {
                 .expect(400)
                 .end()
                 .get(helper.getEndpointStatements() + '?statementId=' + correct.id)
+                .wait(helper.genDelay(stmtTime, query, correct.id))
                 .headers(helper.addAllHeaders({}))
                 .expect(404, done);
         });
