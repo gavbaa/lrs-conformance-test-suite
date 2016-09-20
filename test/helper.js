@@ -256,8 +256,6 @@ if (!process.env.EB_NODE_COMMAND) {
                 return found;
             }
         },
-
-
         /**
          * Generates an RFC4122 compliant uuid.
          * http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
@@ -444,7 +442,7 @@ if (!process.env.EB_NODE_COMMAND) {
             var headers = module.exports.addAllHeaders({});
             var pre = request[type](reqUrl);
             //Add the .sign funciton to the request
-            extendRequestWithOauth(pre);
+            module.exports.extendRequestWithOauth(pre);
             if (body) {
                 pre.send(body);
             }
@@ -461,27 +459,25 @@ if (!process.env.EB_NODE_COMMAND) {
                 console.log(e);
             }
             return pre.expect(expect);
+        },
+        //extend the super-test-as-promised with a function to write the oauth headers
+         extendRequestWithOauth: function(pre)
+        {
+            //the sign functions
+            pre.sign = function(oa, token, secret) {
+                var additionalData = {}; //TODO: deal with body params that need to be encoded into the hash (when the data is a form....)
+                additionalData = JSON.parse(JSON.stringify(additionalData));
+                additionalData['oauth_verifier'] = global.OAUTH.verifier; //Not sure why the lib does not do is, is required. Jam the verifier in
+                var params = oa._prepareParameters(
+                    token, secret, pre.method, pre.url, additionalData // XXX: what if there's query and body? merge?
+                );
 
-            //extend the super-test-as-promised with a function to write the oauth headers
-            function extendRequestWithOauth(pre)
-            {
-                //the sign functions
-                pre.sign = function(oa, token, secret) {
-                    var additionalData = {}; //TODO: deal with body params that need to be encoded into the hash (when the data is a form....)
-                    additionalData = JSON.parse(JSON.stringify(additionalData));
-                    additionalData['oauth_verifier'] = global.OAUTH.verifier; //Not sure why the lib does not do is, is required. Jam the verifier in
-                    var params = oa._prepareParameters(
-                        token, secret, pre.method, pre.url, additionalData // XXX: what if there's query and body? merge?
-                    );
-
-                    //Never is Echo, I think?
-                    var header = oa._isEcho ? 'X-Verify-Credentials-Authorization' : 'Authorization';
-                    var signature = oa._buildAuthorizationHeaders(params);
-                    //Set the auth header
-                    pre.set('Authorization', signature);
-                }
+                //Never is Echo, I think?
+                var header = oa._isEcho ? 'X-Verify-Credentials-Authorization' : 'Authorization';
+                var signature = oa._buildAuthorizationHeaders(params);
+                //Set the auth header
+                pre.set('Authorization', signature);
             }
-
         },
         /*
          * Calculates the difference between the lrs time and the suite time and sets a variable for use with since and until requests.
@@ -674,7 +670,6 @@ if (!process.env.EB_NODE_COMMAND) {
         clone: function (obj) {
             return JSON.parse(JSON.stringify(obj));
         },
-
         //a wrapper for the super-test suite that deals the oauth
         //the request module deep under the hood can do the signing, but we need to access it.
         //because of the chaining of methods, this can get a bit tricky.
@@ -789,8 +784,6 @@ if (!process.env.EB_NODE_COMMAND) {
             return authRequest;
 
         },
-
-
         // return a buffer containing the statement and signature in multipart format
         signStatement: function(statement, options)
         {
@@ -892,7 +885,6 @@ if (!process.env.EB_NODE_COMMAND) {
             // return a buffer containing the statement and signature in multipart format
             return body;
         },
-
         verifyStatement: function(statement)
         {
             var publicKey = [

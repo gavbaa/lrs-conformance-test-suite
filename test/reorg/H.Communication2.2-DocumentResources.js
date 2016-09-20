@@ -16,15 +16,15 @@
 describe('Document Resource Requirements (Communication 2.2)', () => {
 
     it('An LRS has a State API with endpoint "base IRI"+"/activities/state" (Communication 2.2.s3.table1.row1)', function () {
-    //Also covers An LRS will accept a POST request to the State API
+        //Also covers An LRS will accept a POST request to the State API
         var parameters = helper.buildState(),
             document = helper.buildDocument();
 
         return helper.sendRequest('post', helper.getEndpointActivitiesState(), parameters, document, 204);
     });
 
-    it('An LRS has an Activity Profile API with endpoint "base IRI"+"/activities/profile" (Communication 2.2..s3.table1.row2)', function () {
-    //Also covers An LRS will accept a POST request to the Activity Profile API
+    it('An LRS has an Activity Profile API with endpoint "base IRI"+"/activities/profile" (Communication 2.2.s3.table1.row2)', function () {
+        //Also covers An LRS will accept a POST request to the Activity Profile API
         var parameters = helper.buildActivityProfile(),
             document = helper.buildDocument();
 
@@ -32,7 +32,7 @@ describe('Document Resource Requirements (Communication 2.2)', () => {
     });
 
     it('An LRS has an Agent Profile API with endpoint "base IRI"+"/agents/profile" (Communication 2.2.table2.row3.a, Communication 2.2.table2.row3.c)', function () {
-    //Also covers An LRS will accept a POST request to the Agent Profile API
+        //Also covers An LRS will accept a POST request to the Agent Profile API
         var parameters = helper.buildAgentProfile(),
             document = helper.buildDocument();
 

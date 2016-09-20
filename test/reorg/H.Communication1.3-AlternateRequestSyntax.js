@@ -74,6 +74,23 @@ describe('Alternate Request Syntax Requirements (Communication 1.3)', () => {
         return helper.sendRequest('post', helper.getEndpointStatements(), parameters, body, 400);
     });
 
+    //looks the exact same as above, though differenct wording in the title
+    it('An LRS will reject a Cross Origin Request or new Request which contains any extra information with error code 400 Bad Request **Implicit**', function () {
+        var templates = [
+            {statement: '{{statements.default}}'}
+        ];
+        var data = helper.createFromTemplate(templates);
+        data.statement.test = "test";
+        var statement = data.statement;
+        var sID = helper.generateUUID();
+        var headers = helper.addAllHeaders({});
+        var auth = headers['Authorization']
+        var parameters = {
+            method: 'PUT'
+        }
+        var body = 'statementId='+sID+'&content='+JSON.stringify(statement)+'&Content-Type=application/json&X-Experience-API-Version=1.0.2&Authorization='+auth
+        return helper.sendRequest('post', helper.getEndpointStatements(), parameters, body, 400);
+    });
 
 });
 

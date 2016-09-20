@@ -46,6 +46,23 @@ describe('Agents Resource Requirements (Communication 2.4)', () => {
         return helper.sendRequest('get', helper.getEndpointAgents(), undefined, undefined, 400);
     });
 
+    it('A Person Object\'s "objectType" property is a String and is "Person" (Format, Vocabulary, Communication 2.4.s5.table1.row1)', function () {
+        var templates = [
+            {statement: '{{statements.default}}'}
+        ];
+        var data = createFromTemplate(templates);
+        var statement = data.statement;
+
+        return sendRequest('post', helper.getEndpointStatements(), undefined, [statement], 200)
+            .then(function () {
+                return sendRequest('get', helper.getEndpointAgents(), { agent: statement.actor }, undefined, 200)
+                    .then(function (res) {
+                        var person = res.body;
+                        expect(person).to.have.property('objectType').to.equal('Person');
+                    });
+            });
+    });
+
     it('A Person Object\'s "name" property is an Array of Strings (Multiplicity, Communication 2.4.s5.table1.row2)', function () {
         var templates = [
             {statement: '{{statements.default}}'}

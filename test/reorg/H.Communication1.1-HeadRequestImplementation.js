@@ -131,7 +131,6 @@ describe('HEAD Request Implementation Requirements (Communication 1.1)', () => {
         });
     });
 
-
 });
 
     function parse(string, done) {

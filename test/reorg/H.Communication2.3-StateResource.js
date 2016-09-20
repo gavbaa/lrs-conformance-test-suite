@@ -166,7 +166,7 @@ describe('State Resource Requirements (Communication 2.3)', () => {
     it('An LRS\'s State API rejects a PUT request with "agent" as a parameter if it is not in JSON format with error code 400 Bad Request (format, Communication 2.3.s3.table1.row2)', function () {
         var parameters = helper.buildState(),
             document = helper.buildDocument();
-        parameters.agent = 'not JSON brah';
+        parameters.agent = 'not JSON';
         return helper.sendRequest('put', helper.getEndpointActivitiesState(), parameters, document, 400);
     });
 

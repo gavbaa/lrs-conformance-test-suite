@@ -1716,13 +1716,22 @@
           });
         });
 
+        /*This test is mixed up between State and Activity Profile
+        This test seems a mix up of State and Activity Profile resources.
+        There is a good version of this in the State Resource file.
+        This test as it is will fail everytime because agent is a parameter for
+        the State Resource and not for Activity Profile Resource.*/
         it('An LRS\'s Activity Profile API rejects a PUT request with "agent" as a parameter if it is not in JSON format with error code 400 Bad Request (format, Communication.md#2.3.s3.table1.row2)', function () {
             var parameters = helper.buildActivityProfile(),
                 document = helper.buildDocument();
-            parameters.agent = 'not JSON brah';
+            parameters.agent = 'not JSON';
             return sendRequest('put', helper.getEndpointActivitiesState(), parameters, document, 400);
         });
 
+        /*This test is mixed up too.
+        Agent is not a property in Activity Profile Resource.
+        Activity id and profile id are required in single doc requests.
+        Activity id and since are used in multiple doc gets. */
         describe('An LRS\'s Activity Profile API rejects a GET request with "agent" as a paremeter if it is not in JSON format with error code 400 Bad Request (multiplicity, Communication.md#2.7.s3.table1.row1, Communication.md#2.7.s4.table1.row1)', function () {
           var document = helper.buildDocument(),
               invalidTypes = [1, true, 'not Agent', { key: 'value'}];
@@ -1735,7 +1744,11 @@
           });
         });
 
-        it('An LRS\'s Agent API rejects a GET request with "agent" as a parameter if it is a valid (in structure) Agent with error code 400 Bad Request (multiplicity, 7.6.table3.row1.c, 7.6.table4.row1.c)', function () {
+        /* Once again I think someone was drunk when they wrote this test.
+        I am not putting it in the other tests anywhere.
+        There is a typo or a misprint or messed up logic or something
+        sincerely wrong with this test.*/
+        it('An LRS\'s Agent Profile API rejects a GET request with "agent" as a parameter if it is a valid (in structure) Agent with error code 400 Bad Request (multiplicity, 7.6.table3.row1.c, 7.6.table4.row1.c)', function () {
             var parameters = helper.buildAgentProfile(),
                 document = helper.buildDocument();
             parameters.agent = {
@@ -1744,6 +1757,9 @@
             return sendRequest('get', helper.getEndpointAgentsProfile(), parameters, document, 400);
         });
 
+        /*This is another I'm unsure of and mot adding to the new files.
+        I cant tell if the is Agent Profile or Agents resource.
+        My reading of the spec isn't making this clearer either. */
         it('An LRS\'s Agent API upon processing a successful GET request returns a Person Object if the "agent" parameter can be found in the LRS and code 200 OK (7.6c, 7.6d)', function () {
           var templates = [
               {statement: '{{statements.default}}'}
@@ -1939,11 +1955,9 @@
 
                     var reqUrl = helper.getEndpointActivitiesState() + '?' + helper.getUrlEncoding(parameters);
                     var data = {'If-Match': badTag};
-
                     var headers = helper.addAllHeaders(data);
                     var pre = request['put'](reqUrl);
                     extendRequestWithOauth(pre);
-
                     pre.send(document);
                     pre.set('If-Match', headers['If-Match']);
                     pre.set('X-Experience-API-Version', headers['X-Experience-API-Version']);
