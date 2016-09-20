@@ -50,12 +50,12 @@ describe('Agents Resource Requirements (Communication 2.4)', () => {
         var templates = [
             {statement: '{{statements.default}}'}
         ];
-        var data = createFromTemplate(templates);
+        var data = helper.createFromTemplate(templates);
         var statement = data.statement;
 
-        return sendRequest('post', helper.getEndpointStatements(), undefined, [statement], 200)
+        return helper.sendRequest('post', helper.getEndpointStatements(), undefined, [statement], 200)
             .then(function () {
-                return sendRequest('get', helper.getEndpointAgents(), { agent: statement.actor }, undefined, 200)
+                return helper.sendRequest('get', helper.getEndpointAgents(), { agent: statement.actor }, undefined, 200)
                     .then(function (res) {
                         var person = res.body;
                         expect(person).to.have.property('objectType').to.equal('Person');

@@ -1363,10 +1363,8 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
                         expect(value).to.be.ok;
                         var through = moment(value, moment.ISO_8601);
                         expect(through).to.be.ok;
-
                         var results = parse(res.body, done);
                         expect(results).to.have.property('statements');
-
                         var statements = results.statements;
                         for (var i = 0; i < statements.length; i++) {
                             var statement = statements[i];
