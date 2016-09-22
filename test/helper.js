@@ -187,6 +187,7 @@ if (!process.env.EB_NODE_COMMAND) {
             // console.log("Checking LRS for Consistency");
             var comb = require('comb'),
                 request = require('super-request');
+
             var delay = function(val)
             {
                 var p = new comb.Promise();
@@ -195,6 +196,7 @@ if (!process.env.EB_NODE_COMMAND) {
                     endP += query;
                 }
                 var delta, finish;
+
                 function doRequest()
                 {
                     if(global.OAUTH)
@@ -203,11 +205,12 @@ if (!process.env.EB_NODE_COMMAND) {
                     request(module.exports.getEndpointAndAuth())
                     .get(endP)
                     .headers(module.exports.addAllHeaders({}))
+                    //we don't expect anything, we just want a response
                     .end(function(err, res)
                     {
                         if (err) {
                         //if there was an error, we quit and go home
-                            p.reject();
+                            throw err;
                         } else {
                             try {
                             //we parse the result into either a single statment or a statements object
@@ -230,9 +233,15 @@ if (!process.env.EB_NODE_COMMAND) {
                                     // first time only - we use the provided headers to calculate a maximum wait time
                                     delta = new Date(res.headers.date).valueOf() - new Date(res.headers['x-experience-api-consistent-through']).valueOf();
                                     finish = Date.now() + 10 * delta;
+
+                                    if (isNaN(finish)) {
+                                        throw new TypeError("X-Experience-API-Consistent-Through header was missing or not a number.");
+                                    }
                                 }
+
+
                                 if (Date.now() >= finish) {
-                                   console.log('Exceeded the maximum time limit (' + delta * 10 + ')- continue test');
+                                //    console.log('Exceeded the maximum time limit (' + delta * 10 + ')- continue test');
                                     p.resolve()
                                 }else //must be careful to never restart this timer if the promise is resolved;
                                     setTimeout(doRequest, 1000);
