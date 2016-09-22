@@ -329,6 +329,50 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
         });
     });
 
+    it('A GET request is defined as either a GET request or a POST request containing a GET request (Communication 2.1.2.s2.b3)', function (done) {
+        request(helper.getEndpointAndAuth())
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders({}))
+            .form({limit: 1})
+            .expect(200).end(function (err, res) {
+                if (err) {
+                    done(err);
+                } else {
+                    var results = parse(res.body, done);
+                    expect(results).to.have.property('statements');
+                    expect(results).to.have.property('more');
+                    done();
+                }
+            });
+    });
+
+    it ('An LRS makes no modifications to stored data for any rejected request (Multiple, including Communication 2.1.2.s2.b4)', function(done){
+        this.timeout(0);
+        var templates = [
+            {statement: '{{statements.default}}'}
+        ];
+        var correct = helper.createFromTemplate(templates);
+        correct = correct.statement;
+        var incorrect = extend(true, {}, correct);
+
+        correct.id = helper.generateUUID();
+        incorrect.id = helper.generateUUID();
+
+        incorrect.verb.id = 'should fail';
+        var stmtTime = Date.now();
+
+        request(helper.getEndpointAndAuth())
+        .post(helper.getEndpointStatements())
+        .headers(helper.addAllHeaders({}))
+        .json([correct, incorrect])
+        .expect(400)
+        .end()
+        .get(helper.getEndpointStatements() + '?statementId=' + correct.id)
+        .wait(helper.genDelay(stmtTime, '?statementId=' + correct.id, correct.id))
+        .headers(helper.addAllHeaders({}))
+        .expect(404, done);
+    });
+
     describe('LRS\'s Statement API accepts GET requests (Communication 2.1.3.s1)', function () {
         it('should return using GET', function (done) {
             request(helper.getEndpointAndAuth())
@@ -714,6 +758,7 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
                 if (err) {
                     done(err);
                 } else {
+                    expect(res.headers).to.have.property('content-type');
                     var boundary = multipartParser.getBoundary(res.headers['content-type']);
                     expect(boundary).to.be.ok;
                     var parsed = multipartParser.parseMultipart(boundary, res.body);
@@ -744,6 +789,50 @@ describe('Statement Resource Requirements (Communication 2.1)', () => {
             });
         });
 
+    });
+
+    it('An LRS\'s Statement API, upon processing a successful GET request, will return a single "statements" property (Multiplicity, Format, Communication 2.1.3.s1)', function (done){
+
+        var query = helper.getUrlEncoding(
+            {limit:1}
+        );
+
+        request(helper.getEndpointAndAuth())
+        .get(helper.getEndpointStatements() + '?' + query)
+        .headers(helper.addAllHeaders({}))
+        .expect(200)
+        .end(function (err, res) {
+            if (err) {
+                done(err);
+            }
+            else {
+                var results = parse(res.body, done);
+                expect(results.statements).to.exist;
+                done();
+            }
+        });
+    });
+
+    it('An LRS\'s Statement API, upon processing a successful GET request, will return a single "more" property (Multiplicity, Format, Communication 2.1.3.s1)', function (done){
+
+        var query = helper.getUrlEncoding(
+            {limit:1}
+        );
+
+        request(helper.getEndpointAndAuth())
+            .get(helper.getEndpointStatements() + '?' + query)
+            .headers(helper.addAllHeaders({}))
+            .expect(200)
+            .end(function (err, res) {
+                if (err) {
+                    done(err);
+                }
+                else {
+                    var results = parse(res.body, done);
+                    expect(results.more).to.exist;
+                    done();
+                }
+            });
     });
 
     describe('An LRS\'s Statement API can process a GET request with "statementId" as a parameter (Communication 2.1.3.s1.table1.row1)', function () {

@@ -3572,7 +3572,7 @@
               .expect(400, done)
         });
 
-        it('All Strings are encoded and interpreted as UTF-8 (6.1.a)', function (done) {
+        it('All Strings are encoded and interpreted as UTF-8 (Communication 1.4.s1.b1)', function (done) {
           this.timeout(0);
           var verbTemplate = 'http://adlnet.gov/expapi/test/unicode/target/';
           var verb = verbTemplate + helper.generateUUID();
@@ -3616,7 +3616,7 @@
               });
         });
 
-        it('A "more" property\'s referenced container object follows the same rules as the original GET request, originating with a single "statements" property and a single "more" property (4.2.table1.row1.b)', function (done) {
+        it('A "more" property\'s referenced container object follows the same rules as the original GET request, originating with a single "statements" property and a single "more" property (Data 2.5.s2.table1.row2)', function (done) {
 
           this.timeout(0);
           var verbTemplate = 'http://adlnet.gov/expapi/test/more/target/';
@@ -3678,8 +3678,8 @@
               });
         });
 
-        it('An LRS rejects with error code 400 Bad Request, a GET Request which uses Attachments, has a "Content-Type" header with value "application/json", and has the "attachments" filter attribute set to "true" (4.1.11.a)', function (done) {
-
+        it('An LRS rejects with error code 400 Bad Request, a GET Request which uses Attachments, has a "Content-Type" header with value "application/json", and has the "attachments" filter attribute set to "true" (Data 2.4.11)', function (done) {
+            this.timeout(0);
             var attachment = fs.readFileSync('test/v1_0_3/templates/attachments/basic_image_multipart_attachment_valid.part', {encoding: 'binary'});
             var header = {'Content-Type': 'multipart/mixed; boundary=-------314159265358979323846'};
 
@@ -3691,28 +3691,29 @@
             var stmtTime = Date.now();
 
             request(helper.getEndpointAndAuth())
-                .post(helper.getEndpointStatements())
-                .headers(helper.addAllHeaders(header))
-                .body(attachment).expect(200)
-                .end()
-                .get(helper.getEndpointStatements() + '?' + query)
-                .wait(genDelay(stmtTime, '?' + query, null))
-                .headers(helper.addAllHeaders(header))
-                .expect(200)
-                .end(function(err,res){
-                    if (err){
-                        done(err);
-                    }
-                    else{
-                        expect(res.headers['content-type']).to.have.string('multipart/mixed');
-                        done();
-                    }
-                });
-              });
+            .post(helper.getEndpointStatements())
+            .headers(helper.addAllHeaders(header))
+            .body(attachment).expect(200)
+            .end()
+            .get(helper.getEndpointStatements() + '?' + query)
+            .wait(genDelay(stmtTime, '?' + query, null))
+            .headers(helper.addAllHeaders(header))
+            .expect(200)
+            .end(function(err,res){
+                if (err){
+                    done(err);
+                }
+                else{
+                    expect(res.headers['content-type']).to.have.string('multipart/mixed');
+                    done();
+                }
+            });
+        });
 
-        it('An LRS\'s Statement API will reject a GET request having the "attachment" parameter set to "false" and the Content-Type field in the header set to anything but "application/json" (7.2.3.d, 7.2.3.e)', function (done) {
+        it('An LRS\'s Statement API will reject a GET request having the "attachment" parameter set to "false" and the Content-Type field in the header set to anything but "application/json" (Data 2.4.11)', function (done) {
             //Not concerned with "Content-Type" when use a GET request
             // response header should be application json if attachment parameter is false
+            this.timeout(0);
             var attachment = fs.readFileSync('test/v1_0_3/templates/attachments/basic_image_multipart_attachment_valid.part', {encoding: 'binary'});
             var header = {'Content-Type': 'multipart/mixed; boundary=-------314159265358979323846'};
 
@@ -3754,7 +3755,7 @@
               .body(attachment).expect(400,done);
         });
 
-        it ('An LRS\'s Statement API will reject a GET request having the "attachment" parameter set to "true" if it does not follow the rest of the attachment rules (7.2.3.d)', function (done){
+        it ('An LRS\'s Statement API will reject a GET request having the "attachment" parameter set to "true" if it does not follow the rest of the attachment rules (Data 2.4.11)', function (done){
           //incomplete- should compare raw data between request and response
           var attachment = fs.readFileSync('test/v1_0_3/templates/attachments/basic_image_multipart_attachment_valid.part', {encoding: 'binary'});
           var header = {'Content-Type': 'multipart/mixed; boundary=-------314159265358979323846'};
@@ -3792,7 +3793,7 @@
               });
         });
 
-        it ('An LRS\'s Statement API will reject a GET request having the "attachment" parameter set to "false" if it includes attachment raw data (7.2.3.d)', function (done){
+        it ('An LRS\'s Statement API will reject a GET request having the "attachment" parameter set to "false" if it includes attachment raw data (Data 2.4.11)', function (done){
 
               var data = {
                   attachments: false,
@@ -3826,7 +3827,7 @@
         });
 
 
-        it ('An LRS sends a header response with "X-Experience-API-Version" as the name and "1.0.3" as the value (Format, 6.2.a, 6.2.b)', function (done){
+        it ('An LRS sends a header response with "X-Experience-API-Version" as the name and "1.0.3" as the value (Format, Communication 3.3.s3.b1, Communication 3.3.s3.b2)', function (done){
           this.timeout(0);
           var id = helper.generateUUID();
           var statementTemplates = [
@@ -3860,7 +3861,7 @@
               });
         });
 
-        it('The Statements within the "statements" property will correspond to the filtering criterion sent in with the GET request **Implicit** (7.2.4.b)', function (done){
+        it('The Statements within the "statements" property will correspond to the filtering criterion sent in with the GET request **Implicit** (Data 2.5.s1, Communication 2.1.3.s1)', function (done){
           //tests most of the filtering criteria, can add additional tests for missing criteria if necessary
           var statementTemplates = [
               {statement: '{{statements.default}}'},
@@ -3906,7 +3907,7 @@
               });
         });
 
-        it('A "statements" property which is too large for a single page will create a container for each additional page (4.2.table1.row1.b)', function (done){
+        it('A "statements" property which is too large for a single page will create a container for each additional page (Data 2.5.s2.table1.row1)', function (done){
             this.timeout(0);
           var statementTemplates = [
               {statement: '{{statements.default}}'}
@@ -3946,7 +3947,7 @@
               });
         });
 
-        it('An LRS\'s Statement API, upon processing a successful GET request, will return a single "more" property (Multiplicity, Format, 4.2.table1.row2.c)', function (done){
+        it('An LRS\'s Statement API, upon processing a successful GET request, will return a single "more" property (Multiplicity, Format, Communication 2.1.3.s1)', function (done){
           var stmtTime = Date.now();
           this.timeout(0);
 
@@ -3971,7 +3972,7 @@
               });
         });
 
-        it('An LRS\'s Statement API, upon processing a successful GET request, will return a single "statements" property (Multiplicity, Format, 4.2.table1.row2.c)', function (done){
+        it('An LRS\'s Statement API, upon processing a successful GET request, will return a single "statements" property (Multiplicity, Format, Communication 2.1.3.s1)', function (done){
           var stmtTime = Date.now();
           this.timeout(0);
 
@@ -3996,7 +3997,7 @@
               });
         });
 
-        it('An LRS accepts HEAD requests without Content-Length headers (7.10.a.b)', function (done) {
+        it('An LRS accepts HEAD requests without Content-Length headers (Communication 1.1)', function (done) {
 
                 request(helper.getEndpointAndAuth())
                     .head(helper.getEndpointStatements())
@@ -4004,14 +4005,14 @@
                     .expect(200, done);
         });
 
-        it('An LRS accepts GET requests without Content-Length headers (7.10.a.b)', function (done) {
+        it('An LRS accepts GET requests without Content-Length headers (Communication 1.1)', function (done) {
                 request(helper.getEndpointAndAuth())
                     .get(helper.getEndpointStatements())
                     .headers(helper.addAllHeaders({}))
                     .expect(200, done);
         });
 
-        describe('An Activity Definition uses the "interactionType" property if any of the correctResponsesPattern, choices, scale, source, target, or steps properties are used (Multiplicity, 4.1.4.1.t) **Implicit**', function (){
+        describe('An Activity Definition uses the "interactionType" property if any of the correctResponsesPattern, choices, scale, source, target, or steps properties are used (Multiplicity, Data 2.4.4.1.s8) **Implicit**', function (){
 
             it ('Activity Definition uses correctResponsesPattern without "interactionType" property',function(done){
                 id = helper.generateUUID();
@@ -4105,7 +4106,7 @@
 
         });
 
-        it ('An LRS makes no modifications to stored data for any rejected request (Multiple, including 7.3.e)', function(done){
+        it ('An LRS makes no modifications to stored data for any rejected request (Multiple, including Communication 2.1.2.s2.b4)', function(done){
           id = helper.generateUUID();
           var templates = [
               {statement: '{{statements.default}}'}
@@ -4149,7 +4150,7 @@
               });
         });
 
-        describe('An LRS doesn\'t make any adjustments to incoming Statements that are not specifically mentioned in this section (4.1.12.d, Varies)', function (){
+        describe('An LRS doesn\'t make any adjustments to incoming Statements that are not specifically mentioned in this section (Data 2.3.1, Varies)', function (){
             var returnedID, data, stmtTime;
 
             before('persist statement', function (done) {
@@ -4195,7 +4196,7 @@
             });
         });
 
-        it('An LRS rejects with error code 400 Bad Request, a Request whose "authority" is a Group and consists of non-O-Auth Agents (4.1.9.a)', function (done) {
+        it('An LRS rejects with error code 400 Bad Request, a Request whose "authority" is a Group and consists of non-O-Auth Agents (Data 2.4.9.s3.b3)', function (done) {
             var templates = [
                 {statement: '{{statements.default}}'},
                 {authority: {"objectType": "Group", "name": "xAPI Group", "mbox": "mailto:xapigroup@example.com",
@@ -4209,10 +4210,11 @@
                 .json(data)
                 .expect(400, done)
         });
+
         if(!global.OAUTH)
         {
             //This test appears to only make sense in the case of http basic Auth. Should we have additional tests for bad OAUTH, which is more complicated?
-            it('An LRS rejects a Statement of bad authorization (either authentication needed or failed credentials) with error code 401 Unauthorized (7.1)', function (done) {
+            it('An LRS rejects a Statement of bad authorization (either authentication needed or failed credentials) with error code 401 Unauthorized (Communication 3.2.s2.b2)', function (done) {
                 request(helper.getEndpointAndAuth())
                     .get(helper.getEndpointStatements())
                     .headers(helper.addAllHeaders({}, true))
@@ -4220,7 +4222,7 @@
             });
         }
 
-        it('An LRS rejects with error code 400 Bad Request any request to an API which uses a parameter not recognized by the LRS (7.0.a)', function (done) {
+        it('An LRS rejects with error code 400 Bad Request any request to an API which uses a parameter not recognized by the LRS (Communication 3.2.s2.b1)', function (done) {
             request(helper.getEndpointAndAuth())
                 .get(helper.getEndpointStatements() + '?foo=bar')
                 .headers(helper.addAllHeaders({}))
@@ -4237,7 +4239,7 @@
                 // });
         });
 
-        it('A GET request is defined as either a GET request or a POST request containing a GET request (7.2.3, 7.2.2.e)', function (done) {
+        it('A GET request is defined as either a GET request or a POST request containing a GET request (Communication 2.1.2.s2.b3)', function (done) {
             request(helper.getEndpointAndAuth())
                 .post(helper.getEndpointStatements())
                 .headers(helper.addAllHeaders({}))
@@ -4255,7 +4257,7 @@
         });
 
 
-    it ('An LRS makes no modifications to stored data for any rejected request (Multiple, including 7.3.e)', function (done){
+    it ('An LRS makes no modifications to stored data for any rejected request (Multiple, including Communication 2.1.2.s2.b4)', function (done){
       this.timeout(0);
       var templates = [
           {statement: '{{statements.default}}'}
@@ -4282,7 +4284,7 @@
           .expect(404, done);
         });
 
-      it ('An LRS generates the "id" property of a Statement if none is provided (Modify, 4.1.1.a)', function (done){
+      it ('An LRS generates the "id" property of a Statement if none is provided (Modify, Data 2.4.1.s2.b1)', function (done){
         this.timeout(0);
         var templates = [
             {statement: '{{statements.default}}'}

@@ -209,6 +209,155 @@ describe('Attachments Property Requirements (Data 2.4.11)', () => {
         });
     });
 
+    it('An LRS rejects with error code 400 Bad Request, a PUT or POST Request which uses Attachments, has a "Content Type" header with value "multipart/mixed", and for any part except the first does not have a Header named "Content-Transfer-Encoding" with a value of "binary" (Data 2.4.11)', function (done) {
+
+      var attachment = fs.readFileSync('test/v1_0_3/templates/attachments/basic_text_multipart_attachment_invalid_content_transfer_encoding.part', {encoding: 'binary'});
+      var header = {'Content-Type': 'multipart/mixed; boundary=-------314159265358979323846'};
+
+      request(helper.getEndpointAndAuth())
+          .post(helper.getEndpointStatements())
+          .headers(helper.addAllHeaders(header))
+          .body(attachment).expect(400,done);
+    });
+
+    it('An LRS rejects with error code 400 Bad Request, a GET Request which uses Attachments, has a "Content-Type" header with value "application/json", and has the "attachments" filter attribute set to "true" (Data 2.4.11)', function (done) {
+        this.timeout(0);
+        var attachment = fs.readFileSync('test/v1_0_3/templates/attachments/basic_image_multipart_attachment_valid.part', {encoding: 'binary'});
+        var header = {'Content-Type': 'multipart/mixed; boundary=-------314159265358979323846'};
+
+        var data = {
+            attachments: true,
+            limit: 1
+        };
+        var query = helper.getUrlEncoding(data);
+        var stmtTime = Date.now();
+
+        request(helper.getEndpointAndAuth())
+        .post(helper.getEndpointStatements())
+        .headers(helper.addAllHeaders(header))
+        .body(attachment).expect(200)
+        .end()
+        .get(helper.getEndpointStatements() + '?' + query)
+        .wait(helper.genDelay(stmtTime, '?' + query, null))
+        .headers(helper.addAllHeaders(header))
+        .expect(200)
+        .end(function(err,res){
+            if (err){
+                done(err);
+            }
+            else{
+                expect(res.headers['content-type']).to.have.string('multipart/mixed');
+                done();
+            }
+        });
+    });
+
+    it('An LRS\'s Statement API will reject a GET request having the "attachment" parameter set to "false" and the Content-Type field in the header set to anything but "application/json" (Data 2.4.11)', function (done) {
+        //Not concerned with "Content-Type" when use a GET request
+        // response header should be application json if attachment parameter is false
+        this.timeout(0);
+        var attachment = fs.readFileSync('test/v1_0_3/templates/attachments/basic_image_multipart_attachment_valid.part', {encoding: 'binary'});
+        var header = {'Content-Type': 'multipart/mixed; boundary=-------314159265358979323846'};
+
+        var data = {
+            attachments: false,
+            limit: 1
+        };
+        var query = helper.getUrlEncoding(data);
+        var stmtTime = Date.now();
+
+        request(helper.getEndpointAndAuth())
+        .post(helper.getEndpointStatements())
+        .headers(helper.addAllHeaders(header))
+        .body(attachment).expect(200)
+        .end()
+        .get(helper.getEndpointStatements() + '?' + query)
+        .wait(helper.genDelay(stmtTime, '?' + query, null))
+        .headers(helper.addAllHeaders(header))
+        .expect(200)
+        .end(function(err,res){
+            if (err){
+                done(err);
+            }
+            else{
+                expect(res.headers['content-type']).to.equal('application/json');
+                done();
+            }
+        });
+    });
+
+    it ('An LRS\'s Statement API will reject a GET request having the "attachment" parameter set to "true" if it does not follow the rest of the attachment rules (Data 2.4.11)', function (done){
+        //incomplete- should compare raw data between request and response
+        this.timeout(0);
+        var attachment = fs.readFileSync('test/v1_0_3/templates/attachments/basic_image_multipart_attachment_valid.part', {encoding: 'binary'});
+        var header = {'Content-Type': 'multipart/mixed; boundary=-------314159265358979323846'};
+
+        var data = {
+            attachments: true,
+            limit: 1
+        };
+        var query = helper.getUrlEncoding(data);
+        var stmtTime = Date.now();
+
+        request(helper.getEndpointAndAuth())
+        .post(helper.getEndpointStatements())
+        .headers(helper.addAllHeaders(header))
+        .body(attachment).expect(200)
+        .end()
+        .get(helper.getEndpointStatements()+ '?' + query)
+        .wait(helper.genDelay(stmtTime, '?' + query, null))
+        .headers(helper.addAllHeaders(header))
+        .expect(200)
+        .end(function(err,res){
+            if (err){
+              done(err);
+            }
+            else{
+                try {
+                    var request = JSON.parse(res.body);
+                    done("Contains raw data");
+                } catch (e) {
+                    expect(res.headers['content-type']).to.have.string('multipart/mixed');
+                    done();
+                }
+
+            }
+        });
+    });
+
+    it ('An LRS\'s Statement API will reject a GET request having the "attachment" parameter set to "false" if it includes attachment raw data (Data 2.4.11)', function (done){
+
+        var data = {
+            attachments: false,
+            limit: 1
+        };
+        var query = helper.getUrlEncoding(data);
+
+        var attachment = fs.readFileSync('test/v1_0_3/templates/attachments/basic_image_multipart_attachment_valid.part', {encoding: 'binary'});
+        var header = {'Content-Type': 'multipart/mixed; boundary=-------314159265358979323846'};
+        var stmtTime = Date.now();
+
+        request(helper.getEndpointAndAuth())
+        .post(helper.getEndpointStatements())
+        .headers(helper.addAllHeaders(header))
+        .body(attachment).expect(200)
+        .end()
+        .get(helper.getEndpointStatements()+ '?' + query)
+        .wait(helper.genDelay(stmtTime, '?' + query, null))
+        .headers(helper.addAllHeaders(header))
+        .expect(200)
+        .end(function(err,res){
+            if (err){
+                done(err);
+            }
+            else{
+                var request = JSON.parse(res.body);
+                expect(res.headers['content-type']).to.equal('application/json');
+                done();
+            }
+        });
+    });
+
 });
 
     function parse(string, done) {

@@ -15,6 +15,55 @@
 
 describe('Retrieval of Statements (Data 2.5)', () => {
 
+    it('The Statements within the "statements" property will correspond to the filtering criterion sent in with the GET request **Implicit** (Data 2.5.s1, Communication 2.1.3.s1)', function (done){
+        //tests most of the filtering criteria, can add additional tests for missing criteria if necessary
+        this.timeout(0);
+        var statementTemplates = [
+            {statement: '{{statements.default}}'},
+            {context: '{{contexts.default}}'}
+        ];
+        var id = helper.generateUUID();
+        var statement = helper.createFromTemplate(statementTemplates);
+        statement = statement.statement;
+        statement.id = id;
+
+        var data = {
+            limit: 1,
+            agent: statement.actor,
+            verb: statement.verb.id,
+            activity: statement.object.id,
+            registration: statement.context.registration,
+            related_activities: true,
+            since: '2012-06-01T19:09:13.245Z',
+            format: 'ids',
+            attachments: false
+        };
+
+        var query = helper.getUrlEncoding(data);
+        var stmtTime = Date.now();
+
+        request(helper.getEndpointAndAuth())
+        .post(helper.getEndpointStatements())
+        .headers(helper.addAllHeaders({}))
+        .json(statement)
+        .expect(200)
+        .end()
+        .get(helper.getEndpointStatements() + '?' + query)
+        .wait(helper.genDelay(stmtTime, '?' + query, null))
+        .headers(helper.addAllHeaders({}))
+        .expect(200)
+        .end(function (err, res) {
+            if (err) {
+                done(err);
+            }
+            else {
+                var results = parse(res.body, done);
+                expect(results.statements[0].id).to.equal(id);
+                done();
+            }
+        });
+    });
+
     describe('A "statements" property is an Array of Statements (Type, Data 2.5.s2.table1.row1)', function () {
         var statement, substatement, stmtTime;
         this.timeout(0);
@@ -319,6 +368,46 @@ describe('Retrieval of Statements (Data 2.5)', () => {
         });
     });
 
+    it('A "statements" property which is too large for a single page will create a container for each additional page (Data 2.5.s2.table1.row1)', function (done){
+        this.timeout(0);
+        var statementTemplates = [
+            {statement: '{{statements.default}}'}
+        ];
+
+        var statement1 = helper.createFromTemplate(statementTemplates);
+        statement1 = statement1.statement;
+
+        var statement2 = helper.createFromTemplate(statementTemplates);
+        statement2 = statement2.statement;
+
+        var query = helper.getUrlEncoding(
+        {limit:1}
+        );
+        var stmtTime = Date.now();
+
+        request(helper.getEndpointAndAuth())
+        .post(helper.getEndpointStatements())
+        .headers(helper.addAllHeaders({}))
+        .json([statement1, statement2])
+        .expect(200)
+        .end()
+        .get(helper.getEndpointStatements() + '?' + query)
+        .wait(helper.genDelay(stmtTime, '?' + query, null))
+        .headers(helper.addAllHeaders({}))
+        .expect(200)
+        .end(function (err, res) {
+            if (err) {
+                done(err);
+            }
+            else {
+                var results = parse(res.body, done);
+                expect(results.statements).to.exist;
+                expect(results.more).to.exist;
+                done();
+            }
+        });
+    });
+
     describe('A "more" property is an IRL (Format, Data 2.5.s2.table1.row2)', function () {
         it('should return "more" property as an IRL', function (done) {
             this.timeout(0);
@@ -393,6 +482,7 @@ describe('Retrieval of Statements (Data 2.5)', () => {
 
     it('A "more" property\'s referenced container object follows the same rules as the original GET request, originating with a single "statements" property and a single "more" property (Data 2.5.s2.table1.row2)', function (done) {
 
+      this.timeout(0);
       var verbTemplate = 'http://adlnet.gov/expapi/test/more/target/';
       var id1 = helper.generateUUID();
       var id2 = helper.generateUUID();
@@ -412,19 +502,16 @@ describe('Retrieval of Statements (Data 2.5)', () => {
       var query = helper.getUrlEncoding(
         {limit:1}
       );
+      var stmtTime = Date.now();
 
       request(helper.getEndpointAndAuth())
           .post(helper.getEndpointStatements())
           .headers(helper.addAllHeaders({}))
-          .json(statement1)
-          .expect(200)
-          .end()
-          .post(helper.getEndpointStatements())
-          .headers(helper.addAllHeaders({}))
-          .json(statement2)
+          .json([statement1, statement2])
           .expect(200)
           .end()
           .get(helper.getEndpointStatements() + '?' + query)
+          .wait(helper.genDelay(stmtTime, query, id2))
           .headers(helper.addAllHeaders({}))
           .expect(200)
           .end(function (err, res) {

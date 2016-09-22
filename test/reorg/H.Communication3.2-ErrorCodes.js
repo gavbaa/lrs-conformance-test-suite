@@ -15,6 +15,24 @@
 
 describe('Error Codes Requirements (Communication 3.2)', () => {
 
+    it('An LRS rejects with error code 400 Bad Request any request to an API which uses a parameter not recognized by the LRS (Communication 3.2.s2.b1)', function (done) {
+        request(helper.getEndpointAndAuth())
+            .get(helper.getEndpointStatements() + '?foo=bar')
+            .headers(helper.addAllHeaders({}))
+            .expect(400, done)
+    });
+
+    if(!global.OAUTH)
+    {
+        //This test appears to only make sense in the case of http basic Auth. Should we have additional tests for bad OAUTH, which is more complicated?
+        it('An LRS rejects a Statement of bad authorization (either authentication needed or failed credentials) with error code 401 Unauthorized (Communication 3.2.s2.b2)', function (done) {
+            request(helper.getEndpointAndAuth())
+                .get(helper.getEndpointStatements())
+                .headers(helper.addAllHeaders({}, true))
+                .expect(401, done);
+        });
+    }
+
     describe('An LRS rejects with error code 405 Method Not Allowed to any request to an API which uses a method not in this specification **Implicit ONLY in that HTML normally does this behavior** (Communication 3.2.s3.b1)', function () {
         it('should fail with statement "DELETE"', function (done) {
             var query = helper.getUrlEncoding({statementId: helper.generateUUID()});
@@ -252,6 +270,8 @@ describe('Error Codes Requirements (Communication 3.2)', () => {
                 .expect(404, done);
         });
     });
+
+
 
 });
 

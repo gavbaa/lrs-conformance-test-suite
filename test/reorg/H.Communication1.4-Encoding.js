@@ -16,6 +16,7 @@
 describe('Encoding Requirements (Communication 1.4)', () => {
 
     it('All Strings are encoded and interpreted as UTF-8 (Communication 1.4.s1.b1)', function (done) {
+      this.timeout(0);
       var verbTemplate = 'http://adlnet.gov/expapi/test/unicode/target/';
       var verb = verbTemplate + helper.generateUUID();
       var unicodeTemplates = [
@@ -29,6 +30,7 @@ describe('Encoding Requirements (Communication 1.4)', () => {
       var query = helper.getUrlEncoding({
           verb: verb
       });
+      var stmtTime = Date.now();
 
       request(helper.getEndpointAndAuth())
           .post(helper.getEndpointStatements())
@@ -37,6 +39,7 @@ describe('Encoding Requirements (Communication 1.4)', () => {
           .expect(200)
           .end()
           .get(helper.getEndpointStatements() + '?' + query)
+          .wait(helper.genDelay(stmtTime, query, null))
           .headers(helper.addAllHeaders({}))
           .expect(200)
           .end(function (err, res) {

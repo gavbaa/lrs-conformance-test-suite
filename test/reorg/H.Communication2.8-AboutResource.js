@@ -55,12 +55,12 @@ describe('About Resource Requirements (Communication 2.8)', () => {
             });
     });
 
-    it('An LRS\'s About API\'s version property can only have values of ".9", ".95", "1.0", "1.0.0", or ""1.0." + X" with (Communication 2.8.s5.b1.b1)', function () {
+    it('An LRS\'s About API\'s version property can only have values of "0.9", "0.95", "1.0.0", or ""1.0." + X" with (Communication 2.8.s5.b1.b1)', function () {
         return helper.sendRequest('get', '/about', undefined, undefined, 200)
             .then(function (res) {
                 var about = res.body;
                 expect(about).to.have.property('version').to.be.an('array');
-                var validVersions = ['.9', '.95', '1.0', '1.0.0', '1.0.1', '1.0.2'];
+                var validVersions = ['0.9', '0.95', '1.0.0', '1.0.1', '1.0.2', '1.0.3'];
                 about.version.forEach(function (item) {
                     expect(validVersions).to.include(item);
                 })

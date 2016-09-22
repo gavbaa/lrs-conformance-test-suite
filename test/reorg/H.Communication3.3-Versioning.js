@@ -15,6 +15,41 @@
 
 describe('Versioning Requirements (Communication 3.3)', () => {
 
+    it ('An LRS sends a header response with "X-Experience-API-Version" as the name and "1.0.3" as the value (Format, Communication 3.3.s3.b1, Communication 3.3.s3.b2)', function (done){
+        this.timeout(0);
+        var id = helper.generateUUID();
+        var statementTemplates = [
+          {statement: '{{statements.default}}'}
+        ];
+
+        var statement = helper.createFromTemplate(statementTemplates);
+        statement = statement.statement;
+        statement.id = id;
+        var query = helper.getUrlEncoding({statementId: id});
+        var stmtTime = Date.now();
+
+        request(helper.getEndpointAndAuth())
+        .post(helper.getEndpointStatements())
+        .headers(helper.addAllHeaders({}))
+        .json(statement)
+        .expect(200)
+        .end()
+        .get(helper.getEndpointStatements() + '?' + query)
+        .wait(helper.genDelay(stmtTime, '?' + query, id))
+        .headers(helper.addAllHeaders({}))
+        .expect(200)
+        .end(function(err,res){
+            if (err){
+                done(err);
+            }
+            else{
+                expect(res.headers).to.have.property('x-experience-api-version');
+                expect(res.headers['x-experience-api-version']).to.equal("1.0.3");
+                done();
+            }
+        });
+    });
+
     describe('An LRS MUST set the X-Experience-API-Version header to the latest patch version (Communication 3.3.s3.b2)', function () {
         it('should respond with header "version" set to "1.0.3"', function (done) {
             this.timeout(0);
